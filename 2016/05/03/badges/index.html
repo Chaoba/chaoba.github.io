@@ -1,0 +1,917 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,角标," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="为了MarkDown输入的方便, 文中的标点都是英文标点, 带来不便敬请谅解.
+
+角标本来是iOS上的东东, 在原生Android中是没有的. 但是现在各大手机厂商几乎都自己实现了这个功能, 这让Android的碎片化更加严重. 在我看来, 安卓的通知栏可以很好地通知用户各种消息了, 非得学iOS将角标加入到系统来真是画蛇添足! 而且, 我相信很多用户对这些角标的显示十分地厌烦, 不得不挨个点开有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="去除Android中的角标">
+<meta property="og:url" content="http://mushuichuan.com/2016/05/03/badges/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="为了MarkDown输入的方便, 文中的标点都是英文标点, 带来不便敬请谅解.
+
+角标本来是iOS上的东东, 在原生Android中是没有的. 但是现在各大手机厂商几乎都自己实现了这个功能, 这让Android的碎片化更加严重. 在我看来, 安卓的通知栏可以很好地通知用户各种消息了, 非得学iOS将角标加入到系统来真是画蛇添足! 而且, 我相信很多用户对这些角标的显示十分地厌烦, 不得不挨个点开有">
+<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/device-2016-04-25-104549.png">
+<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/%E5%BD%95%E5%88%B6_2016_05_03_17_22_32_586.gif">
+<meta property="og:updated_time" content="2016-11-12T09:06:35.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="去除Android中的角标">
+<meta name="twitter:description" content="为了MarkDown输入的方便, 文中的标点都是英文标点, 带来不便敬请谅解.
+
+角标本来是iOS上的东东, 在原生Android中是没有的. 但是现在各大手机厂商几乎都自己实现了这个功能, 这让Android的碎片化更加严重. 在我看来, 安卓的通知栏可以很好地通知用户各种消息了, 非得学iOS将角标加入到系统来真是画蛇添足! 而且, 我相信很多用户对这些角标的显示十分地厌烦, 不得不挨个点开有">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 去除Android中的角标 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                去除Android中的角标
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-03T14:30:07+08:00" content="2016-05-03">
+              2016-05-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/03/badges/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/03/badges/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/03/badges/" class="leancloud_visitors" data-flag-title="去除Android中的角标">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>为了MarkDown输入的方便, 文中的标点都是英文标点, 带来不便敬请谅解.</p>
+</blockquote>
+<p>角标本来是iOS上的东东, 在原生Android中是没有的. 但是现在各大手机厂商几乎都自己实现了这个功能, 这让Android的碎片化更加严重. 在我看来, 安卓的通知栏可以很好地通知用户各种消息了, 非得学iOS将角标加入到系统来真是画蛇添足! 而且, 我相信很多用户对这些角标的显示十分地厌烦, 不得不挨个点开有角标的App来消去角标(包括我自己). 能不能一键把所有讨厌的角标消除掉呢? 自己来试试吧.</p>
+<blockquote>
+<p>本文中的代码是使用Kotlin写的,如果难以理解请先学习一下Kotlin的简单语法</p>
+</blockquote>
+<h2 id="u4E09_u661F"><a href="#u4E09_u661F" class="headerlink" title="三星"></a>三星</h2><p>三星里的角标是通过一个内置的应用BadgeProvider来实现的,可以在应用管理器中找到.<img src="http://7xp3vb.com1.z0.glb.clouddn.com/device-2016-04-25-104549.png" alt=""></p>
+<p>理论上来讲强制停止这个App就可以让角标不再显示, 但是人家是三星的内置应用, 你强制停止了待会又会自动启动起来,就是这么流氓. 如果root了将其卸载了估计能有用, 但是我没试验过.</p>
+<p>既然强制停止这个App没有用, 那就想想别的办法吧. 目前有两种方法:</p>
+<h3 id="u901A_u8FC7_u5E7F_u64AD"><a href="#u901A_u8FC7_u5E7F_u64AD" class="headerlink" title="通过广播"></a>通过广播</h3><p>发送一个Action为”android.intent.action.BADGE_COUNT_UPDATE”的广播,并且将包名/LAUNCHER Activity和角标的数目一起发送出去. 三星的系统中一个BroadcastReceiver会接收这个广播并且将角标加到对应的App上.代码如下:<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function">sendToSamSumg</span>(context<span class="value">: Context, packageName: String, className: String, number: Int) &#123;</span><br><span class="line">    Log.<span class="function">d</span>(TAG, <span class="string">"packageName:$packageName"</span>)</span><br><span class="line">    Log.<span class="function">d</span>(TAG, <span class="string">"className:$className"</span>)</span><br><span class="line">    Log.<span class="function">d</span>(TAG, <span class="string">"number:$number"</span>)</span><br><span class="line">    val badgeIntent = <span class="function">Intent</span>(Actions.ACTION_SUMSUNG)</span><br><span class="line">    badgeIntent.<span class="function">putExtra</span>(<span class="string">"badge_count"</span>, number)</span><br><span class="line">    badgeIntent.<span class="function">putExtra</span>(<span class="string">"badge_count_package_name"</span>, packageName)</span><br><span class="line">    badgeIntent.<span class="function">putExtra</span>(<span class="string">"badge_count_class_name"</span>, className)</span><br><span class="line">    context.<span class="function">sendBroadcast</span>(badgeIntent)</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样的话,如果我们只要在Manifest文件里注册一个接收这个Action的BroadcastReceiver, 理论上来讲任何时候都可以收到对应的广播,然后再发一条badge_count为0的广播就应该可以自动将角标给消去了.但是在我的s6手机上实验发现过一段时间后进程会被杀死再也收不到广播了,可能是三星对系统做了什么更改.</p>
+<p>既然自动消除的路走不通了,那就来手动消除吧. 我们可以遍历系统中安装的所有App, 得到其包名和启动Activity, 并依次对其发送badge_count为0的广播.<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendToSamSungAllBroadCast</span><span class="params">(context: <span class="typename">Context, number: Int, test: Boolean</span>)</span> &#123;</span></span><br><span class="line">    <span class="variable"><span class="keyword">val</span> intent</span> = Intent(Intent.ACTION_MAIN)</span><br><span class="line">    intent.addCategory(Intent.CATEGORY_LAUNCHER);</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> list</span> = context.packageManager.queryIntentActivities(intent, PackageManager.GET_ACTIVITIES);</span><br><span class="line">    <span class="keyword">for</span> (resolveInfo <span class="keyword">in</span> list) &#123;</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> activityName</span> = resolveInfo.activityInfo.name</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> packageName</span> = resolveInfo.activityInfo.applicationInfo.packageName</span><br><span class="line">        sendToSamSumg(context, packageName, activityName, number, test)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实验了一下可以达到目的,但是效率很差, 一方面手机中装的App一般会很多,另一方面广播的效率比较差,所以需要好几秒才能完成整个过程.那有没有更好的办法了呢? 回答是Yes! 看下面的方法:</p>
+<h3 id="u901A_u8FC7ContentProvider"><a href="#u901A_u8FC7ContentProvider" class="headerlink" title="通过ContentProvider"></a>通过ContentProvider</h3><p>三星系统中的角标数目都是存储在一个Uri为”content://com.sec.badge/apps”的ContentProvider里的, 这个ContentProvider 包含以下的几个属性:</p>
+<blockquote>
+<ul>
+<li>_id</li>
+<li>package</li>
+<li>class</li>
+<li>badgecount</li>
+<li>icon</li>
+<li>extraData</li>
+</ul>
+</blockquote>
+<p>通过访问和修改这个ContentProvider里面的badgecount属性,就可以获取或者更改对应App的角标数目.<br>但是首先需要申请读写的权限:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.sec.android.provider.badge.permission.READ"</span> /&gt;</span><br><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.sec.android.provider.badge.permission.WRITE"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这个ContentProvider只会存储需要显示角标的App,当一个App显示过一次角标后就会被存储起来, 并不会包含其它的App, 所以需要遍历的App数目相对较少. 我们需要做的就是遍历ContentProvider里面所有的App并且将其badgecount置为0就可以消除掉所有的角标.<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendToSamSungAllContentResolver</span><span class="params">(context: <span class="typename">Context, number: Int</span>)</span> &#123;</span></span><br><span class="line">        <span class="variable"><span class="keyword">val</span> uri</span> = Uri.parse(<span class="string">"content://com.sec.badge/apps"</span>)</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> contentResolver</span> = context.contentResolver</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> c</span>: Cursor? = contentResolver.query(uri, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>) ?: <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="variable"><span class="keyword">var</span> where</span> = <span class="string">"package in ("</span></span><br><span class="line">            <span class="keyword">while</span> (c!!.moveToNext()) &#123;</span><br><span class="line">                <span class="variable"><span class="keyword">val</span> pkg</span> = c.getString(<span class="number">1</span>)</span><br><span class="line">                <span class="variable"><span class="keyword">val</span> clazz</span> = c.getString(<span class="number">2</span>)</span><br><span class="line">                <span class="variable"><span class="keyword">val</span> badgeCount</span> = c.getInt(<span class="number">3</span>)</span><br><span class="line">                Log.d(TAG, <span class="string">"package: $pkg, class: $clazz, badgeCount: $badgeCount"</span>)</span><br><span class="line">                where += <span class="string">"'$pkg',"</span></span><br><span class="line">            &#125;</span><br><span class="line">            where += <span class="string">"' ')"</span></span><br><span class="line">            Log.d(TAG, <span class="string">"update $where to number:　$number"</span>)</span><br><span class="line">            <span class="variable"><span class="keyword">val</span> cv</span> = ContentValues()</span><br><span class="line">            cv.put(<span class="string">"badgeCount"</span>, number)</span><br><span class="line"></span><br><span class="line">            contentResolver.update(Uri.parse(<span class="string">"content://com.sec.badge/apps"</span>), cv, where, <span class="literal">null</span>)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">            Log.e(TAG, e.toString())</span><br><span class="line">            c!!.close()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>相比于上面的方法,这种方法去除角标效率极大地得到了提高,瞬间就可以清除掉所有的角标. 为了方便,我们创建一个Widget放在桌面上,这样一点击就可以把所有的角标都清除掉.<br>效果图如下:<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/%E5%BD%95%E5%88%B6_2016_05_03_17_22_32_586.gif" alt=""></p>
+<h2 id="Sony"><a href="#Sony" class="headerlink" title="Sony"></a>Sony</h2><p>索尼需要显示一个角标需要发送一个Action为”com.sonyericsson.home.action.UPDATE_BADGE”的广播,同样也需要申请权限<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.sonyericsson.home.permission.BROADCAST_BADGE"</span> /&gt;</span><br><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.sonyericsson.home.permission.RECEIVE_BADGE"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>发送广播的Intent包含4种数据,分别是包名/启动Activity/是否显示角标/角标数目.需要注意的是角标数目是字符串类型的而不是Int类型.<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendToSony</span><span class="params">(context: <span class="typename">Context, packageName: String, className: String, number: Int</span>)</span> &#123;</span></span><br><span class="line">       Log.d(TAG, <span class="string">"sendToSony $packageName"</span>)</span><br><span class="line">       <span class="variable"><span class="keyword">val</span> intent</span> = Intent(Actions.ACTION_SONY);</span><br><span class="line">       intent.putExtra(<span class="string">"com.sonyericsson.home.intent.extra.badge.ACTIVITY_NAME"</span>, className);</span><br><span class="line">       intent.putExtra(<span class="string">"com.sonyericsson.home.intent.extra.badge.SHOW_MESSAGE"</span>, number != <span class="number">0</span>);</span><br><span class="line">       intent.putExtra(<span class="string">"com.sonyericsson.home.intent.extra.badge.MESSAGE"</span>, number.toString());</span><br><span class="line">       intent.putExtra(<span class="string">"com.sonyericsson.home.intent.extra.badge.PACKAGE_NAME"</span>, packageName);</span><br><span class="line">       context.sendBroadcast(intent);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上面的方法我们就可以让一个App的启动图标上显示角标.如果我们发送的number为0,当然就可以将角标给消去.所以要达到一键消除所有角标的效果就必须得遍历所有的App,这点不像三星可以直接操作ContentProvider.<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendToSonyAll</span><span class="params">(context: <span class="typename">Context, number: Int</span>)</span> &#123;</span></span><br><span class="line">    <span class="variable"><span class="keyword">val</span> intent</span> = Intent(Intent.ACTION_MAIN)</span><br><span class="line">    intent.addCategory(Intent.CATEGORY_LAUNCHER);</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> list</span> = context.packageManager.queryIntentActivities(intent, PackageManager.GET_ACTIVITIES);</span><br><span class="line">    <span class="keyword">for</span> (resolveInfo <span class="keyword">in</span> list) &#123;</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> activityName</span> = resolveInfo.activityInfo.name</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> packageName</span> = resolveInfo.activityInfo.applicationInfo.packageName</span><br><span class="line">        sendToSony(context, packageName, activityName, number)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Htc"><a href="#Htc" class="headerlink" title="Htc"></a>Htc</h2><p>Htc同索尼一样,也是发送广播,Action为”com.htc.launcher.action.SET_NOTIFICATION”,同样也需要申请权限:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.htc.launcher.permission.READ_SETTINGS"</span> /&gt;</span><br><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"com.htc.launcher.permission.UPDATE_SHORTCUT"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>要以消除角标的话也需要遍历所有的App.<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">fun</span> <span class="title">sendToHtc</span><span class="params">(context: <span class="typename">Context, packageName: String, className: String, number: Int</span>)</span> &#123;</span></span><br><span class="line">    Log.d(TAG, <span class="string">"sendToHtc $packageName,number:$number"</span>)</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> setNotificationIntent</span> = Intent(Actions.ACTION_HTC);</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> localComponentName</span> = ComponentName(packageName, className);</span><br><span class="line">    setNotificationIntent.putExtra(<span class="string">"com.htc.launcher.extra.COMPONENT"</span>, localComponentName.flattenToShortString());</span><br><span class="line">    setNotificationIntent.putExtra(<span class="string">"com.htc.launcher.extra.COUNT"</span>, number);</span><br><span class="line">    context.sendBroadcast(setNotificationIntent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendToHtcAll</span><span class="params">(context: <span class="typename">Context, number: Int</span>)</span> &#123;</span></span><br><span class="line">    <span class="variable"><span class="keyword">val</span> intent</span> = Intent(Intent.ACTION_MAIN)</span><br><span class="line">    intent.addCategory(Intent.CATEGORY_LAUNCHER);</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> list</span> = context.packageManager.queryIntentActivities(intent, PackageManager.GET_ACTIVITIES);</span><br><span class="line">    <span class="keyword">for</span> (resolveInfo <span class="keyword">in</span> list) &#123;</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> packageName</span> = resolveInfo.activityInfo.applicationInfo.packageName</span><br><span class="line">        <span class="variable"><span class="keyword">val</span> activityName</span> = resolveInfo.activityInfo.name</span><br><span class="line">        sendToHtc(context, packageName, activityName, number)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>本文的代码见<a href="https://github.com/Chaoba/RemoveBadge" target="_blank" rel="external">GitHub</a></p>
+<p>To be continued…</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/角标/" rel="tag">#角标</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/29/kotlin2/" rel="next" title="Kotlin学习（二）基本类型">
+                <i class="fa fa-chevron-left"></i> Kotlin学习（二）基本类型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/26/switcher/" rel="prev" title="自定义View同时显示3个Fragment并自由切换">
+                自定义View同时显示3个Fragment并自由切换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/05/03/badges/"
+     data-title="去除Android中的角标"
+     data-content=""
+     data-url="http://mushuichuan.com/2016/05/03/badges/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/03/badges/"
+           data-title="去除Android中的角标" data-url="http://mushuichuan.com/2016/05/03/badges/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E09_u661F"><span class="nav-number">1.</span> <span class="nav-text">三星</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7_u5E7F_u64AD"><span class="nav-number">1.1.</span> <span class="nav-text">通过广播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u8FC7ContentProvider"><span class="nav-number">1.2.</span> <span class="nav-text">通过ContentProvider</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sony"><span class="nav-number">2.</span> <span class="nav-text">Sony</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Htc"><span class="nav-number">3.</span> <span class="nav-text">Htc</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Dagger2," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="在我们写程序的过程中，不可避免的就会牵扯到一些依赖，如会创建各种工厂类来生产我们所要依赖的对象等等。太多依赖会让我们的程序看起来很乱，而且很不利于测试，所以我们就使用Dagger2来进行依赖注入。
+依赖注入到底是个什么概念呢？我自己的理解就是将对象的生产和使用给分开了。比如说有一个Car对象，当你要出行的时候就自己new一个Car对象，然后使用这个Car对象出行。在这里你出行的时候Car就是你的依">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dagger2在Android中的使用">
+<meta property="og:url" content="http://mushuichuan.com/2016/02/18/dagger/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="在我们写程序的过程中，不可避免的就会牵扯到一些依赖，如会创建各种工厂类来生产我们所要依赖的对象等等。太多依赖会让我们的程序看起来很乱，而且很不利于测试，所以我们就使用Dagger2来进行依赖注入。
+依赖注入到底是个什么概念呢？我自己的理解就是将对象的生产和使用给分开了。比如说有一个Car对象，当你要出行的时候就自己new一个Car对象，然后使用这个Car对象出行。在这里你出行的时候Car就是你的依">
+<meta property="og:updated_time" content="2016-02-18T08:29:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dagger2在Android中的使用">
+<meta name="twitter:description" content="在我们写程序的过程中，不可避免的就会牵扯到一些依赖，如会创建各种工厂类来生产我们所要依赖的对象等等。太多依赖会让我们的程序看起来很乱，而且很不利于测试，所以我们就使用Dagger2来进行依赖注入。
+依赖注入到底是个什么概念呢？我自己的理解就是将对象的生产和使用给分开了。比如说有一个Car对象，当你要出行的时候就自己new一个Car对象，然后使用这个Car对象出行。在这里你出行的时候Car就是你的依">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Dagger2在Android中的使用 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Dagger2在Android中的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-18T16:12:55+08:00" content="2016-02-18">
+              2016-02-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/18/dagger/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/18/dagger/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/02/18/dagger/" class="leancloud_visitors" data-flag-title="Dagger2在Android中的使用">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在我们写程序的过程中，不可避免的就会牵扯到一些依赖，如会创建各种工厂类来生产我们所要依赖的对象等等。太多依赖会让我们的程序看起来很乱，而且很不利于测试，所以我们就使用Dagger2来进行依赖注入。</p>
+<p>依赖注入到底是个什么概念呢？我自己的理解就是将对象的生产和使用给分开了。比如说有一个Car对象，当你要出行的时候就自己new一个Car对象，然后使用这个Car对象出行。在这里你出行的时候Car就是你的依赖，没有这个Car就无法出行，所以就自己来创建这个Car。如果使用依赖注入了呢？创建和使用Car是分隔开的，创建的地方不考虑使用，使用的时候也不用考虑来创建，只要说我需要一辆Car,Dagger2就会自动帮你创建好并让你使用。这就在一定程度上解耦了程序，让你的模块更加地可以重用。</p>
+<p>下面我们就在Android中试试Dagger2吧。但是首先还要弄清楚一些概念：</p>
+<ol>
+<li>@Inject: 可以用在构造方法上，这样就告诉Dagger2使用这个构造方法来创建对象，如果构造方法里面有参数依赖的话会自动给填充上；也可以用在成员变量上，Dagger2会自动将这个变量初始化。用@Inject修饰的内容可以理解为产品</li>
+<li>@Provides: 用来修饰方法来提供各种依赖，方法的返回类型就是所提供的依赖类型，用@Provides修饰的可以理解为生产机器</li>
+<li>@Module:所有的@Provides方法都必须放到一个Moudle中，一个Moudle就是使用@Moudle修饰的类,可以理解为一个工厂</li>
+<li>@Component：修饰一个接口，将依赖的生产和使用结合起来，可以理解为运输部门吧，将工厂生产的产品运送到使用它的人们手里。</li>
+</ol>
+<p>光看文字可能还不是很明白，下面就来写代码实践吧。在这里我使用一个展示炉石传说卡片的app作为例子，我们使用Retrofit来访问网络接口，得到卡片的信息等。那我们会有哪些依赖呢？</p>
+<ol>
+<li>ApplicationContext对象,在Android app中使用十分广泛，比如我们需要获取资源文件等。</li>
+<li>一个okHttpClient的对象，供Retrofit使用</li>
+<li>一个使用Retrofit创建的网络访问的对象</li>
+<li>可能会用到的Application对象</li>
+</ol>
+<p>下面就一步步来吧，首先我们创建一个Moudle来提供对okHttpClient的依赖：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Module</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetworkModule</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Provides</span></span><br><span class="line">    <span class="annotation">@NonNull</span></span><br><span class="line">    <span class="annotation">@Singleton</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> OkHttpClient <span class="title">provideOkHttpClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line"></span><br><span class="line">        HttpLoggingInterceptor httpLoggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor();</span><br><span class="line">        httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? BODY : NONE);</span><br><span class="line"></span><br><span class="line">        OkHttpClient newClient = okHttpClient.newBuilder()</span><br><span class="line">                .addInterceptor(httpLoggingInterceptor)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> newClient;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过@Singleton注释可以确保这个OkHttpClient对象是一个单例模式，对于这个client对象，我们加入了HttpLoggingInterceptor来控制log的显示，便于调试。</p>
+<p>下面来创建一个网络访问的Moudle，在这之前我们还要定义好网络访问的接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IApi</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Headers</span>(&#123;</span><br><span class="line">            <span class="string">"X-Mashape-Key:U4y8yvgRDUmshqUkNb1LJxmsRCBap1WWG0wjsnUj07GxYfsKUI"</span>,</span><br><span class="line">            <span class="string">"Accept: application/json"</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="annotation">@GET</span>(<span class="string">"info"</span>)</span><br><span class="line">    <span class="function">Observable&lt;Info&gt; <span class="title">getInfo</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Module</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApiModule</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String BASE_URL = <span class="string">"https://omgvamp-hearthstone-v1.p.mashape.com"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Provides</span></span><br><span class="line">    <span class="annotation">@Singleton</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IApi <span class="title">getCardsApi</span><span class="params">(OkHttpClient client)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Retrofit CardsApiAdapter = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">                .baseUrl(BASE_URL)</span><br><span class="line">                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .client(client)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> CardsApiAdapter.create(IApi.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们将使用Rxjava来处理网络返回的内容，并内置一个GsonConverterFactory来将请求的Gson信息自动转化成对象的Bean。需要注意的是getCardsApi的参数就是一个OkHttpClient对象，由于我们在前面提供了对OkHttpClient的依赖，所以这里使用的是会自动传进一个OkHttpClient对象。</p>
+<p>下面来创建提供Conext和Application的Moudle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Module</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppModule</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MainApp mainApp;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppModule</span><span class="params">(MainApp mainApp, Context mContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mainApp = mainApp;</span><br><span class="line">        <span class="keyword">this</span>.mContext = mContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Provides</span></span><br><span class="line">    <span class="annotation">@Singleton</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MainApp <span class="title">getMainApp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mainApp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Provides</span></span><br><span class="line">    <span class="annotation">@Singleton</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Context <span class="title">provideApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mContext;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这些Moudle提供了所有我们需要的依赖，下面使用一个Component接口来将这些Moudle结合起来<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="annotation">@Singleton</span></span><br><span class="line"><span class="annotation">@Component</span>(modules = &#123;AppModule.class, NetworkModule.class, ApiModule.class,&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AppComponent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainApp app)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity mainActivity)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里接口里，我们定义了两个inject方法，我们将在MainApp和MainActivity里面使用Moudle里面提供的依赖。<br>在MainApp里面，我们创建一个AppComponent对象进行依赖的注入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApp</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AppComponent <span class="title">getmAppComponent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mAppComponent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AppComponent mAppComponent;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        mContext = getApplicationContext();</span><br><span class="line">        initializeInjector();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initializeInjector</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mAppComponent = DaggerAppComponent.builder()</span><br><span class="line">                .appModule(<span class="keyword">new</span> AppModule(<span class="keyword">this</span>, mContext))</span><br><span class="line">                .networkModule(<span class="keyword">new</span> NetworkModule())</span><br><span class="line">                .apiModule(<span class="keyword">new</span> ApiModule())</span><br><span class="line">                .build();</span><br><span class="line">        mAppComponent.inject(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的一点就是里面DaggerAppComponent是由Dagger2自动生成的类，所以我们再写这些代码前要首先编译一下工程，让Dagger2生成这些类，否则是会报错的。</p>
+<p>下面就在Activity里面使用吧，首先也是进行注入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    ButterKnife.bind(<span class="keyword">this</span>);</span><br><span class="line">    ((MainApp) getApplication()).getmAppComponent().inject(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以直接进行网络的访问了：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Inject</span></span><br><span class="line">IApi mIApi;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@OnClick</span>(R.id.text)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onclick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    CLogger.i(<span class="string">"onclick"</span>);</span><br><span class="line">    Observable&lt;Info&gt; info = mIApi.getInfo();</span><br><span class="line">    info.subscribeOn(Schedulers.io())</span><br><span class="line">            .subscribe(<span class="keyword">new</span> Subscriber&lt;Info&gt;() &#123;</span><br><span class="line">                <span class="annotation">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="annotation">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                    CLogger.e(e);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="annotation">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Info info)</span> </span>&#123;</span><br><span class="line">                    CLogger.i(info.patch);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我们访问网络所需要的mIApi对象将由Dagger2自动给我们生成，我们拿过来用就可以了。赶快来实验一下吧，通过log，我们可以看到我们正确地请求到了所要的数据：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">43.061</span> <span class="number">15902</span>-<span class="number">15902</span><span class="regexp">/cn.com.mushuichuan.heartstonecards I/</span><span class="string">CLogger:</span> MainActivity.java[<span class="string">Line:</span> <span class="number">26</span>] onclick</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">43.061</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> --&gt; GET <span class="string">https:</span><span class="comment">//omgvamp-hearthstone-v1.p.mashape.com/info http/1.1</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">43.061</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> X-Mashape-<span class="string">Key:</span> U4y8yvgRDUmshqUkNb1LJxmsRCBap1WWG0wjsnUj07GxYfsKUI</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">43.061</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">Accept:</span> application/json</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">43.061</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> --&gt; END GET</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> &lt;-- <span class="number">200</span> OK <span class="string">https:</span><span class="comment">//omgvamp-hearthstone-v1.p.mashape.com/info (2317ms)</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> Cache-<span class="string">Control:</span> <span class="keyword">private</span>, must-revalidate</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> Content-<span class="string">Type:</span> application/json</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">Date:</span> Thu, <span class="number">18</span> Feb <span class="number">2016</span> <span class="number">07</span>:<span class="number">14</span>:<span class="number">49</span> GMT</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">expires:</span> -<span class="number">1</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">pragma:</span> no-cache</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">Server:</span> Mashape/<span class="number">5.0</span><span class="number">.6</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> Set-<span class="string">Cookie:</span> XSRF-TOKEN=eyJpdiI6ImRrT1dUN1dcLzVPcnlzVTRZNlVXUURRPT0iLCJ2YWx1ZSI6ImJYNkRONURJeEJTVW9ydndKeGM0Q1RQMmdYR3JzcTgxKzJtOGtcL0FKRHpNNEtaWStiVURMSVFTWldTY0lrdTR4bG1CYnJQN1JKNDRsXC82M25tS0pyNVE9PSIsIm1hYyI6IjdmNjVjYmJmMjZlYzQ0YjM4ZWZmYmVhYThhZDA5MzYxN2Y5OGFjODc3YmM1ODI4NjAwMjNiZTlhOWJlNDljNjQifQ%<span class="number">3</span>D%<span class="number">3</span>D; expires=Thu, <span class="number">18</span>-Feb-<span class="number">2016</span> <span class="number">09</span>:<span class="number">14</span>:<span class="number">49</span> GMT; Max-Age=<span class="number">7200</span>; path=/</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> Set-<span class="string">Cookie:</span> laravel_session=eyJpdiI6ImMwQnZ3QXVDUWNIMVNNT1Z2bUR1VlE9PSIsInZhbHVlIjoiODFndUFnYlBENUVoMXQ0TThsWmFzQldLN2Y0NUR0TTluaE1mMEZZdExwTVVtaFBySTB1K1wvRzFZQThCQVdrbXRHQkxtVExURVJycWRkc2ZrMmZpNXRRPT0iLCJtYWMiOiI3NDAxYzM1ZDA0MzkyYjMxNzlmNzk2YmNmNGM5OTc5NDU2YmY1MTY4OGU1NTQyMTE3ZDY5NmNlMWNjZmI0ODAwIn0%<span class="number">3</span>D; expires=Thu, <span class="number">18</span>-Feb-<span class="number">2016</span> <span class="number">09</span>:<span class="number">14</span>:<span class="number">49</span> GMT; Max-Age=<span class="number">7200</span>; path=/; httponly</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> X-Powered-<span class="string">By:</span> PHP/<span class="number">5.6</span><span class="number">.13</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> Content-<span class="string">Length:</span> <span class="number">681</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> <span class="string">Connection:</span> keep-alive</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> OkHttp-Sent-<span class="string">Millis:</span> <span class="number">1455779684200</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> OkHttp-Received-<span class="string">Millis:</span> <span class="number">1455779685387</span></span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> &#123;<span class="string">"patch"</span>:<span class="string">"4.1.0.10956"</span>,<span class="string">"classes"</span>:[<span class="string">"Druid"</span>,<span class="string">"Hunter"</span>,<span class="string">"Mage"</span>,<span class="string">"Paladin"</span>,<span class="string">"Priest"</span>,<span class="string">"Rogue"</span>,<span class="string">"Shaman"</span>,<span class="string">"Warlock"</span>,<span class="string">"Warrior"</span>,<span class="string">"Dream"</span>],<span class="string">"sets"</span>:[<span class="string">"Basic"</span>,<span class="string">"Classic"</span>,<span class="string">"Credits"</span>,<span class="string">"Naxxramas"</span>,<span class="string">"Slush"</span>,<span class="string">"Goblins vs Gnomes"</span>,<span class="string">"Missions"</span>,<span class="string">"Promo"</span>,<span class="string">"Reward"</span>,<span class="string">"System"</span>,<span class="string">"Blackrock Mountain"</span>,<span class="string">"Hero Skins"</span>,<span class="string">"Tavern Brawl"</span>,<span class="string">"The Grand Tournament"</span>,<span class="string">"The League of Explorers"</span>],<span class="string">"types"</span>:[<span class="string">"Hero"</span>,<span class="string">"Minion"</span>,<span class="string">"Spell"</span>,<span class="string">"Enchantment"</span>,<span class="string">"Weapon"</span>,<span class="string">"Hero Power"</span>],<span class="string">"factions"</span>:[<span class="string">"Horde"</span>,<span class="string">"Alliance"</span>,<span class="string">"Neutral"</span>],<span class="string">"qualities"</span>:[<span class="string">"Free"</span>,<span class="string">"Common"</span>,<span class="string">"Rare"</span>,<span class="string">"Epic"</span>,<span class="string">"Legendary"</span>],<span class="string">"races"</span>:[<span class="string">"Demon"</span>,<span class="string">"Dragon"</span>,<span class="string">"Mech"</span>,<span class="string">"Murloc"</span>,<span class="string">"Beast"</span>,<span class="string">"Pirate"</span>,<span class="string">"Totem"</span>],<span class="string">"locales"</span>:[<span class="string">"deDE"</span>,<span class="string">"enGB"</span>,<span class="string">"enUS"</span>,<span class="string">"esES"</span>,<span class="string">"esMX"</span>,<span class="string">"frFR"</span>,<span class="string">"itIT"</span>,<span class="string">"koKR"</span>,<span class="string">"plPL"</span>,<span class="string">"ptBR"</span>,<span class="string">"ruRU"</span>,<span class="string">"zhCN"</span>,<span class="string">"zhTW"</span>,<span class="string">"jaJP"</span>]&#125;</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.381</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards D/</span><span class="string">OkHttp:</span> &lt;-- END HTTP (<span class="number">681</span>-<span class="typename">byte</span> body)</span><br><span class="line"><span class="number">02</span>-<span class="number">18</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">45.391</span> <span class="number">15902</span>-<span class="number">16339</span><span class="regexp">/cn.com.mushuichuan.heartstonecards I/</span><span class="string">CLogger:</span> MainActivity.java[<span class="string">Line:</span> <span class="number">42</span>] <span class="number">4.1</span><span class="number">.0</span><span class="number">.10956</span></span><br></pre></td></tr></table></figure></p>
+<p>实验成功，可以继续进行接下来的开发了。<br>完整代码请见<a href="https://github.com/Chaoba/HearthstoneCards" target="_blank" rel="external">Github</a></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Dagger2/" rel="tag">#Dagger2</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/05/rxjava-operator-10/" rel="next" title="RxJava操作符（十）自定义操作符">
+                <i class="fa fa-chevron-left"></i> RxJava操作符（十）自定义操作符
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/24/gson/" rel="prev" title="使用Gson解析json">
+                使用Gson解析json <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/02/18/dagger/"
+     data-title="Dagger2在Android中的使用"
+     data-content=""
+     data-url="http://mushuichuan.com/2016/02/18/dagger/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/18/dagger/"
+           data-title="Dagger2在Android中的使用" data-url="http://mushuichuan.com/2016/02/18/dagger/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

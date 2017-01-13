@@ -1,0 +1,934 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Kotlin," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="Kotlin是JetBrains开发的一种更高级的语言，可以同java无缝对接,也就是说用kotlin写的代码可以直接调用已有的java库。目前Kotlin越来越流行了，大有代替java的势头。前一段时间简单学习了一下kotlin的使用，一段时间没用感觉忘得差不多了。下面就系统来学习一下吧。学习的参考内容来自于kotlin的官网。
+定义包名包名应该定义为源文件的最上面, 所有其它的内容如函数或者类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin学习（一）基本语法">
+<meta property="og:url" content="http://mushuichuan.com/2016/04/26/kotlin1/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="Kotlin是JetBrains开发的一种更高级的语言，可以同java无缝对接,也就是说用kotlin写的代码可以直接调用已有的java库。目前Kotlin越来越流行了，大有代替java的势头。前一段时间简单学习了一下kotlin的使用，一段时间没用感觉忘得差不多了。下面就系统来学习一下吧。学习的参考内容来自于kotlin的官网。
+定义包名包名应该定义为源文件的最上面, 所有其它的内容如函数或者类">
+<meta property="og:updated_time" content="2016-05-04T01:31:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin学习（一）基本语法">
+<meta name="twitter:description" content="Kotlin是JetBrains开发的一种更高级的语言，可以同java无缝对接,也就是说用kotlin写的代码可以直接调用已有的java库。目前Kotlin越来越流行了，大有代替java的势头。前一段时间简单学习了一下kotlin的使用，一段时间没用感觉忘得差不多了。下面就系统来学习一下吧。学习的参考内容来自于kotlin的官网。
+定义包名包名应该定义为源文件的最上面, 所有其它的内容如函数或者类">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Kotlin学习（一）基本语法 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Kotlin学习（一）基本语法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-26T14:53:35+08:00" content="2016-04-26">
+              2016-04-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/26/kotlin1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/kotlin1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/04/26/kotlin1/" class="leancloud_visitors" data-flag-title="Kotlin学习（一）基本语法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/JetBrains/kotlin" target="_blank" rel="external">Kotlin</a>是JetBrains开发的一种更高级的语言，可以同java无缝对接,也就是说用kotlin写的代码可以直接调用已有的java库。目前Kotlin越来越流行了，大有代替java的势头。前一段时间简单学习了一下kotlin的使用，一段时间没用感觉忘得差不多了。下面就系统来学习一下吧。学习的参考内容来自于<a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="external">kotlin的官网</a>。</p>
+<h2 id="u5B9A_u4E49_u5305_u540D"><a href="#u5B9A_u4E49_u5305_u540D" class="headerlink" title="定义包名"></a>定义包名</h2><p>包名应该定义为源文件的最上面, 所有其它的内容如函数或者类等都要在包名的下面。如下所示，方法baz()的全名就是foo.bar.baz()，Goo的全名就是foo.bar.Goo。如果没有指定包名，则包名默认为没有包名。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> foo.bar</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">baz</span><span class="params">()</span> &#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goo</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>既然有了包名就可以根据包名来引入内容，这部分同java基本相同，如<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> foo.bar</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> foo.*</span></span><br></pre></td></tr></table></figure></p>
+<p>不同之处就是我们可以使用as关键字给引入的包命名一个别名，如<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> foo.bar <span class="keyword">as</span> bBar</span><br></pre></td></tr></table></figure></p>
+<p>这样我们在程序中就可以使用bBar来代替bar。<br>另外import还可以引入一些其它的东西，如：</p>
+<blockquote>
+<ul>
+<li>顶层的方法和属性</li>
+<li>在<a href="http://kotlinlang.org/docs/reference/object-declarations.html#object-declarations" target="_blank" rel="external">Object declarations</a>中声明的方法和属性</li>
+<li><a href="http://kotlinlang.org/docs/reference/enum-classes.html" target="_blank" rel="external">Enum</a></li>
+</ul>
+</blockquote>
+<h2 id="u5B9A_u4E49_u65B9_u6CD5"><a href="#u5B9A_u4E49_u65B9_u6CD5" class="headerlink" title="定义方法"></a>定义方法</h2><p>方法的定义以fun关键字开头，可以有多种形式。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义了一个返回值为Int，并且有两个Int参数的函数</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="typename">Int, b: Int</span>)</span>: Int &#123;</span></span><br><span class="line">  <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面方法的简写</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="typename">Int, b: Int</span>)</span> = a + b</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//没有返回值的函数</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="typename">Int, b: Int</span>)</span>: Unit &#123;</span></span><br><span class="line">  print(a + b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面方法的简写，没有返回值则Unit可以省略</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="typename">Int, b: Int</span>)</span> &#123;</span></span><br><span class="line">  print(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u5B9A_u4E49_u53D8_u91CF_u548C_u5E38_u91CF"><a href="#u5B9A_u4E49_u53D8_u91CF_u548C_u5E38_u91CF" class="headerlink" title="定义变量和常量"></a>定义变量和常量</h2><p>对于变量，我们使用var关键字定义，而对于常量则使用val关键字。对于变量和常量我们需要指定其类型，如果在定义的时候直接初始化，则kotlin可以直接根据你赋值的类型推断出变量的类型；这时，对于类型的指定就可以省略。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> a</span>: <span class="typename">Int</span> = <span class="number">1</span></span><br><span class="line"><span class="variable"><span class="keyword">val</span> b</span> = <span class="number">1</span>   <span class="comment">// `Int` 类型可以推断出来</span></span><br><span class="line"><span class="variable"><span class="keyword">val</span> c</span>: <span class="typename">Int</span>  <span class="comment">// 没有初始化的话需要指定其类型</span></span><br><span class="line">c = <span class="number">1</span>       <span class="comment">// 指定值</span></span><br><span class="line"></span><br><span class="line"><span class="variable"><span class="keyword">var</span> x</span> = <span class="number">5</span> <span class="comment">// `Int` 类型可以推断出来</span></span><br><span class="line">x += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u5B57_u7B26_u4E32_u6A21_u677F"><a href="#u5B57_u7B26_u4E32_u6A21_u677F" class="headerlink" title="字符串模板"></a>字符串模板</h2><p>在字符串中可以使用模板表达式，一个模板表达式以美元符号$开头。模板表达式可以让我们很容易的根据变量生成我们想要字符串。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> i</span> = <span class="number">10</span></span><br><span class="line"><span class="variable"><span class="keyword">val</span> s</span> = <span class="string">"i = $i"</span> <span class="comment">// s的值为"i=10"</span></span><br></pre></td></tr></table></figure></p>
+<p>我们甚至可以在模板表达式里面调用变量的方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> s</span> = <span class="string">"abc"</span></span><br><span class="line"><span class="variable"><span class="keyword">val</span> str</span> = <span class="string">"$s.length is $&#123;s.length&#125;"</span> <span class="comment">// str的值为"abc.length is 3"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果在log中使用字符串模块，那简直棒极了，再也不用各种拼接字符串了。<br>但是如果字符中要输出美元符号怎么办？可以如下这样<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> price = <span class="string">"""</span><br><span class="line">$&#123;'$'&#125;9.99 //price的值为"$9.99"</span><br><span class="line">"""</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u6761_u4EF6_u8868_u8FBE_u5F0F"><a href="#u6761_u4EF6_u8868_u8FBE_u5F0F" class="headerlink" title="条件表达式"></a>条件表达式</h2><p>同java一样，对条件的判断也是使用if else。不同之处是if else可以直接作为一个表达式赋值给一个变量或者定义为一个方法。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个方法</span></span><br><span class="line">fun <span class="function"><span class="title">max</span><span class="params">(a: Int, b: Int)</span></span> = <span class="keyword">if</span> (<span class="tag">a</span> &gt; b) <span class="tag">a</span> <span class="keyword">else</span> <span class="tag">b</span></span><br><span class="line"><span class="comment">//定义一个变量</span></span><br><span class="line">val max = <span class="keyword">if</span> (<span class="tag">a</span> &gt; b) <span class="tag">a</span> <span class="keyword">else</span> b</span><br></pre></td></tr></table></figure></p>
+<h2 id="null_u68C0_u67E5"><a href="#null_u68C0_u67E5" class="headerlink" title="null检查"></a>null检查</h2><p>相信所有使用java的同学都会对NullPointerException深恶疼绝，因为绝大部分的系统崩溃都是它引起来的，然后不得不在程序中加了一堆的if(xxx!=null)之类的条件判定语句。</p>
+<blockquote>
+<p>在android studio中选中一个变量，按快捷键ctrl+alt+t，再按4就会自动加上对该变量是否为空的检查</p>
+</blockquote>
+<p>好消息是在Kotlin中我们基本上可以摆脱NullPointerException的纠缠了。如果我们定义个变量，编译器默认其就非空的，自动给我们做检查。如<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> <span class="tag">a</span>: String = <span class="string">"abc"</span></span><br><span class="line"><span class="tag">a</span> = null <span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure></p>
+<p>对于允许为null的变量，我们需要加上关键字?来告诉编译器<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b: <span class="built_in">String</span>? = <span class="string">"abc"</span></span><br><span class="line">b = <span class="keyword">null</span> <span class="comment">// ok</span></span><br></pre></td></tr></table></figure></p>
+<p>当我们访问变量a的时候，我们就可以完全相信a不为空，因此不需要对a进行空指针的检查，但是b还是可能为空的。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//完全OK</span></span><br><span class="line">val l = <span class="tag">a</span><span class="class">.length</span></span><br><span class="line"><span class="comment">//当b为空的时候仍然会出现NullPointerException</span></span><br><span class="line">val l = <span class="tag">b</span>.length</span><br></pre></td></tr></table></figure></p>
+<p>所以，再访问可以为空的变量时，我们仍然需要使用if(b!=null)来对其进行检查，但是Kotlin提供了一种更加简单的写法，就是使用?.<br>如仍然是对上面变量b的访问，我们可以使用<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b?.<span class="property">length</span></span><br></pre></td></tr></table></figure></p>
+<p>这样当b为null的时候不会抛出NullPointerException，而是直接返回一个null；当b不为null的时候返回b.length，是不是比使用if进行判断简单多了呢？<br>再更深入一点，如果在java中一个类A有一个类型为B的成员变量b，而B中有一个字符串成员变量c, 我们有了一个A类型的对象a, 当我们要访问c的时候要如何进行null的判断呢？<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> s = <span class="literal">null</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span>(a! = <span class="literal">null</span> &amp;&amp; a.b! == <span class="literal">null</span>) &#123;</span><br><span class="line">    s = a.b.c</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>是不是很麻烦？如果这种嵌套在深一点对程序员来讲简直是一种折磨，但是在Kotlin中就非常简单了。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> s</span> = a?.b?.c</span><br></pre></td></tr></table></figure></p>
+<h2 id="u4E8C_u76EE_u8FD0_u7B97_u7B26_uFF08Elvis_Operator_uFF09"><a href="#u4E8C_u76EE_u8FD0_u7B97_u7B26_uFF08Elvis_Operator_uFF09" class="headerlink" title="二目运算符（Elvis Operator）"></a>二目运算符（Elvis Operator）</h2><p>我们都只知道java和c等编程语言中都有三目运算符，其实就是if else一种简写，如在java中判断一个字符串a是否为null，不为null就赋值给b，否则将空字符在赋值给b:<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String </span><span class="keyword">b </span>= (a != null) ? a : <span class="string">""</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>在kotlin中也有类似的运算符?:，将一个表达式分为前后两个部分，前面的部分是进行null判断并且非null时的赋值，后面部分是当前面部分为null时的赋值，所以我们就暂时叫它二目运算符吧。上面的例子在kotlin中可以这样写：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> b</span> = a ?: <span class="string">""</span></span><br></pre></td></tr></table></figure></p>
+<p>是不是十分方便？如果用在对函数参数的判断上也是十分的方便的。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(node: <span class="typename">Node</span>)</span>: String? &#123;</span></span><br><span class="line">  <span class="variable"><span class="keyword">val</span> parent</span> = node.getParent() ?: <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">  <span class="variable"><span class="keyword">val</span> name</span> = node.getName() ?: <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"name expected"</span>)</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="21_21_u8FD0_u7B97_u7B26"><a href="#21_21_u8FD0_u7B97_u7B26" class="headerlink" title="!!运算符"></a>!!运算符</h2><p>当我们直接使用可以为空的引用时,需要加上!!运算符,如b!!, kotlin会自动对b的值进行判断，当b不为null的时候返回b，而b为空的时候会自动帮你抛出了一个NullPointerException。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val l = b!!.<span class="function"><span class="title">length</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u7C7B_u578B_u68C0_u67E5_u53CA_u81EA_u52A8_u7C7B_u578B_u8F6C_u5316"><a href="#u7C7B_u578B_u68C0_u67E5_u53CA_u81EA_u52A8_u7C7B_u578B_u8F6C_u5316" class="headerlink" title="类型检查及自动类型转化"></a>类型检查及自动类型转化</h2><p>同java一样，kotlin使用关键字is进行类型的检查，但是在一些特定的情况下使用is对一个变量进行类型检查后会自动将其转化为对应的类型，如下面的这个例子：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (obj <span class="keyword">is</span> <span class="built_in">String</span>) &#123;</span><br><span class="line">  <span class="built_in">print</span>(obj.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当obj使用is关键字进行类型检查是String类型后，obj就自动被转化成了String类型，因此可以直接调用其length方法。自动类型转化不仅可以用在if里面，还可以用 ||, &amp;&amp;, when, while等操作符里面，如下面的例子：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// x会被自动转化为String</span></span><br><span class="line"><span class="keyword">if</span> (x !<span class="keyword">is</span> <span class="built_in">String</span>) <span class="keyword">return</span></span><br><span class="line">    <span class="built_in">print</span>(x.length) </span><br><span class="line"></span><br><span class="line"><span class="comment">// 在`||`操作符的右边，x会被自动转化为String</span></span><br><span class="line"><span class="keyword">if</span> (x !<span class="keyword">is</span> <span class="built_in">String</span> || x.length == <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在`&amp;&amp;`操作符的右边，x会被自动转化为String</span></span><br><span class="line"><span class="keyword">if</span> (x <span class="keyword">is</span> <span class="built_in">String</span> &amp;&amp; x.length &gt; <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">print</span>(x.length)</span><br><span class="line"></span><br><span class="line"><span class="comment">//每种类型判断成功后，都会自动转化为对应的类型</span></span><br><span class="line">when (x) &#123;</span><br><span class="line">    <span class="keyword">is</span> Int -&gt; <span class="built_in">print</span>(x + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">is</span> <span class="built_in">String</span> -&gt; <span class="built_in">print</span>(x.length + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">is</span> IntArray -&gt; <span class="built_in">print</span>(x.sum())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>自动类型转化似乎很好用，可以大大地减少我们的代码量，但是当编译器不能确定变量的类型时就不能应用自动转化了。自动类型转化的规则如下：</p>
+<blockquote>
+<ul>
+<li>val类型的局部常量 - 可以自动转化;</li>
+<li>val类型的属性 - 只有当该属性是private或者internal或者类型检查和属性的声明是在同一个module里面的时候才可以自动转化。 对于公有的属性和那些有getter方法的属性，自动转化是不能用的；</li>
+<li>var类型的局部变量 - 需要同时满足这两个条件才可以自动转化：类型检查和使用之间变量没有改变；变量没有在一个lambda里面被改变；</li>
+<li>var类型的属性 - 不可以转化 (因为变量的类型可能会被别的代码改变).</li>
+</ul>
+</blockquote>
+<p>除了自动类型转化，我们还可以使用关键字as对一个变量进行类型转化，如：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val x: <span class="built_in">String</span> = y <span class="literal">as</span> <span class="built_in">String</span></span><br></pre></td></tr></table></figure></p>
+<p>但是当y为null的时候，上面的类型转化就会抛出异常了，所以我们可以改进一下：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val x: <span class="built_in">String</span>? = y <span class="literal">as</span> <span class="built_in">String</span>?</span><br></pre></td></tr></table></figure></p>
+<p>如果当类型转化失败的时候就会抛出ClassCastException，这也是我们经常会遇到的问题。这时我们可以使用关键字as?进行类型转化，失败的时候会直接返回null而不是抛出异常：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val x: <span class="built_in">String</span>? = y <span class="literal">as</span>? <span class="built_in">String</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u5FAA_u73AF"><a href="#u5FAA_u73AF" class="headerlink" title="循环"></a>循环</h2><p>循环是使用for或者while来实现的，同java的用法一样，这里就不多说了。</p>
+<h2 id="when"><a href="#when" class="headerlink" title="when"></a>when</h2><p>kotlin使用when来代替了switch，并且比switch更加地强大。基本的用法如下：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">when (x) &#123;</span><br><span class="line">  <span class="number">1</span> -&gt; <span class="built_in">print</span>(<span class="string">"x == 1"</span>)</span><br><span class="line">  <span class="number">2</span> -&gt; <span class="built_in">print</span>(<span class="string">"x == 2"</span>)</span><br><span class="line">  <span class="keyword">else</span> -&gt; &#123; <span class="comment">// Note the block</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"x is neither 1 nor 2"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是除非是各个分支能包括所有的条件，否则else分支是必须的。when不仅可以用来做各种条件的判断，还可以作为一个表达式并且有返回值，返回值就是满足条件的那条分支的值。而且，由于使用了上文的自动类型转化，在满足条件的分支上不需要做额外的工作就可以直接使用对应的类型。如下面所示，满足条件 is String的时候我们就可以直接调用x的startWith方法，因为x已经被自动转化为String类型了。而hasPrefix的值就是when作为一个表达式最终返回的值。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="variable"><span class="keyword">val</span> hasPrefix</span> = <span class="keyword">when</span>(x) &#123;</span><br><span class="line">  <span class="keyword">is</span> String -&gt; x.startsWith(<span class="string">"prefix"</span>)</span><br><span class="line">  <span class="keyword">else</span> -&gt; <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外，when的分支判断条件也极大地扩展了，不仅仅局限于单个数字，可以是用逗号分隔开的多个数字；可以是一个range范围；或者是一个表达式等等：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>逗号分隔开的多个数字</span><br><span class="line"><span class="keyword">when</span> (x) &#123;</span><br><span class="line">  <span class="number">0</span>, <span class="number">1</span> -&gt; <span class="built_in">print</span>(<span class="string">"x == 0 or x == 1"</span>)</span><br><span class="line">  <span class="keyword">else</span> -&gt; <span class="built_in">print</span>(<span class="string">"otherwise"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>一个表达式</span><br><span class="line"><span class="keyword">when</span> (x) &#123;</span><br><span class="line">  parseInt(s) -&gt; <span class="built_in">print</span>(<span class="string">"s encodes x"</span>)</span><br><span class="line">  <span class="keyword">else</span> -&gt; <span class="built_in">print</span>(<span class="string">"s does not encode x"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>在一个range范围内或外</span><br><span class="line"><span class="keyword">when</span> (x) &#123;</span><br><span class="line">  <span class="keyword">in</span> <span class="number">1.</span><span class="number">.10</span> -&gt; <span class="built_in">print</span>(<span class="string">"x is in the range"</span>)</span><br><span class="line">  <span class="keyword">in</span> validNumbers -&gt; <span class="built_in">print</span>(<span class="string">"x is valid"</span>)</span><br><span class="line">  !<span class="keyword">in</span> <span class="number">10.</span><span class="number">.20</span> -&gt; <span class="built_in">print</span>(<span class="string">"x is outside the range"</span>)</span><br><span class="line">  <span class="keyword">else</span> -&gt; <span class="built_in">print</span>(<span class="string">"none of the above"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>相信大家都写过长长的if…else if…的表达式吧？使用when也可以将其替代：<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span> &#123;</span><br><span class="line">  x.isOdd<span class="function"><span class="params">()</span> -&gt;</span> <span class="built_in">print</span>(<span class="string">"x is odd"</span>)</span><br><span class="line">  x.isEven<span class="function"><span class="params">()</span> -&gt;</span> <span class="built_in">print</span>(<span class="string">"x is even"</span>)</span><br><span class="line">  <span class="keyword">else</span><span class="function"> -&gt;</span> <span class="built_in">print</span>(<span class="string">"x is funny"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u8303_u56F4_u64CD_u4F5C_u7B26"><a href="#u8303_u56F4_u64CD_u4F5C_u7B26" class="headerlink" title="范围操作符"></a>范围操作符</h2><p>范围操作符可以用来做迭代操作，是用in来实现的。基本的使用如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i in <span class="number">1.</span><span class="number">.10</span>) &#123; <span class="comment">// 等同于 1 &lt;= i &amp;&amp; i &lt;= 10</span></span><br><span class="line">  println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果要倒序迭代，可以使用downTo操作符：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="tag">i</span> <span class="keyword">in</span> <span class="number">4</span> downTo <span class="number">1</span>) <span class="function"><span class="title">print</span><span class="params">(i)</span></span> <span class="comment">// prints "4321"</span></span><br></pre></td></tr></table></figure></p>
+<p>我们还可以控制迭代的步长，使用step：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="tag">i</span> <span class="keyword">in</span> <span class="number">1</span>..<span class="number">4</span> step <span class="number">2</span>) <span class="function"><span class="title">print</span><span class="params">(i)</span></span> <span class="comment">// prints "13"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="tag">i</span> <span class="keyword">in</span> <span class="number">4</span> downTo <span class="number">1</span> step <span class="number">2</span>) <span class="function"><span class="title">print</span><span class="params">(i)</span></span> <span class="comment">// prints "42"</span></span><br></pre></td></tr></table></figure>
+<h2 id="collections"><a href="#collections" class="headerlink" title="collections"></a>collections</h2><p>我们同样可以迭代一个collections:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (name <span class="keyword">in</span> names)</span><br><span class="line">  <span class="function"><span class="title">println</span><span class="params">(name)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>或者用来检测collections是否包含某个元素:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (text <span class="keyword">in</span> names) <span class="comment">// names.contains(text) is called</span></span><br><span class="line">  <span class="function"><span class="title">print</span><span class="params">(<span class="string">"Yes"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>对于collections还可以使用lambda进行filter和map等操作：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">names</span><br><span class="line">    .<span class="built_in">filter</span> &#123; <span class="keyword">it</span>.startsWith(<span class="string">"A"</span>) &#125;</span><br><span class="line">    .sortedBy &#123; <span class="keyword">it</span> &#125;</span><br><span class="line">    .map &#123; <span class="keyword">it</span>.toUpperCase() &#125;</span><br><span class="line">    .forEach &#123; print(<span class="keyword">it</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>怎么感觉跟rxjava很像啊？看来天下编程语言也是一大抄啊，也不知道到底是谁抄谁。好处就是如果我们了解rxjava的话，理解上面的代码也就毫无压力了。</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kotlin/" rel="tag">#Kotlin</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/13/expandablelistview/" rel="next" title="ExpandableListView分割线的设置">
+                <i class="fa fa-chevron-left"></i> ExpandableListView分割线的设置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/27/autostart/" rel="prev" title="Windows添加定时任务">
+                Windows添加定时任务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/26/kotlin1/"
+     data-title="Kotlin学习（一）基本语法"
+     data-content=""
+     data-url="http://mushuichuan.com/2016/04/26/kotlin1/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/26/kotlin1/"
+           data-title="Kotlin学习（一）基本语法" data-url="http://mushuichuan.com/2016/04/26/kotlin1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B9A_u4E49_u5305_u540D"><span class="nav-number">1.</span> <span class="nav-text">定义包名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B9A_u4E49_u65B9_u6CD5"><span class="nav-number">2.</span> <span class="nav-text">定义方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B9A_u4E49_u53D8_u91CF_u548C_u5E38_u91CF"><span class="nav-number">3.</span> <span class="nav-text">定义变量和常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B57_u7B26_u4E32_u6A21_u677F"><span class="nav-number">4.</span> <span class="nav-text">字符串模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6761_u4EF6_u8868_u8FBE_u5F0F"><span class="nav-number">5.</span> <span class="nav-text">条件表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null_u68C0_u67E5"><span class="nav-number">6.</span> <span class="nav-text">null检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E8C_u76EE_u8FD0_u7B97_u7B26_uFF08Elvis_Operator_uFF09"><span class="nav-number">7.</span> <span class="nav-text">二目运算符（Elvis Operator）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21_21_u8FD0_u7B97_u7B26"><span class="nav-number">8.</span> <span class="nav-text">!!运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7C7B_u578B_u68C0_u67E5_u53CA_u81EA_u52A8_u7C7B_u578B_u8F6C_u5316"><span class="nav-number">9.</span> <span class="nav-text">类型检查及自动类型转化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5FAA_u73AF"><span class="nav-number">10.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when"><span class="nav-number">11.</span> <span class="nav-text">when</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8303_u56F4_u64CD_u4F5C_u7B26"><span class="nav-number">12.</span> <span class="nav-text">范围操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#collections"><span class="nav-number">13.</span> <span class="nav-text">collections</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

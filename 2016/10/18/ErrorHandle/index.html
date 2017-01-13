@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ErrorHandle," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="在平时的工作中经常会碰见各种各样奇怪的问题，如环境配置、sdk版本选择等等。将碰到的问题都记录下来，一方面方便碰到有同样问题的同学，一方面做下记录，以后有同样的问题的时候可以回来看下。
+Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource foun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="问题汇总">
+<meta property="og:url" content="http://mushuichuan.com/2016/10/18/ErrorHandle/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="在平时的工作中经常会碰见各种各样奇怪的问题，如环境配置、sdk版本选择等等。将碰到的问题都记录下来，一方面方便碰到有同样问题的同学，一方面做下记录，以后有同样的问题的时候可以回来看下。
+Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource foun">
+<meta property="og:updated_time" content="2016-11-12T01:01:05.962Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="问题汇总">
+<meta name="twitter:description" content="在平时的工作中经常会碰见各种各样奇怪的问题，如环境配置、sdk版本选择等等。将碰到的问题都记录下来，一方面方便碰到有同样问题的同学，一方面做下记录，以后有同样的问题的时候可以回来看下。
+Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource foun">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 问题汇总 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                问题汇总
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-18T21:55:27+08:00" content="2016-10-18">
+              2016-10-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/备忘/" itemprop="url" rel="index">
+                    <span itemprop="name">备忘</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/18/ErrorHandle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/18/ErrorHandle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/18/ErrorHandle/" class="leancloud_visitors" data-flag-title="问题汇总">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在平时的工作中经常会碰见各种各样奇怪的问题，如环境配置、sdk版本选择等等。将碰到的问题都记录下来，一方面方便碰到有同样问题的同学，一方面做下记录，以后有同样的问题的时候可以回来看下。</p>
+<h1 id="Android__u95EE_u9898_u6C47_u603B"><a href="#Android__u95EE_u9898_u6C47_u603B" class="headerlink" title="Android 问题汇总"></a>Android 问题汇总</h1><h2 id="values-v23-xml_file_shows_error__3A__u201CError_3A_282_29_Error_retrieving_parent_for_item_3A_No_resource_found_that_matches_the_given_name__u2018android_3ATextAppearance-Material-Widget-Button-Inverse_u2019-_u201D"><a href="#values-v23-xml_file_shows_error__3A__u201CError_3A_282_29_Error_retrieving_parent_for_item_3A_No_resource_found_that_matches_the_given_name__u2018android_3ATextAppearance-Material-Widget-Button-Inverse_u2019-_u201D" class="headerlink" title="values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource found that matches the given name ‘android:TextAppearance.Material.Widget.Button.Inverse’.”"></a>values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource found that matches the given name ‘android:TextAppearance.Material.Widget.Button.Inverse’.”</h2><h3 id="u95EE_u9898_u539F_u56E0"><a href="#u95EE_u9898_u539F_u56E0" class="headerlink" title="问题原因"></a>问题原因</h3><p>一般是因为在gradle配置文件的dependencies里依赖了高于当前编译sdk的版本。如引入了com.android.support:appcompat-v7:23.0.0，但是sdk的版本是19、21和22等。</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F"><a href="#u89E3_u51B3_u65B9_u5F0F" class="headerlink" title="解决方式"></a>解决方式</h3><ul>
+<li>升级sdk的版本，如上例中将sdk的版本设置为23，推荐这种方式。</li>
+<li>降低引入包的版本，将其设置为跟sdk的版本一致。</li>
+</ul>
+<h2 id="app-release-unsigned-apk_is_not_signed"><a href="#app-release-unsigned-apk_is_not_signed" class="headerlink" title="app-release-unsigned.apk is not signed"></a>app-release-unsigned.apk is not signed</h2><h3 id="u95EE_u9898_u539F_u56E0-1"><a href="#u95EE_u9898_u539F_u56E0-1" class="headerlink" title="问题原因"></a>问题原因</h3><p>没有对apk进行签名，安装的时候回报错导致安装失败。</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F-1"><a href="#u89E3_u51B3_u65B9_u5F0F-1" class="headerlink" title="解决方式"></a>解决方式</h3><p>点击Android studio左下角的Build Variant，然后对要运行的Module选择使用Debug版本。</p>
+<h2 id="style__u4E0D_u8D77_u4F5C_u7528"><a href="#style__u4E0D_u8D77_u4F5C_u7528" class="headerlink" title="style 不起作用"></a>style 不起作用</h2><h3 id="u539F_u56E0"><a href="#u539F_u56E0" class="headerlink" title="原因"></a>原因</h3><p>在主项目中和lib中存在两个相同的布局文件，主项目中的会覆盖lib中的文件，所以在lib中修改这个布局文件不起租用。</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F-2"><a href="#u89E3_u51B3_u65B9_u5F0F-2" class="headerlink" title="解决方式"></a>解决方式</h3><p>删掉其中的一个布局文件。</p>
+<h2 id="u4E0A_u4F20aar_u5305_u5230maven_u8FD4_u56DE400_u9519_u8BEF"><a href="#u4E0A_u4F20aar_u5305_u5230maven_u8FD4_u56DE400_u9519_u8BEF" class="headerlink" title="上传aar包到maven返回400错误"></a>上传aar包到maven返回400错误</h2><h3 id="u95EE_u9898_u539F_u56E0-2"><a href="#u95EE_u9898_u539F_u56E0-2" class="headerlink" title="问题原因"></a>问题原因</h3><p>上传到snapshots, pom.version 后面没有加上-SNAPSHOT</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F-3"><a href="#u89E3_u51B3_u65B9_u5F0F-3" class="headerlink" title="解决方式"></a>解决方式</h3><p>在pom.version后面加上-SNAPSHOT，如<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pom<span class="class">.version</span> = <span class="string">'1.0.0-SNAPSHOT'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="u6253_u7684aar_u5305_u6CA1_u6709_u5305_u542B_u4F9D_u8D56"><a href="#u6253_u7684aar_u5305_u6CA1_u6709_u5305_u542B_u4F9D_u8D56" class="headerlink" title="打的aar包没有包含依赖"></a>打的aar包没有包含依赖</h2><h3 id="u95EE_u9898_u539F_u56E0-3"><a href="#u95EE_u9898_u539F_u56E0-3" class="headerlink" title="问题原因"></a>问题原因</h3><p>默认aar包是不包含依赖的，可以防止依赖冲突的问题。</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F-4"><a href="#u89E3_u51B3_u65B9_u5F0F-4" class="headerlink" title="解决方式"></a>解决方式</h3><p>在依赖包下面加上 transitive=true，如<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> (<span class="string">'com.mushuichuan.test:1.0.0@aar'</span>)&#123;</span><br><span class="line">    transitive=<span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果确实出现了依赖包冲突，可以使用exclude排除掉冲突的依赖，如：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span>(<span class="string">'io.reactivex:rxandroid:1.2.1'</span>) &#123;</span><br><span class="line">    <span class="keyword">exclude</span> module: <span class="string">'rxjava'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>···</p>
+<h1 id="Mac__u95EE_u9898_u6C47_u603B"><a href="#Mac__u95EE_u9898_u6C47_u603B" class="headerlink" title="Mac 问题汇总"></a>Mac 问题汇总</h1><h2 id="JAVA_HOME_u8BBE_u7F6E"><a href="#JAVA_HOME_u8BBE_u7F6E" class="headerlink" title="JAVA_HOME设置"></a>JAVA_HOME设置</h2><p>安装了java后，虽然java和javac命令都可以运行，但是JAVA_HOME却并没有设置，如果使用IntelliJ编译的时候就会报错。</p>
+<h3 id="u89E3_u51B3_u65B9_u5F0F-5"><a href="#u89E3_u51B3_u65B9_u5F0F-5" class="headerlink" title="解决方式"></a>解决方式</h3><ol>
+<li>在命令行输入<code>vim ~/.bashrc</code></li>
+<li>按i进入编辑模式，输入<code>export JAVA_HOME=&#39;/usr/libexec/java_home.&#39;</code></li>
+<li>按esc, 输入wq保存退出</li>
+<li>在命令行输入<code>source ~/.bashrc</code></li>
+</ol>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ErrorHandle/" rel="tag">#ErrorHandle</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/18/pi/" rel="next" title="使用Rxjava计算圆周率">
+                <i class="fa fa-chevron-left"></i> 使用Rxjava计算圆周率
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/12/mediacodec/" rel="prev" title="使用MediaCodec进行视频的编码和解码">
+                使用MediaCodec进行视频的编码和解码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/18/ErrorHandle/"
+     data-title="问题汇总"
+     data-content=""
+     data-url="http://mushuichuan.com/2016/10/18/ErrorHandle/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/18/ErrorHandle/"
+           data-title="问题汇总" data-url="http://mushuichuan.com/2016/10/18/ErrorHandle/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android__u95EE_u9898_u6C47_u603B"><span class="nav-number">1.</span> <span class="nav-text">Android 问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#values-v23-xml_file_shows_error__3A__u201CError_3A_282_29_Error_retrieving_parent_for_item_3A_No_resource_found_that_matches_the_given_name__u2018android_3ATextAppearance-Material-Widget-Button-Inverse_u2019-_u201D"><span class="nav-number">1.1.</span> <span class="nav-text">values-v23.xml file shows error : “Error:(2) Error retrieving parent for item: No resource found that matches the given name ‘android:TextAppearance.Material.Widget.Button.Inverse’.”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u539F_u56E0"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F"><span class="nav-number">1.1.2.</span> <span class="nav-text">解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app-release-unsigned-apk_is_not_signed"><span class="nav-number">1.2.</span> <span class="nav-text">app-release-unsigned.apk is not signed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u539F_u56E0-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#style__u4E0D_u8D77_u4F5C_u7528"><span class="nav-number">1.3.</span> <span class="nav-text">style 不起作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u539F_u56E0"><span class="nav-number">1.3.1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E0A_u4F20aar_u5305_u5230maven_u8FD4_u56DE400_u9519_u8BEF"><span class="nav-number">1.4.</span> <span class="nav-text">上传aar包到maven返回400错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u539F_u56E0-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">解决方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6253_u7684aar_u5305_u6CA1_u6709_u5305_u542B_u4F9D_u8D56"><span class="nav-number">1.5.</span> <span class="nav-text">打的aar包没有包含依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u539F_u56E0-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">解决方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac__u95EE_u9898_u6C47_u603B"><span class="nav-number">2.</span> <span class="nav-text">Mac 问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA_HOME_u8BBE_u7F6E"><span class="nav-number">2.1.</span> <span class="nav-text">JAVA_HOME设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u5F0F-5"><span class="nav-number">2.1.1.</span> <span class="nav-text">解决方式</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

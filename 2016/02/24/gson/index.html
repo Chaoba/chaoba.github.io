@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Gson," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是json？简单来说，json就是用来进行网络数据传输的一种格式，目前的使用很广泛，其格式就是一种键值对的形式，很方便进行解析。json有JsonObject和JsonArray两种形式，如何进行区分呢？
+
+凡是看到 { 就是一个JsonObject凡是看到 [ 就是一个JsonArray牢记以上两点可以减少很多解析json过程中的问题
+
+什么是Gson？Gson是谷歌开发的一个用来解析jso">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Gson解析json">
+<meta property="og:url" content="http://mushuichuan.com/2016/02/24/gson/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="什么是json？简单来说，json就是用来进行网络数据传输的一种格式，目前的使用很广泛，其格式就是一种键值对的形式，很方便进行解析。json有JsonObject和JsonArray两种形式，如何进行区分呢？
+
+凡是看到 { 就是一个JsonObject凡是看到 [ 就是一个JsonArray牢记以上两点可以减少很多解析json过程中的问题
+
+什么是Gson？Gson是谷歌开发的一个用来解析jso">
+<meta property="og:updated_time" content="2016-02-24T02:43:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Gson解析json">
+<meta name="twitter:description" content="什么是json？简单来说，json就是用来进行网络数据传输的一种格式，目前的使用很广泛，其格式就是一种键值对的形式，很方便进行解析。json有JsonObject和JsonArray两种形式，如何进行区分呢？
+
+凡是看到 { 就是一个JsonObject凡是看到 [ 就是一个JsonArray牢记以上两点可以减少很多解析json过程中的问题
+
+什么是Gson？Gson是谷歌开发的一个用来解析jso">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用Gson解析json | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用Gson解析json
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-24T10:35:40+08:00" content="2016-02-24">
+              2016-02-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/24/gson/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/24/gson/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/02/24/gson/" class="leancloud_visitors" data-flag-title="使用Gson解析json">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="u4EC0_u4E48_u662Fjson_uFF1F"><a href="#u4EC0_u4E48_u662Fjson_uFF1F" class="headerlink" title="什么是json？"></a>什么是json？</h2><p>简单来说，json就是用来进行网络数据传输的一种格式，目前的使用很广泛，其格式就是一种键值对的形式，很方便进行解析。json有JsonObject和JsonArray两种形式，如何进行区分呢？</p>
+<blockquote>
+<p>凡是看到 <strong>{</strong> 就是一个JsonObject<br>凡是看到 <strong>[</strong> 就是一个JsonArray<br>牢记以上两点可以减少很多解析json过程中的问题</p>
+</blockquote>
+<h2 id="u4EC0_u4E48_u662FGson_uFF1F"><a href="#u4EC0_u4E48_u662FGson_uFF1F" class="headerlink" title="什么是Gson？"></a>什么是Gson？</h2><p>Gson是谷歌开发的一个用来解析json的库，简单好用。源码可见<a href="https://github.com/google/gson" target="_blank" rel="external">github</a>而且里面还有详细的说明文档。</p>
+<h2 id="u5982_u4F55_u4F7F_u7528Gson_uFF1F"><a href="#u5982_u4F55_u4F7F_u7528Gson_uFF1F" class="headerlink" title="如何使用Gson？"></a>如何使用Gson？</h2><p>首先需要根据json的格式来定义对应的bean。有下面的几种情况：</p>
+<h3 id="1-_JsonObejct"><a href="#1-_JsonObejct" class="headerlink" title="1. JsonObejct"></a>1. JsonObejct</h3><p>如下面的json，是一个JsonObeject类型。json使用<strong>：</strong>来分割一个键值对，使用<strong>，</strong>来分割不同的键值对。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;"<span class="attribute">name</span>":<span class="value"><span class="string">"Jerry"</span></span>,"<span class="attribute">score</span>":<span class="value"><span class="string">"100"</span></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以定义一个Student bean，其成员变量就是对应的key值：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Student&#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="keyword">name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">Integer</span> score:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后使用Gson解析：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">Student student = gson.fromJson(yourJson, Student.<span class="keyword">class</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就可以得到一个Student的类，里面的成员变量会被Gson自动写好数据。需要注意的的是由于score是Integer类型的，Gson会自动帮我们进行类型的转换，但是如果反回的json中socre的值不是一个正确的数据，如”100a”,Gson解析的时候就会报错。为了保险也可以将score的类型定义为String类型，在使用的时候自己做一下类型的转换。</p>
+<h3 id="2-_JsonObejcet_u5D4C_u5957JsonObejcet"><a href="#2-_JsonObejcet_u5D4C_u5957JsonObejcet" class="headerlink" title="2. JsonObejcet嵌套JsonObejcet"></a>2. JsonObejcet嵌套JsonObejcet</h3><p>如下面的json<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;<span class="string">"name"</span>:<span class="string">"Jerry"</span>,<span class="string">"score"</span>:<span class="string">"100"</span>, curriculum:<span class="collection">&#123;<span class="string">"title"</span>:<span class="string">"English"</span>&#125;</span>&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们只需要在Student类里面定义一个对应的静态内部类就可以了，Gson还是会自动帮我们解析并填充好数据。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> Integer <span class="string">score:</span></span><br><span class="line">    <span class="keyword">public</span> Curriculum curriculum</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Curriculum</span>&#123;</span></span><br><span class="line">        <span class="keyword">public</span> String title;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-_JsonObejcet_u5D4C_u5957JsonArray"><a href="#3-_JsonObejcet_u5D4C_u5957JsonArray" class="headerlink" title="3. JsonObejcet嵌套JsonArray"></a>3. JsonObejcet嵌套JsonArray</h3><p>如下面的json,curriculum是一个JsonArray类型，即里面包含的内容可能有多个。<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;<span class="string">"name"</span>:<span class="string">"Jerry"</span>,<span class="string">"score"</span>:<span class="string">"100"</span>, curriculum:<span class="collection">&#123;<span class="collection">[<span class="string">"title"</span>:<span class="string">"English"</span>]</span>&#125;</span>&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们只需要在Student类里面curriculum的类型改为List的即可。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> Integer <span class="string">score:</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Curriculum&gt; curriculum</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Curriculum</span>&#123;</span></span><br><span class="line">        <span class="keyword">public</span> String title;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_JsonArray"><a href="#4-_JsonArray" class="headerlink" title="4. JsonArray"></a>4. JsonArray</h3><p>如果反回的json字符串是一个纯的JsonArray，解析起来就稍微有点麻烦了。如下所示，这种格式是不推荐使用的。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;"<span class="attribute">name</span>":<span class="value"><span class="string">"Jerry"</span></span>,"<span class="attribute">score</span>":<span class="value"><span class="string">"100"</span></span>&#125;,&#123;"<span class="attribute">name</span>":<span class="value"><span class="string">"Tom"</span></span>,"<span class="attribute">score</span>":<span class="value"><span class="string">"100"</span></span>&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下我们就需要明确地告诉Gson来解析成什么样的类型：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Type</span> <span class="keyword">type</span> = <span class="literal">new</span> TypeToken&lt;<span class="built_in">List</span>&lt;Student&gt;&gt;() &#123;&#125;<span class="built_in">.</span>getType();</span><br><span class="line">Object fromJson2 = gson<span class="built_in">.</span>fromJson(json, <span class="keyword">type</span>);</span><br><span class="line"><span class="built_in">List</span>&lt;Student&gt; <span class="built_in">list</span> = (<span class="built_in">List</span>&lt;Student&gt;) fromJson2;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u53EF_u80FD_u9047_u5230_u7684_u9519_u8BEF"><a href="#u53EF_u80FD_u9047_u5230_u7684_u9519_u8BEF" class="headerlink" title="可能遇到的错误"></a>可能遇到的错误</h2><p>在使用Gson解析json的过程中，很可能遇到下面这种错误：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java<span class="class">.lang</span><span class="class">.IllegalStateException</span>: Expected STRING but was BEGIN_ARRAY</span><br></pre></td></tr></table></figure></p>
+<p>还有其它的Expected xxx bug was xxx<br>这种情况就是Gson解析对应的类型不对，如上面JsonObjcet嵌套JsonArray的时候，如果将curriculum的类型定义为String<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">String</span> curriculum</span><br></pre></td></tr></table></figure></p>
+<p>Gson解析到这里的时候类型就对应不上了，会报上面的错误。</p>
+<p>总之，出现类似上述的错误就检查Bean里面对应的类型的定义是否正确，一般会发现问题的。</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Gson/" rel="tag">#Gson</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/18/dagger/" rel="next" title="Dagger2在Android中的使用">
+                <i class="fa fa-chevron-left"></i> Dagger2在Android中的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/01/okhttpcache/" rel="prev" title="Okhttp cache-在Okhttp中使用缓存">
+                Okhttp cache-在Okhttp中使用缓存 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/02/24/gson/"
+     data-title="使用Gson解析json"
+     data-content=""
+     data-url="http://mushuichuan.com/2016/02/24/gson/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/24/gson/"
+           data-title="使用Gson解析json" data-url="http://mushuichuan.com/2016/02/24/gson/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4EC0_u4E48_u662Fjson_uFF1F"><span class="nav-number">1.</span> <span class="nav-text">什么是json？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4EC0_u4E48_u662FGson_uFF1F"><span class="nav-number">2.</span> <span class="nav-text">什么是Gson？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5982_u4F55_u4F7F_u7528Gson_uFF1F"><span class="nav-number">3.</span> <span class="nav-text">如何使用Gson？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_JsonObejct"><span class="nav-number">3.1.</span> <span class="nav-text">1. JsonObejct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_JsonObejcet_u5D4C_u5957JsonObejcet"><span class="nav-number">3.2.</span> <span class="nav-text">2. JsonObejcet嵌套JsonObejcet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_JsonObejcet_u5D4C_u5957JsonArray"><span class="nav-number">3.3.</span> <span class="nav-text">3. JsonObejcet嵌套JsonArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_JsonArray"><span class="nav-number">3.4.</span> <span class="nav-text">4. JsonArray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u53EF_u80FD_u9047_u5230_u7684_u9519_u8BEF"><span class="nav-number">4.</span> <span class="nav-text">可能遇到的错误</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
