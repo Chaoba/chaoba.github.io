@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Okhttp," />
+  <meta name="keywords" content="maven," />
 
 
 
@@ -57,19 +57,25 @@
 
 
 
-<meta name="description" content="Okhttp是由Sqare公司开发的开源网络访问库，目前在Android和Java开发中有着广泛的应用。在Android开发中和Retrofit结合可以非常方便地调用网络接口。
-使用缓存可以让我们的app不用长时间地显示令人厌烦的加载圈，提高了用户体验，而且还节省了流量，在数据更新不是很频繁的地方使用缓存就非常有必要了。想要加入缓存不需要我们自己来实现，Okhttp已经内置了缓存，默认是不使用的，">
+<meta name="description" content="我们都知道Android studio 使用了Gradle来编译工程，在处理依赖上非常方便，一行代码就可以将一个库引入到工程中来。在工作中为了方便代码的共享提高开发效率，我们很有必要建一个自己的maven服务器，将我们的依赖工程放在服务器上，这样我们想引入我们自己的类库的时候就很方便了。下面我们来搭建一个maven服务器吧。
+搭建服务器
+申请个服务器，各种linux都可以。
+下载Nexus Rep">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Okhttp cache-在Okhttp中使用缓存">
-<meta property="og:url" content="http://mushuichuan.com/2016/03/01/okhttpcache/index.html">
+<meta property="og:title" content="搭建自己的maven服务器">
+<meta property="og:url" content="http://mushuichuan.com/2017/05/01/maven/index.html">
 <meta property="og:site_name" content="木水川的博客">
-<meta property="og:description" content="Okhttp是由Sqare公司开发的开源网络访问库，目前在Android和Java开发中有着广泛的应用。在Android开发中和Retrofit结合可以非常方便地调用网络接口。
-使用缓存可以让我们的app不用长时间地显示令人厌烦的加载圈，提高了用户体验，而且还节省了流量，在数据更新不是很频繁的地方使用缓存就非常有必要了。想要加入缓存不需要我们自己来实现，Okhttp已经内置了缓存，默认是不使用的，">
-<meta property="og:updated_time" content="2016-03-02T09:13:36.000Z">
+<meta property="og:description" content="我们都知道Android studio 使用了Gradle来编译工程，在处理依赖上非常方便，一行代码就可以将一个库引入到工程中来。在工作中为了方便代码的共享提高开发效率，我们很有必要建一个自己的maven服务器，将我们的依赖工程放在服务器上，这样我们想引入我们自己的类库的时候就很方便了。下面我们来搭建一个maven服务器吧。
+搭建服务器
+申请个服务器，各种linux都可以。
+下载Nexus Rep">
+<meta property="og:updated_time" content="2017-05-01T00:53:00.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Okhttp cache-在Okhttp中使用缓存">
-<meta name="twitter:description" content="Okhttp是由Sqare公司开发的开源网络访问库，目前在Android和Java开发中有着广泛的应用。在Android开发中和Retrofit结合可以非常方便地调用网络接口。
-使用缓存可以让我们的app不用长时间地显示令人厌烦的加载圈，提高了用户体验，而且还节省了流量，在数据更新不是很频繁的地方使用缓存就非常有必要了。想要加入缓存不需要我们自己来实现，Okhttp已经内置了缓存，默认是不使用的，">
+<meta name="twitter:title" content="搭建自己的maven服务器">
+<meta name="twitter:description" content="我们都知道Android studio 使用了Gradle来编译工程，在处理依赖上非常方便，一行代码就可以将一个库引入到工程中来。在工作中为了方便代码的共享提高开发效率，我们很有必要建一个自己的maven服务器，将我们的依赖工程放在服务器上，这样我们想引入我们自己的类库的时候就很方便了。下面我们来搭建一个maven服务器吧。
+搭建服务器
+申请个服务器，各种linux都可以。
+下载Nexus Rep">
 
 
 
@@ -87,7 +93,7 @@
   };
 </script>
 
-  <title> Okhttp cache-在Okhttp中使用缓存 | 木水川的博客 </title>
+  <title> 搭建自己的maven服务器 | 木水川的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +231,7 @@
             
             
               
-                Okhttp cache-在Okhttp中使用缓存
+                搭建自己的maven服务器
               
             
           </h1>
@@ -237,8 +243,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-01T17:08:02+08:00" content="2016-03-01">
-              2016-03-01
+            <time itemprop="dateCreated" datetime="2017-05-01T08:48:58+08:00" content="2017-05-01">
+              2017-05-01
             </time>
           </span>
 
@@ -251,8 +257,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/maven/" itemprop="url" rel="index">
+                    <span itemprop="name">maven</span>
                   </a>
                 </span>
 
@@ -267,8 +273,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/01/okhttpcache/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/01/okhttpcache/" itemprop="commentsCount"></span>
+                <a href="/2017/05/01/maven/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/01/maven/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -278,7 +284,7 @@
 
           
           
-             <span id="/2016/03/01/okhttpcache/" class="leancloud_visitors" data-flag-title="Okhttp cache-在Okhttp中使用缓存">
+             <span id="/2017/05/01/maven/" class="leancloud_visitors" data-flag-title="搭建自己的maven服务器">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -298,14 +304,57 @@
       
 
       
-        <p><a href="https://github.com/square/okhttp" target="_blank" rel="external">Okhttp</a>是由Sqare公司开发的开源网络访问库，目前在Android和Java开发中有着广泛的应用。在Android开发中和<a href="https://github.com/square/retrofit" target="_blank" rel="external">Retrofit</a>结合可以非常方便地调用网络接口。</p>
-<p>使用缓存可以让我们的app不用长时间地显示令人厌烦的加载圈，提高了用户体验，而且还节省了流量，在数据更新不是很频繁的地方使用缓存就非常有必要了。想要加入缓存不需要我们自己来实现，Okhttp已经内置了缓存，默认是不使用的，如果想使用缓存我们需要手动设置。</p>
-<h2 id="u670D_u52A1_u5668_u652F_u6301_u7F13_u5B58"><a href="#u670D_u52A1_u5668_u652F_u6301_u7F13_u5B58" class="headerlink" title="服务器支持缓存"></a>服务器支持缓存</h2><p>如果服务器支持缓存，请求返回的Response会带有这样的Header:Cache-Control, max-age=xxx,这种情况下我们只需要手动给okhttp设置缓存就可以让okhttp自动帮你缓存了。这里的max-age的值代表了缓存在你本地存放的时间，可以根据实际需要来设置其大小。</p>
-<p>首先我们要提供了一个文件路径用来存放缓存，出于安全性的考虑，在Android中我们推荐使用Context.getCacheDir()来作为缓存的存放路径，另外还需要指定缓存的大小就可以创建一个缓存了。如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Cache <span class="title">provideCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cache(mContext.getCacheDir(), <span class="number">10240</span>*<span class="number">1024</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>创建了这个缓存后我们还需要将其设置到okttpClient对象里面：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">OkHttpClient newClient = okHttpClient.newBuilder()</span><br><span class="line">               .cache(cache)</span><br><span class="line">               .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">               .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">               .build();</span><br></pre></td></tr></table></figure></p>
-<h2 id="u670D_u52A1_u5668_u4E0D_u652F_u6301_u7F13_u5B58"><a href="#u670D_u52A1_u5668_u4E0D_u652F_u6301_u7F13_u5B58" class="headerlink" title="服务器不支持缓存"></a>服务器不支持缓存</h2><p>如果服务器不支持缓存就可能没有指定这个头部，或者指定的值是如no-store等，但是我们还想在本地使用缓存的话要怎么办呢？这种情况下我们就需要使用Interceptor来重写Respose的头部信息，从而让okhttp支持缓存。<br>如下所示，我们重写的Response的Cache-Control字段<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        Response response = chain.<span class="keyword">proceed</span>(request);</span><br><span class="line">        Response response1 = response.newBuilder()</span><br><span class="line">                .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                .removeHeader(<span class="string">"Cache-Control"</span>)</span><br><span class="line">                <span class="comment">//cache for 30 days</span></span><br><span class="line">                .header(<span class="string">"Cache-Control"</span>, <span class="string">"max-age="</span> + <span class="number">3600</span> * <span class="number">24</span> * <span class="number">30</span>)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> response1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后将该Intercepter作为一个<strong>NetworkInterceptor</strong>加入到okhttpClient中：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line"></span><br><span class="line">OkHttpClient newClient = okHttpClient.newBuilder()</span><br><span class="line">        .addNetworkInterceptor(<span class="keyword">new</span> CacheInterceptor())</span><br><span class="line">        .cache(cache)</span><br><span class="line">        .connectTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">        .readTimeout(<span class="number">20</span>, TimeUnit.SECONDS)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure></p>
-<p>这样我们就可以在服务器不支持缓存的情况下使用缓存了。<br>完整代码见<a href="https://github.com/Chaoba/HearthstoneCards" target="_blank" rel="external">github</a> </p>
+        <p>我们都知道Android studio 使用了Gradle来编译工程，在处理依赖上非常方便，一行代码就可以将一个库引入到工程中来。在工作中为了方便代码的共享提高开发效率，我们很有必要建一个自己的maven服务器，将我们的依赖工程放在服务器上，这样我们想引入我们自己的类库的时候就很方便了。下面我们来搭建一个maven服务器吧。</p>
+<h2 id="u642D_u5EFA_u670D_u52A1_u5668"><a href="#u642D_u5EFA_u670D_u52A1_u5668" class="headerlink" title="搭建服务器"></a>搭建服务器</h2><ol>
+<li>申请个服务器，各种linux都可以。</li>
+<li>下载Nexus Repository OSS， 地址为<a href="https://www.sonatype.com/download-oss-sonatype" target="_blank" rel="external">https://www.sonatype.com/download-oss-sonatype</a></li>
+<li><p>将下载完的包发送到服务器上，如果使用的ssh方式连接服务器可以使用scp命令：当然用户名和ip地址要做相应的修改。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp <span class="constant">Downloads/</span>nexus-<span class="number">3.3</span>.<span class="number">0</span>-<span class="number">01</span>-unix.tar.gz  yourusername<span class="variable">@10</span>.<span class="number">201.102</span>.<span class="number">83</span><span class="symbol">:/home/yourusername/maven</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行解压命令将内容解压到指定的文件夹：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar xvzf nexus-<span class="number">3.3</span><span class="number">.0</span>-<span class="number">01</span>-unix.tar.gz -C /data1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个软连接</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s nexus-<span class="number">3.3</span><span class="number">.0</span>-<span class="number">01</span>/ nexus</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将nexus添加到环境变量中</p>
+</li>
+</ol>
+<ul>
+<li><p>使用vim打开配置文件：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">vim</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加如下命令到文件的末尾：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:/data1/nexus/bin"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存退出后运行下面命令让环境变量生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>运行下面的命令来启动服务：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nexus <span class="literal">start</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在浏览器中输入服务器的地址，如我的服务器地址是：<a href="http://10.201.102.83:8081/，" target="_blank" rel="external">http://10.201.102.83:8081/，</a> 如果一切顺利的话会启动欢迎界面，<br>在这里可以对服务器进行配置和管理。在这里我们需要创建一个新的用户，并记下其密码，在接下来我们会使用。</p>
+</li>
+</ol>
+<h2 id="u4F7F_u7528maven_u670D_u52A1_u5668"><a href="#u4F7F_u7528maven_u670D_u52A1_u5668" class="headerlink" title="使用maven服务器"></a>使用maven服务器</h2><p>OK,服务器已经搭建好了，现在就可以使用了。下面我们来创建一个测试工程并将其发送到服务器上。</p>
+<ol>
+<li><p>创建一个工程，因为这个是一个库工程，所以在build.gradle文件中我们要在开头添加如下代码：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在build.gradle 文件中创建上传任务：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">uploadArchives &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            repository(url: <span class="string">"http://10.201.102.83:8081/repository/maven-releases/"</span>) &#123;</span><br><span class="line">                authentication(userName: <span class="string">"yourname"</span>, password: <span class="string">"yourpassword"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            pom.groupId = <span class="string">'com.test.yourid'</span></span><br><span class="line">             pom.artifactId = <span class="string">'yourartifacid'</span></span><br><span class="line">             pom.version = <span class="string">'1.0.0'</span></span><br><span class="line">             pom.packaging = <span class="string">'aar'</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">task</span> androidJavadocs(type: Javadoc) &#123;</span><br><span class="line">    <span class="keyword">source</span> = android.<span class="keyword">sourceSets</span>.main.java.sourceFiles</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> androidJavadocsJar(type: Jar) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line"> <span class="keyword">from</span> androidJavadocs.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> androidSourcesJar(type: Jar) &#123;</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line"> <span class="keyword">from</span> android.<span class="keyword">sourceSets</span>.main.java.sourceFiles</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">artifacts</span> &#123;</span><br><span class="line">    archives androidSourcesJar</span><br><span class="line">  archives androidJavadocsJar</span><br><span class="line">&#125;</span><br><span class="line">uploadArchives.mustRunAfter(<span class="string">'build'</span>)</span><br><span class="line">uploadArchives &lt;&lt; &#123;</span><br><span class="line">    <span class="keyword">println</span> <span class="string">"Uploaded success"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行命令 ./gradlew uploadArchives, 如果一切顺利的话依赖包会被上传到maven服务器上。</p>
+</li>
+<li><p>在需要引用这个库的工程的build.gradle 文件中添加如下代码进行引用就可以了。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">dependencies</span> &#123;</span><br><span class="line">    <span class="title">repositories</span> &#123;</span><br><span class="line">        <span class="title">maven</span> &#123;</span><br><span class="line">            <span class="title">url</span> <span class="string">'http://10.201.102.83:8081/repository/maven-releases/'</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    compile <span class="string">'com.test.yourid:yourartifacid:1.0.0<span class="variable">@aar</span>'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果有版本的升级，需要将对应的版本号给更新一下。</p>
+</li>
+</ol>
+<p>至此一个我们自己的maven服务器就搞定了，来愉快地玩耍吧。</p>
 
       
     </div>
@@ -314,7 +363,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Okhttp/" rel="tag">#Okhttp</a>
+            <a href="/tags/maven/" rel="tag">#maven</a>
           
         </div>
       
@@ -323,17 +372,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/24/gson/" rel="next" title="使用Gson解析json">
-                <i class="fa fa-chevron-left"></i> 使用Gson解析json
+              <a href="/2017/03/09/mp4box/" rel="next" title="Mp4文件解析">
+                <i class="fa fa-chevron-left"></i> Mp4文件解析
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/10/diary-march/" rel="prev" title="Diary-march">
-                Diary-march <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -348,10 +393,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/03/01/okhttpcache/"
-     data-title="Okhttp cache-在Okhttp中使用缓存"
+        <div class="ds-share flat" data-thread-key="2017/05/01/maven/"
+     data-title="搭建自己的maven服务器"
      data-content=""
-     data-url="http://mushuichuan.com/2016/03/01/okhttpcache/">
+     data-url="http://mushuichuan.com/2017/05/01/maven/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -378,8 +423,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/01/okhttpcache/"
-           data-title="Okhttp cache-在Okhttp中使用缓存" data-url="http://mushuichuan.com/2016/03/01/okhttpcache/">
+      <div class="ds-thread" data-thread-key="2017/05/01/maven/"
+           data-title="搭建自己的maven服务器" data-url="http://mushuichuan.com/2017/05/01/maven/">
       </div>
     
   </div>
@@ -495,7 +540,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u670D_u52A1_u5668_u652F_u6301_u7F13_u5B58"><span class="nav-number">1.</span> <span class="nav-text">服务器支持缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u670D_u52A1_u5668_u4E0D_u652F_u6301_u7F13_u5B58"><span class="nav-number">2.</span> <span class="nav-text">服务器不支持缓存</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u642D_u5EFA_u670D_u52A1_u5668"><span class="nav-number">1.</span> <span class="nav-text">搭建服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F7F_u7528maven_u670D_u52A1_u5668"><span class="nav-number">2.</span> <span class="nav-text">使用maven服务器</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
