@@ -1,0 +1,901 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cmake," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="现在Android studio已经支持使用cmake来进行native开发了。比起ndk来说，cmake好用多了，比如可以在Android studio里面直接dubug native代码，对native 代码也支持高亮显示、代码提示、快捷跳转和自动格式化等功能。总得来说使用Android studio开发c/c++现在几乎和开发java一样方便了。
+现在假设我们有这样一个需求：我们需要依赖一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用cmake解决Android中对第三方库的依赖">
+<meta property="og:url" content="http://mushuichuan.com/2017/06/11/cmake/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="现在Android studio已经支持使用cmake来进行native开发了。比起ndk来说，cmake好用多了，比如可以在Android studio里面直接dubug native代码，对native 代码也支持高亮显示、代码提示、快捷跳转和自动格式化等功能。总得来说使用Android studio开发c/c++现在几乎和开发java一样方便了。
+现在假设我们有这样一个需求：我们需要依赖一个">
+<meta property="og:updated_time" content="2017-06-12T12:47:49.361Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用cmake解决Android中对第三方库的依赖">
+<meta name="twitter:description" content="现在Android studio已经支持使用cmake来进行native开发了。比起ndk来说，cmake好用多了，比如可以在Android studio里面直接dubug native代码，对native 代码也支持高亮显示、代码提示、快捷跳转和自动格式化等功能。总得来说使用Android studio开发c/c++现在几乎和开发java一样方便了。
+现在假设我们有这样一个需求：我们需要依赖一个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用cmake解决Android中对第三方库的依赖 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用cmake解决Android中对第三方库的依赖
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-11T20:58:23+08:00" content="2017-06-11">
+              2017-06-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/11/cmake/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/11/cmake/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/06/11/cmake/" class="leancloud_visitors" data-flag-title="使用cmake解决Android中对第三方库的依赖">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在Android studio已经支持使用cmake来进行native开发了。比起ndk来说，cmake好用多了，比如可以在Android studio里面直接dubug native代码，对native 代码也支持高亮显示、代码提示、快捷跳转和自动格式化等功能。总得来说使用Android studio开发c/c++现在几乎和开发java一样方便了。</p>
+<p>现在假设我们有这样一个需求：我们需要依赖一个第三方的so库；我们需要提供给客户我们打好包后的so库;我们还需要创建我们自己的jni库来进行测试，要怎么进行配置呢？</p>
+<ol>
+<li>首先我们创建一个工程，记得选中”include c++ support”，这样Android studio就会自动帮我们创建好CMakeLists.txt文件了，这个文件就是对native的依赖、编译等进行配置的文件。</li>
+<li><p>接着我们新建一个module layer1,这个module用来生成一个so库作为第三方的sdk。创建接口文件Layer.h，在接口我们定义了两个方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by Li Yanshun on 2017/6/6.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> SINGLELIB_LAYER1_H</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SINGLELIB_LAYER1_H</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;android/log.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span>  LOG_E(...)  __android_log_print(ANDROID_LOG_ERROR,<span class="string">"Netclient"</span>,__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> (*getResponse)();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> (*getRequest)();</span><br><span class="line"></span><br><span class="line">&#125; NET_API_FUNCTIONS_TYPE_LAYER1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> __attribute__ ((visibility (<span class="string">"default"</span>))) NET_API_FUNCTIONS_TYPE_LAYER1 net_client_layer1;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> <span class="comment">//SINGLELIB_LAYER1_H</span></span></span><br></pre></td></tr></table></figure>
+<p>创建文件Layer.cpp来实现这个接口，每个方法都返回一个对应的字符串</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by Li Yanshun on 2017/6/6.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"Layer1.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">get_response</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LOG_E(<span class="string">"layer1 get response"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"layer1:Response"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">get_request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LOG_E(<span class="string">"layer1 get request"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"layer1:Request"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__attribute__ ((visibility (<span class="string">"default"</span>))) NET_API_FUNCTIONS_TYPE_LAYER1 net_client_layer1 = &#123;</span><br><span class="line">        get_response,</span><br><span class="line">        get_request,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最后创建CmakeLists.txt来配置一下工程，通过add_library方法将我们源代码添加进来，生成的so文件命名为layer1，但是系统会自动在名字前面添加lib前缀。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(<span class="constant">VERSION</span> <span class="number">3.4</span>.<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">include_directories(<span class="variable">$&#123;</span><span class="constant">CMAKE_SOURCE_DIR</span>&#125;/src/main/cpp)</span><br><span class="line">set(jnilibs <span class="string">"$&#123;CMAKE_SOURCE_DIR&#125;/src/main/jniLibs"</span>)</span><br><span class="line">set(<span class="constant">CMAKE_LIBRARY_OUTPUT_DIRECTORY</span> <span class="variable">$&#123;</span>jnilibs&#125;/<span class="variable">$&#123;</span><span class="constant">ANDROID_ABI</span>&#125;)</span><br><span class="line"></span><br><span class="line">set(<span class="constant">CMAKE_CXX_FLAGS</span> <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=gnu++11 -fexceptions -frtti -lstdc++"</span>)</span><br><span class="line"></span><br><span class="line">add_library(layer1 <span class="constant">SHARED</span> src/main/cpp/<span class="constant">Layer1</span>.cpp )</span><br><span class="line"></span><br><span class="line">find_library(log-<span class="class"><span class="keyword">lib</span>  <span class="title">log</span> )</span></span><br><span class="line"></span><br><span class="line">target_link_libraries(layer1 <span class="variable">$&#123;</span>log-<span class="class"><span class="keyword">lib</span>&#125; )</span></span><br></pre></td></tr></table></figure>
+<p>编译运行后，会在jniLibs目录下的对应ABI目录里生成liblayer1.so</p>
+</li>
+<li>回到app module来，现在我们有了第三方库，将其复制到app module的jniLibs目录下。在app module的cpp文件夹下创建include、layer2和layer3三个文件夹，layer2将是我们对外提供的sdk，layer3将会是我们用来测试的jni sdk。</li>
+<li>定义Layer2.h 和Layer.cpp，跟layer1的基本类似，不同之处是我们会调用layer1的接口来生成字符串，并加上layer2的前缀<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">get_response_layer2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LOG_E(<span class="string">"layer2 get response"</span>);</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;layer1 = net_client_layer1.getResponse();</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"layer2:"</span> + layer1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在layer2目录下创建一个新的CMakeLists.txt, 将liblayer1.so作为依赖引入进来，将Layer2.cpp作为源代码编译进来，最后用target_link_libraries<br>将layer2和layer1都链接起来。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(layer1 SHARED IMPORTED )</span></span></span><br><span class="line"><span class="function"><span class="title">set_target_properties</span><span class="params">(layer1 PROPERTIES IMPORTED_LOCATION <span class="string">"$&#123;jnilibs&#125;/$&#123;ANDROID_ABI&#125;/liblayer1.so"</span>)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">add_library</span><span class="params">(layer2 SHARED Layer2.cpp)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(layer2 layer1 log)</span></span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>在layer3目录下创建Layer3.cpp，用来实现我们的jni接口，当然里面调用的是layer2的接口。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by Li Yanshun on 2017/6/6.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"../include/Layer2.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL</span><br><span class="line"><span class="title">Java_com_mushuichuan_cmakemutiso_MainActivity_requestStringFromJNI</span><span class="params">(JNIEnv *env, jobject)</span> </span>&#123;</span><br><span class="line">    LOG_E(<span class="string">"layer3 get request"</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> request = <span class="string">"Layer3:"</span> + net_client_layer2.getRequest();</span><br><span class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(request.c_str());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL</span><br><span class="line"><span class="title">Java_com_mushuichuan_cmakemutiso_MainActivity_responseStringFromJNI</span><span class="params">(JNIEnv *env, jobject)</span> </span>&#123;</span><br><span class="line">    LOG_E(<span class="string">"layer3 get response"</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> response = <span class="string">"Layer3:"</span> + net_client_layer2.getResponse();</span><br><span class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(response.c_str());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>创建CMakeList.txt,将对layer2的依赖添加进来<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">add_library(layer3 <span class="constant">SHARED</span> <span class="constant">Layer3</span>.cpp)</span><br><span class="line"></span><br><span class="line">add_library(layer2sdk <span class="constant">SHARED</span> <span class="constant">IMPORTED</span> )</span><br><span class="line">set_target_properties(layer2sdk <span class="constant">PROPERTIES</span> <span class="constant">IMPORTED_LOCATION</span> <span class="string">"$&#123;jnilibs&#125;/$&#123;ANDROID_ABI&#125;/liblayer2.so"</span>)</span><br><span class="line"></span><br><span class="line">find_library( log-<span class="class"><span class="keyword">lib</span> <span class="title">log</span> )</span></span><br><span class="line"></span><br><span class="line">target_link_libraries(layer3 layer2 <span class="variable">$&#123;</span>log-<span class="class"><span class="keyword">lib</span>&#125;)</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>在app module的CMakeLists.txt里将layer2和layer3给添加进来</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">cmake_minimum_required</span><span class="params">(VERSION <span class="number">3.4</span>.<span class="number">1</span>)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">include_directories</span><span class="params">($&#123;CMAKE_SOURCE_DIR&#125;/src/main/cpp/include)</span></span></span><br><span class="line"><span class="function"><span class="title">set</span><span class="params">(jnilibs <span class="string">"$&#123;CMAKE_SOURCE_DIR&#125;/src/main/jniLibs"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">set</span><span class="params">(CMAKE_LIBRARY_OUTPUT_DIRECTORY $&#123;jnilibs&#125;/$&#123;ANDROID_ABI&#125;)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">set</span><span class="params">(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=gnu++11 -fexceptions -frtti -lstdc++"</span>)</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">ADD_SUBDIRECTORY</span><span class="params">($&#123;CMAKE_SOURCE_DIR&#125;/src/main/cpp/layer2)</span></span></span><br><span class="line"><span class="function"><span class="title">ADD_SUBDIRECTORY</span><span class="params">($&#123;CMAKE_SOURCE_DIR&#125;/src/main/cpp/layer3)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译运行，在jniLibs目录下对应的ABI里会生成liblayer2.so和liblayer3.so。在App调用对应的接口也会返回从layer1-&gt;layer2-&gt;layer3层层包装<br>过后的字符串。至此我们就满足了上面的需求了即依赖了第三方sdk，还创建我们自己的sdk，同时和可以通过jni接口来测试我们的sdk。</p>
+</li>
+</ol>
+<p>项目源码将<a href="https://github.com/Chaoba/CmakeMultiSo" target="_blank" rel="external">Github</a></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cmake/" rel="tag">#cmake</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/23/openglpicture/" rel="next" title="使用opengl生产图片">
+                <i class="fa fa-chevron-left"></i> 使用opengl生产图片
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/06/11/cmake/"
+     data-title="使用cmake解决Android中对第三方库的依赖"
+     data-content=""
+     data-url="http://mushuichuan.com/2017/06/11/cmake/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/11/cmake/"
+           data-title="使用cmake解决Android中对第三方库的依赖" data-url="http://mushuichuan.com/2017/06/11/cmake/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
