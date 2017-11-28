@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="GoDaddy," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -57,28 +57,22 @@
 
 
 
-<meta name="description" content="在github上使用hexo建了自己的个人博客后，就有了下一步的需要：来一个自己的个人域名吧。人生的意义就在于折腾，今天折腾了半天终于搞定了
-域名服务商选择当然是godaddy，国内的貌似各种事比较多。我注册了一年是12美元多一点，有时会有优惠和各种优惠码能便宜一些。进去首先注册一个账号，然后输入自己想要的域名检查一下如果没有被别人注册就可以使用支付宝支付从而获得这个域名了。
-购买了域名之后需要进">
+<meta name="description" content="前一段时间用c/c++开发了一个Android SDK,中间踩过很多坑，最后做了一版重构版，总结了一些经验教训。
+接口设计接口设计有以下几点我认为很重要：
+1. 保持简洁要把我们的 SDK 用户当做小白，他们基本不会阅读你的文档，也不会看我们的代码注释，只会将 demo 里的代码复制粘贴到他们自己的工程里。所以我们在设计接口的时候一定要多站在小白用户的角度来考虑怎样才能把接口设计得足够简洁，从而减">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GoDaddy使用DNSSPod设置">
-<meta property="og:url" content="http://mushuichuan.com/2015/12/15/dnsseting/index.html">
+<meta property="og:title" content="C++ SDK 设计经验总结">
+<meta property="og:url" content="http://mushuichuan.com/2017/11/28/interface/index.html">
 <meta property="og:site_name" content="木水川的博客">
-<meta property="og:description" content="在github上使用hexo建了自己的个人博客后，就有了下一步的需要：来一个自己的个人域名吧。人生的意义就在于折腾，今天折腾了半天终于搞定了
-域名服务商选择当然是godaddy，国内的貌似各种事比较多。我注册了一年是12美元多一点，有时会有优惠和各种优惠码能便宜一些。进去首先注册一个账号，然后输入自己想要的域名检查一下如果没有被别人注册就可以使用支付宝支付从而获得这个域名了。
-购买了域名之后需要进">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20151215143739.png">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20151215143817.png">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093144.png">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093622.png">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093436.png">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/20160104113137.png">
-<meta property="og:updated_time" content="2016-01-04T03:34:50.000Z">
+<meta property="og:description" content="前一段时间用c/c++开发了一个Android SDK,中间踩过很多坑，最后做了一版重构版，总结了一些经验教训。
+接口设计接口设计有以下几点我认为很重要：
+1. 保持简洁要把我们的 SDK 用户当做小白，他们基本不会阅读你的文档，也不会看我们的代码注释，只会将 demo 里的代码复制粘贴到他们自己的工程里。所以我们在设计接口的时候一定要多站在小白用户的角度来考虑怎样才能把接口设计得足够简洁，从而减">
+<meta property="og:updated_time" content="2017-11-28T14:30:06.262Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GoDaddy使用DNSSPod设置">
-<meta name="twitter:description" content="在github上使用hexo建了自己的个人博客后，就有了下一步的需要：来一个自己的个人域名吧。人生的意义就在于折腾，今天折腾了半天终于搞定了
-域名服务商选择当然是godaddy，国内的貌似各种事比较多。我注册了一年是12美元多一点，有时会有优惠和各种优惠码能便宜一些。进去首先注册一个账号，然后输入自己想要的域名检查一下如果没有被别人注册就可以使用支付宝支付从而获得这个域名了。
-购买了域名之后需要进">
+<meta name="twitter:title" content="C++ SDK 设计经验总结">
+<meta name="twitter:description" content="前一段时间用c/c++开发了一个Android SDK,中间踩过很多坑，最后做了一版重构版，总结了一些经验教训。
+接口设计接口设计有以下几点我认为很重要：
+1. 保持简洁要把我们的 SDK 用户当做小白，他们基本不会阅读你的文档，也不会看我们的代码注释，只会将 demo 里的代码复制粘贴到他们自己的工程里。所以我们在设计接口的时候一定要多站在小白用户的角度来考虑怎样才能把接口设计得足够简洁，从而减">
 
 
 
@@ -96,7 +90,7 @@
   };
 </script>
 
-  <title> GoDaddy使用DNSSPod设置 | 木水川的博客 </title>
+  <title> C++ SDK 设计经验总结 | 木水川的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +228,7 @@
             
             
               
-                GoDaddy使用DNSSPod设置
+                C++ SDK 设计经验总结
               
             
           </h1>
@@ -246,8 +240,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-15T14:40:40+08:00" content="2015-12-15">
-              2015-12-15
+            <time itemprop="dateCreated" datetime="2017-11-28T22:19:39+08:00" content="2017-11-28">
+              2017-11-28
             </time>
           </span>
 
@@ -260,8 +254,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -276,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/15/dnsseting/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/dnsseting/" itemprop="commentsCount"></span>
+                <a href="/2017/11/28/interface/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/28/interface/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -287,7 +281,7 @@
 
           
           
-             <span id="/2015/12/15/dnsseting/" class="leancloud_visitors" data-flag-title="GoDaddy使用DNSSPod设置">
+             <span id="/2017/11/28/interface/" class="leancloud_visitors" data-flag-title="C++ SDK 设计经验总结">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -307,18 +301,35 @@
       
 
       
-        <p>在github上使用hexo建了自己的个人博客后，就有了下一步的需要：来一个自己的个人域名吧。人生的意义就在于折腾，今天折腾了半天终于搞定了</p>
-<p>域名服务商选择当然是<a href="https://www.godaddy.com/" target="_blank" rel="external">godaddy</a>，国内的貌似各种事比较多。我注册了一年是12美元多一点，有时会有优惠和各种优惠码能便宜一些。进去首先注册一个账号，然后输入自己想要的域名检查一下如果没有被别人注册就可以使用支付宝支付从而获得这个域名了。</p>
-<p>购买了域名之后需要进行一系列的配置，网上很多的教程都旧了，godaddy的页面改了好多，不过基本上都差不多。设置的步骤如下：</p>
-<p>1.注册成功后，进入个人的account,会看到如下图所示的列表：<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20151215143739.png" alt=""></p>
-<p>2.点击DOMAINS那一列的Manage按钮，会看到你所注册的域名.然后点击右上角的设置按钮选择Manage DNS<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20151215143817.png" alt=""></p>
-<p>3.选择SETTINGS选项卡，第三列是Nameservers,点击右边的Manage<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093144.png" alt=""></p>
-<p>4.添加Nameserver, 我所使用的是<a href="https://www.dnspod.cn" target="_blank" rel="external">DNSSPod</a>。选择Custom,然后点ADD<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093622.png" alt=""></p>
-<p>5.在输入框里输入DNSPod的两个地址：f1g1ns1.dnspod.net f1g1ns2.dnspod.net 然后点击ok<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20151216093436.png" alt=""></p>
-<p>6.进入<a href="https://www.dnspod.cn" target="_blank" rel="external">DNSSPod</a>注册一个账号后导入你购买的这个域名，然后添加两条主机记录为@和www的记录，记录类型选择CNAME,记录值为yourgithubaccount.github.io<br><img src="http://7xp3vb.com1.z0.glb.clouddn.com/20160104113137.png" alt=""></p>
-<p>8.在hexo 的source目录下新建一个文件CNAME,没有后缀，里面写上你的域名，注意没有<a href="http://。然后使用hexo" target="_blank" rel="external">http://。然后使用hexo</a> g, hexo d命令部署一下。</p>
-<p>好了，现在就可以等待你的域名生效了，时间长短不一定，可以按时刷新一下或者使用ping yoursite的命令来查看新域名是否生效。</p>
-
+        <p>前一段时间用c/c++开发了一个Android SDK,中间踩过很多坑，最后做了一版重构版，总结了一些经验教训。</p>
+<h1 id="u63A5_u53E3_u8BBE_u8BA1"><a href="#u63A5_u53E3_u8BBE_u8BA1" class="headerlink" title="接口设计"></a>接口设计</h1><p>接口设计有以下几点我认为很重要：</p>
+<h2 id="1-__u4FDD_u6301_u7B80_u6D01"><a href="#1-__u4FDD_u6301_u7B80_u6D01" class="headerlink" title="1. 保持简洁"></a>1. 保持简洁</h2><p>要把我们的 SDK 用户当做小白，他们基本不会阅读你的文档，也不会看我们的代码注释，只会将 demo 里的代码复制粘贴到他们自己的工程里。所以我们在设计接口的时候一定要多站在小白用户的角度来考虑怎样才能把接口设计得足够简洁，从而减少我们很多的后期支持操作。</p>
+<h2 id="2-__u4FDD_u6301_u7A33_u5B9A"><a href="#2-__u4FDD_u6301_u7A33_u5B9A" class="headerlink" title="2. 保持稳定"></a>2. 保持稳定</h2><p>这一点应该很好理解，如果接口不稳定，每次更改接口必然会导致用户的抱怨，他们也必然会产生各种各样的集成问题，我们就必须做好增加支持工作量的准备，双方都很不happyㄟ( ▔, ▔ )ㄏ</p>
+<h2 id="3-__u53EF_u6269_u5C55"><a href="#3-__u53EF_u6269_u5C55" class="headerlink" title="3. 可扩展"></a>3. 可扩展</h2><p>不可扩展的接口在面对新的需求的时候要么修改原来的接口，要么添加新的接口。同第二条一样,等待迎接客户暴风雨般的抱怨和求助吧。<br>要做到以上3点，我们可以这样来设计接口：即将有关联的数据或者返回值用一个结构体进行封装，这样接口的参数只有结构体，即使以后有什么需要修改的地方，只要把结构体做一下修改即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Status (*compare)(Handle handle, <span class="keyword">const</span> Image* image,</span><br><span class="line">                           CompareStat* compare_stat);</span><br></pre></td></tr></table></figure>
+<p>如上面的这个接口需要传入一个Handle和 Image的结构体指针，输入的内容通过CompareStat结构体输出。这两个结构体我们可以这样设计：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> InpBlob &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span>* buf;</span><br><span class="line">    <span class="keyword">size_t</span> size;</span><br><span class="line">&#125; InpBlob;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Image &#123;</span><br><span class="line">    InpBlob data;</span><br><span class="line">    <span class="keyword">int</span> width, height;</span><br><span class="line">&#125; Image</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> CompareStat &#123;</span><br><span class="line">    <span class="keyword">int</span> compare_score;</span><br><span class="line">    <span class="keyword">int</span> compare_count;  </span><br><span class="line">    ...</span><br><span class="line">&#125; CompareStat;</span><br></pre></td></tr></table></figure>
+<p>在结构体Image内部还包含另外一个结构体InBlob来包含传入的图像数据。这样设计的接口不仅简单明了，而且还很容易扩展。</p>
+<h2 id="4-__u53EF_u914D_u7F6E"><a href="#4-__u53EF_u914D_u7F6E" class="headerlink" title="4. 可配置"></a>4. 可配置</h2><p>永远不要低估客户提出各种需求的决心，如果用户的需求我们现在的接口无法满足的话，那就只能修改接口了。所以我们一定要提供一个配置接口，尽最大地可能让用户根据他们自己的需求来对 SDK 进行配置。当然不要忘了提供一个默认配置</p>
+<h2 id="5-__u5BF9_u5916_u66B4_u9732C_u7B26_u53F7"><a href="#5-__u5BF9_u5916_u66B4_u9732C_u7B26_u53F7" class="headerlink" title="5. 对外暴露C符号"></a>5. 对外暴露C符号</h2><p>C++的接口在编译后会对符号加上一些更改，所以如果用户用的C++版本和我们的不一致的话肯定会导致各种方法找不到的问题。最好给用户暴露C的符号，这样不论C++的版本如何都不会产生上面所说的问题。</p>
+<h1 id="u6A21_u5757_u5212_u5206_u548C_u6D4B_u8BD5"><a href="#u6A21_u5757_u5212_u5206_u548C_u6D4B_u8BD5" class="headerlink" title="模块划分和测试"></a>模块划分和测试</h1><p>要开发一个质量高的 SDK 完善的测试时离不开的，这里的测试是指高质量的自动化 testcase。 而良好的模块划分是书写高质量 testcase 的基础。想象一下各种不同的功能都放在同一个模块里互相依赖，我们要怎么写单元测试的 testcase 呢？ 把模块划分好，不仅有利于多人合作也有利于 testcase 的书写。当所有的模块都伴随着 testcase 书写完成的时候，将它们组装起来就是一种非常容易的事情了。所以，在开始开发前先把功能想清楚，把模块划分好，磨刀不误砍柴工。</p>
+<blockquote>
+<p>关于 C++ testcase 的书写我们可以使用 gtest</p>
+<p>如果想将 sdk 跑在 Android 手机上可以使用 termux</p>
+</blockquote>
+<h1 id="u4E00_u4E9B_u5C0F_u6280_u5DE7"><a href="#u4E00_u4E9B_u5C0F_u6280_u5DE7" class="headerlink" title="一些小技巧"></a>一些小技巧</h1><h2 id="1-__u5DE7_u5999_u7EDF_u8BA1_u65B9_u6CD5_u6267_u884C_u65F6_u95F4"><a href="#1-__u5DE7_u5999_u7EDF_u8BA1_u65B9_u6CD5_u6267_u884C_u65F6_u95F4" class="headerlink" title="1. 巧妙统计方法执行时间"></a>1. 巧妙统计方法执行时间</h2><p>如果 SDK 对性能有比较高的需求的话那统计主要方法的执行时间找出性能的瓶颈就很有必要了。那么要怎么来统计呢？一个很容易想到的办法就是在方法开始执行的时候记录下一个时间，然后在方法返回前计算一下时间差并输出来。但是这样有一些弊端，一方面比较繁琐，另一方面如果一个方法有多个地方会 return 那就会让人比较崩溃了，可能需要在每个return 前面都加上统计时间差的代码。作为一个懒人表示这是不可容忍的。</p>
+<p>考虑到方法的执行就是进栈和退栈的过程，即方法执行的过程中，如果创建一些非 new 出来的临时变量，这些变量都会被压入到栈中；而当方法执行完毕的时候，栈会回退到方法执行前的状态，所有在方法内用非 new 的方式创建的临时变量都会被自动回收。所有我们可以定义一个 ScopedTimer 类，在其构造方法里记录一个开始时间，然后在其析构函数里统计时间差并输出。这样我们只要在方法的最开始创建一个 ScopedTimer的对象就能达到统计方法执行时间的目的了。参考代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> ScopedTimer &#123;</span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">char</span>* m_name;</span><br><span class="line">   Timer m_timer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   ScopedTimer(<span class="keyword">const</span> <span class="keyword">char</span>* name);</span><br><span class="line">   ~ScopedTimer() <span class="keyword">noexcept</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ScopedTimer::ScopedTimer(<span class="keyword">const</span> <span class="keyword">char</span>* name) : m_name&#123;name&#125; &#123;</span><br><span class="line"><span class="built_in">log</span>(<span class="string">"enter %s"</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ScopedTimer::~ScopedTimer() <span class="keyword">noexcept</span> &#123;</span><br><span class="line"> <span class="built_in">log</span>(<span class="string">"time:%s: %.3fms"</span>, m_name, m_timer.get_msecs());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-__u901A_u8FC7_u5B8F_u68C0_u6D4B_u51FD_u6570_u8FD4_u56DE_u503C"><a href="#2-__u901A_u8FC7_u5B8F_u68C0_u6D4B_u51FD_u6570_u8FD4_u56DE_u503C" class="headerlink" title="2. 通过宏检测函数返回值"></a>2. 通过宏检测函数返回值</h2><p>虽然现在C++开发并不推荐使用宏了，但是有些情况下用好了还是很方便的。例如我们需要检测一下调用函数的返回值，在返回值异常的时候终止当前方法的执行并返回异常的返回值，我们可以这样做：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Status</span> <span class="literal">result</span> = check_quality();</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">result</span> != <span class="type">OK</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可能一个方法还好说，如果要检查很多函数的返回值的话我们就不得不重复写这些无聊的代码。利用宏我们可以巧妙地把自己从这种重复性的工作中解放出来。我们可以定义如下所示的宏：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> CHECK_RET(_expr)          \</span><br><span class="line">    do &#123;                          \</span><br><span class="line">        Status _s = (_expr);      \</span><br><span class="line">        <span class="keyword">if</span> (_s != OK) &#123;           \</span><br><span class="line">            return _s;            \</span><br><span class="line">        &#125;                         \</span><br><span class="line">    &#125; while (<span class="number">0</span>)</span></span><br></pre></td></tr></table></figure>
+<p>通过这个宏可以在检查返回值的同时将所有异常的返回值直接返回，下面我们就可以很轻松地做这种检查了,是不是感觉很清爽？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">check_quality</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    CHECK_RET(check_1());</span><br><span class="line">    CHECK_RET(check_2());</span><br><span class="line">    CHECK_RET(check_3());</span><br><span class="line">    CHECK_RET(check_4());</span><br><span class="line">    CHECK_RET(check_5());</span><br><span class="line">    CHECK_RET(check_6());</span><br><span class="line">    CHECK_RET(check_7());</span><br><span class="line">    CHECK_RET(check_8());</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-__u4F7F_u7528_u667A_u80FD_u6307_u9488_u4EE3_u66FF_u88F8_u6307_u9488"><a href="#3-__u4F7F_u7528_u667A_u80FD_u6307_u9488_u4EE3_u66FF_u88F8_u6307_u9488" class="headerlink" title="3. 使用智能指针代替裸指针"></a>3. 使用智能指针代替裸指针</h2><p>所谓的裸指针就是直接定义并使用指针如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">Handler</span>* m_handler;</span></span><br></pre></td></tr></table></figure>
+<p>使用裸指针很容易出现忘记释放内存的情况，造成内存的泄漏而且还难以查找根源，所以我们最好忘掉裸指针，直接使用智能智能指针来代替。如上面的指针用智能指针可以写成下面的形式。这样我们就再也无需操心内存的释放问题了。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">std:</span><span class="symbol">:unique_ptr&lt;Handler&gt;</span> m_handler;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -326,7 +337,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GoDaddy/" rel="tag">#GoDaddy</a>
+            <a href="/tags/C/" rel="tag">#C++</a>
           
         </div>
       
@@ -335,17 +346,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/14/rxjava-operator-8/" rel="next" title="RxJava操作符（八）Aggregate">
-                <i class="fa fa-chevron-left"></i> RxJava操作符（八）Aggregate
+              <a href="/2017/06/11/cmake/" rel="next" title="使用cmake解决Android中对第三方库的依赖">
+                <i class="fa fa-chevron-left"></i> 使用cmake解决Android中对第三方库的依赖
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/23/gitcafe/" rel="prev" title="将hexo博客同时部署到github和gitcafe">
-                将hexo博客同时部署到github和gitcafe <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -360,10 +367,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/15/dnsseting/"
-     data-title="GoDaddy使用DNSSPod设置"
+        <div class="ds-share flat" data-thread-key="2017/11/28/interface/"
+     data-title="C++ SDK 设计经验总结"
      data-content=""
-     data-url="http://mushuichuan.com/2015/12/15/dnsseting/">
+     data-url="http://mushuichuan.com/2017/11/28/interface/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -390,8 +397,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/15/dnsseting/"
-           data-title="GoDaddy使用DNSSPod设置" data-url="http://mushuichuan.com/2015/12/15/dnsseting/">
+      <div class="ds-thread" data-thread-key="2017/11/28/interface/"
+           data-title="C++ SDK 设计经验总结" data-url="http://mushuichuan.com/2017/11/28/interface/">
       </div>
     
   </div>
@@ -507,7 +514,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u63A5_u53E3_u8BBE_u8BA1"><span class="nav-number">1.</span> <span class="nav-text">接口设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-__u4FDD_u6301_u7B80_u6D01"><span class="nav-number">1.1.</span> <span class="nav-text">1. 保持简洁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-__u4FDD_u6301_u7A33_u5B9A"><span class="nav-number">1.2.</span> <span class="nav-text">2. 保持稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-__u53EF_u6269_u5C55"><span class="nav-number">1.3.</span> <span class="nav-text">3. 可扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-__u53EF_u914D_u7F6E"><span class="nav-number">1.4.</span> <span class="nav-text">4. 可配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-__u5BF9_u5916_u66B4_u9732C_u7B26_u53F7"><span class="nav-number">1.5.</span> <span class="nav-text">5. 对外暴露C符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u6A21_u5757_u5212_u5206_u548C_u6D4B_u8BD5"><span class="nav-number">2.</span> <span class="nav-text">模块划分和测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u4E00_u4E9B_u5C0F_u6280_u5DE7"><span class="nav-number">3.</span> <span class="nav-text">一些小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-__u5DE7_u5999_u7EDF_u8BA1_u65B9_u6CD5_u6267_u884C_u65F6_u95F4"><span class="nav-number">3.1.</span> <span class="nav-text">1. 巧妙统计方法执行时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-__u901A_u8FC7_u5B8F_u68C0_u6D4B_u51FD_u6570_u8FD4_u56DE_u503C"><span class="nav-number">3.2.</span> <span class="nav-text">2. 通过宏检测函数返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-__u4F7F_u7528_u667A_u80FD_u6307_u9488_u4EE3_u66FF_u88F8_u6307_u9488"><span class="nav-number">3.3.</span> <span class="nav-text">3. 使用智能指针代替裸指针</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

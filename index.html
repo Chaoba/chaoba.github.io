@@ -230,6 +230,133 @@
             
               
                 
+                <a class="post-title-link" href="/2017/11/28/interface/" itemprop="url">
+                  C++ SDK 设计经验总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-28T22:19:39+08:00" content="2017-11-28">
+              2017-11-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/28/interface/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/28/interface/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/11/28/interface/" class="leancloud_visitors" data-flag-title="C++ SDK 设计经验总结">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前一段时间用c/c++开发了一个Android SDK,中间踩过很多坑，最后做了一版重构版，总结了一些经验教训。
+接口设计接口设计有以下几点我认为很重要：
+1. 保持简洁要把我们的 SDK 用户当做小白，他们基本不会阅读你的文档，也不会看我们的代码注释，只会将 demo 里的代码复制粘贴到他们自己的工程里。所以我们在设计接口的时候一定要多站在小白用户的角度来考虑怎样才能把接口设计得足够简洁，从而减少我们很多的后期支持操作。
+2. 保持稳定这一点应该很好理解，如果接口不稳定，每次更改接口必然会导致用户的抱怨，他们也必然会产生各种各样的集成问题，我们就必须做好增加支持工作量的准备，双方都很不hap
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/11/28/interface/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/06/11/cmake/" itemprop="url">
                   使用cmake解决Android中对第三方库的依赖
                 </a>
@@ -1347,137 +1474,6 @@ Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retriev
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/18/pi/" itemprop="url">
-                  使用Rxjava计算圆周率
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-18T21:55:14+08:00" content="2016-10-18">
-              2016-10-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/18/pi/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/18/pi/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/10/18/pi/" class="leancloud_visitors" data-flag-title="使用Rxjava计算圆周率">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          对于圆周率率的求法有很多，最近看到一个Spark的例子使用了map和reduce的方法来求一个圆周率的近似值。这个算法的思想是这样的：
-
-半径为r的圆的面积CA = π × r × r
-这个园的外切正方形的面积SA = 4 × r × r
-π = CA / r / r = CA × 4 / SA
-
-根据上面的推导，我们只要知道圆形和正方形的面积之比就行了。然后我们在这个正方形的面积内随机生成足够多的点，用落在圆内的点数除以总的点数就可以得到一个近似的比值了。当然随机值的数目越多，得到的结果就会越精确。
-具体程序的实现上，我们假设圆心为（1,1）的圆的半径为1，所以正方形的边长就为2. 然后使用
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/18/pi/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1524,7 +1520,7 @@ Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retriev
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1538,7 +1534,7 @@ Android 问题汇总values-v23.xml file shows error : “Error:(2) Error retriev
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
