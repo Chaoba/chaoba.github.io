@@ -1,0 +1,925 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="在LeetCode的题目讨论中，经常会有些大神将某一类的题目结题思路给整理了出来，感觉受益匪浅。受之启发，萌生了自己也总结一下常见算法的解题思路的想法，希望可以让自己在这个总结的过程中可也融汇贯通这些思路，同时可以给后来者以启发。
+从哪里开始好呢？就从经典的二分查找法开始吧，这个算法几乎所有学过计算机的人都知道，而且我在之前的面试中不止一次碰到过这个算法以及这个算法的变种。二分查找法的思路就是通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-二分查找法">
+<meta property="og:url" content="http://mushuichuan.com/2019/09/01/binaray/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="在LeetCode的题目讨论中，经常会有些大神将某一类的题目结题思路给整理了出来，感觉受益匪浅。受之启发，萌生了自己也总结一下常见算法的解题思路的想法，希望可以让自己在这个总结的过程中可也融汇贯通这些思路，同时可以给后来者以启发。
+从哪里开始好呢？就从经典的二分查找法开始吧，这个算法几乎所有学过计算机的人都知道，而且我在之前的面试中不止一次碰到过这个算法以及这个算法的变种。二分查找法的思路就是通过">
+<meta property="og:updated_time" content="2019-09-01T08:14:57.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-二分查找法">
+<meta name="twitter:description" content="在LeetCode的题目讨论中，经常会有些大神将某一类的题目结题思路给整理了出来，感觉受益匪浅。受之启发，萌生了自己也总结一下常见算法的解题思路的想法，希望可以让自己在这个总结的过程中可也融汇贯通这些思路，同时可以给后来者以启发。
+从哪里开始好呢？就从经典的二分查找法开始吧，这个算法几乎所有学过计算机的人都知道，而且我在之前的面试中不止一次碰到过这个算法以及这个算法的变种。二分查找法的思路就是通过">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-二分查找法 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-二分查找法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-09-01T16:03:20+08:00" content="2019-09-01">
+              2019-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/09/01/binaray/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/01/binaray/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/09/01/binaray/" class="leancloud_visitors" data-flag-title="算法总结-二分查找法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在LeetCode的题目讨论中，经常会有些大神将某一类的题目结题思路给整理了出来，感觉受益匪浅。受之启发，萌生了自己也总结一下常见算法的解题思路的想法，希望可以让自己在这个总结的过程中可也融汇贯通这些思路，同时可以给后来者以启发。</p>
+<p>从哪里开始好呢？就从经典的二分查找法开始吧，这个算法几乎所有学过计算机的人都知道，而且我在之前的面试中不止一次碰到过这个算法以及这个算法的变种。<br>二分查找法的思路就是通过条件判断每次淘汰掉一半的数据，从而可以达到一个非常快的查找速度。下面我们结合具体的题目来看一下。</p>
+<h2 id="LeetCode35"><a href="#LeetCode35" class="headerlink" title="LeetCode35"></a>LeetCode35</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/search-insert-position/" target="_blank" rel="external">https://leetcode.com/problems/search-insert-position/</a></p>
+<p><strong>题目描述：</strong> 在一个递增的有序不重复的数列中查找一个目标数字，如果找到就返回这个数字的index, 否则返回这个数字应该插入到数列中的index。</p>
+<p><strong>思路:</strong> 这是一道最基础的二分查找题，每次拿出序列中间的数并和目标数字进行比较，会有三种情况：</p>
+<ol>
+<li>这个数恰好等于目标数字，找到了，返回index。</li>
+<li>这个数比目标小说明目标在右半边的序列中，淘汰掉左半边。</li>
+<li>这个数比目标大说明目标在左半边的序列中，淘汰掉右半边。<br>当出现2、3这两种情况时，我们就在对应的半边序列中递归地重复上述判断,直到这半边的序列为空位止，这时就说明序列中并没有对应的数字，直接返回当前的index。</li>
+</ol>
+<p><strong>代码：</strong> 有递归和非递归两种实现，这里使用非递归的方式。代码由C++来实现。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l =<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt;= r) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &gt; target)&#123;</span><br><span class="line">            r = mid -<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码分析：</strong> 由于每次判断都能去掉一半的数字所以时间复杂度是O(logN)。还有几个细节需要注意下：</p>
+<ol>
+<li>为什么 while 循环的条件是 l &lt;= r 而不是 l &lt; r 呢？对于这种边界的判断我们只要考虑一下极端情况下回如何就好，如在只有一个数字 0 的数列中查找 0，这种情况下 l 和 r 都是 0， 如果使用 l &lt; r 作为判断条件很明显是不会进入 while 循环进行判断的。</li>
+<li>为什么不用<code>int mid = (l + r) / 2</code>的方式求 mid 的值呢？ 当数列的长度很大的时候，<code>l + r</code> 有可能超出 int 的最大值导致溢出，所以代码中的方式较为健壮。</li>
+<li>为什么不相等后 r 和 l 的值不是赋值成 mid，而是要 -1 和 +1 呢？如果不相等，说明无轮如何 <code>nums[mid]</code> 都不应该被包含进下一轮的判断，通过 -1 和 +1 来将其砍掉。</li>
+</ol>
+<h2 id="LeetCode34"><a href="#LeetCode34" class="headerlink" title="LeetCode34"></a>LeetCode34</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/" target="_blank" rel="external">https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/</a><br><strong>题目描述：</strong><br>这是一道二分查找法的变种。需要在一个含有重复数字的递增数列中找到目标数字的起始和结束的 index，没有的话返回{-1, -1}。</p>
+<p><strong>思路：</strong> 很多人看到这个题目后的最初想法估计都是直接从前面和后面按顺序查找，但是直接查找的复杂度是 O(N)，并不是一个好的方案。我们还是要从二分查找法入手，但是换一种思路，使用二分法实现一个方法找到一个数在数列中最左侧的 index, 没有的话就返回其插入位置，这样起始位置可以直接用这个方法，结束的位置可以通过查找目标数 +1 的方式来实现。</p>
+<p>所以问题就成了如何找到重复数字最左侧的 index, 同上面一样，我们还是取中间位置的数同目标数字进行对比，此时却只有两种状态了：</p>
+<ol>
+<li>中间数比目标数字小，说明目标数字在右半序列中，淘汰掉当前位置和左半边。</li>
+<li>中间数大于或者等于目标数字，这里再分三种情况：<ol>
+<li>中间数大于目标数字，结果在左半边序列中，淘汰掉当前位置和右半边。</li>
+<li>中间数等于目标数字，但是不是最左侧的，结果在左半边序列中，淘汰掉当前位置和右半边。</li>
+<li>中间数等于目标数字，而且就是最左侧的，此时如果也淘汰掉当前位置和右半边的话，左侧的 l 坐标在退出循环的时候就会指向当前的这个位置，恰好是返回值。</li>
+</ol>
+</li>
+</ol>
+<p><strong>代码：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; searchRange(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">int</span> left = findLeftIndex(nums, target);</span><br><span class="line">    <span class="comment">//在序列中没有target, 直接返回。</span></span><br><span class="line">    <span class="keyword">if</span>(left == nums.size() || nums[left] != target) <span class="keyword">return</span> &#123;-<span class="number">1</span> , -<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> right = findLeftIndex(nums, target + <span class="number">1</span>) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;left, right&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回target最左侧的index, 如果没有则返回target应该插入的index。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findLeftIndex</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> r = nums.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] &lt; target)&#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码分析：</strong> 当我们查找到 target 的起始位置后，需要判断序列中是否含有 target, 没有的话就可以直接返回了，否则可以继续找结束位置。在这里我们查找 target + 1 的最左侧的index, 这样，无论数列中是否含有 target + 1, 这个index - 1 都是 target 在数列中的结束位置。</p>
+<h2 id="LeetCode74"><a href="#LeetCode74" class="headerlink" title="LeetCode74"></a>LeetCode74</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/search-a-2d-matrix/" target="_blank" rel="external">https://leetcode.com/problems/search-a-2d-matrix/</a><br><strong>题目描述：</strong><br>有一个二维数组，每一行中的数字都是递增的，而且比上一行的数字都要大，查找一个数是否在这个数组中。</p>
+<p><strong>思路：</strong> 这个二维数组其实就是一个递增的一维数组将其给拆成多个子数列，所以我们可以直接使用二分法进行查找，只要处理好序列的坐标即可。</p>
+<p><strong>代码：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!matrix.size() || !matrix[<span class="number">0</span>].size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.size();</span><br><span class="line">    <span class="keyword">int</span> n = matrix[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">int</span> j = m * n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= j)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = i + (j - i) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(matrix[mid / n][mid % n] == target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(matrix[mid / n][mid % n] &gt; target) j = mid -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> i = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码分析：</strong> 这个 m 行 n 列的二维数组总共有 m * n 个数字，我们直接将其看成一个一维数组来计算 mid，然后通过 <code>mid / n</code> 得到行坐标， 通过 <code>mid % n</code> 得到列坐标，这样就可以确定这个中间的数。</p>
+<h2 id="LeetCode240"><a href="#LeetCode240" class="headerlink" title="LeetCode240"></a>LeetCode240</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/search-a-2d-matrix-ii/" target="_blank" rel="external">https://leetcode.com/problems/search-a-2d-matrix-ii/</a><br><strong>题目描述：</strong><br>有个 m 行 n 列的二维数组，每一行从左到右递增，每一列是从上到下递增，在这个二维数组里查找是否存在一个数。</p>
+<p><strong>思路:</strong> 这道题不使用二分法的话思路会比较明确些。我们可以从二维数组的右上角做为起点，取这个位置的数同目标数字进行对比，同样会有三种情况：</p>
+<ol>
+<li>相等。找到了这个数，直接返回true。</li>
+<li>比目标数字大，说明结果应该在当前位置的左侧，所以将列坐标 -1。</li>
+<li>比目标数字小，说明结果应该在当前位置的下方，将行坐标 +1。</li>
+</ol>
+<p>重复整个过程直到找到或者坐标越界为止。</p>
+<p><strong>代码：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.size() == <span class="number">0</span> || matrix[<span class="number">0</span>].size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> row = matrix.size();</span><br><span class="line">    <span class="keyword">int</span> col = matrix[<span class="number">0</span>].size();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j = col - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; row &amp;&amp; j &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix[i][j] == target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &lt; target) i++;</span><br><span class="line">        <span class="keyword">else</span> j --;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码分析：</strong> 查找的过程其实就是一条折线，时间复杂度为O(m + n)，</p>
+<p><strong>二分法思路：</strong><br>这个二维数组的特点就是左上角数字最小，右下角数字最大，整体从左上角向右下角递增。如果我们使用二分查找法确定其中心点，就可以将这个二维数组分解成4个小的二维数组，如下图所示，我们分别用1， 2，3，4 来代表。而且这4个小的二维数组都满足左上角数字最小，右下角数字最大，，整体从左上角向右下角递增的特点。看到这里我们应该想到可以使用递归来解决这个问题。<br>确定中心点后，我们将中心位置的数据 center 和目标 target 进行比较分析，然后分别讨论下面三种情况：</p>
+<ol>
+<li>center == target, 直接返回 true。</li>
+<li>center &gt; target, center是数组4中的最小数字，所以数组4就可以淘汰掉。</li>
+<li>center &lt; target, center是数组1 中的最小数字，所以数组1可以淘汰掉。</li>
+</ol>
+<p>递归地在剩下的3个小数组中寻找target。</p>
+<p><strong>代码：</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!matrix.size() || !matrix[<span class="number">0</span>].size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> find(matrix, <span class="number">0</span>, matrix.size() - <span class="number">1</span>, <span class="number">0</span>, matrix[<span class="number">0</span>].size() - <span class="number">1</span>, target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> rowStart, <span class="keyword">int</span> rowEnd, <span class="keyword">int</span> colStart, <span class="keyword">int</span> colEnd, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(rowStart &gt; rowEnd || colStart &gt; colEnd) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> rowMid = (rowStart + rowEnd) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> colMid = (colStart + colEnd) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(matrix[rowMid][colMid] == target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(matrix[rowMid][colMid] &gt; target)&#123;</span><br><span class="line">        <span class="comment">//合并的数组1和3</span></span><br><span class="line">        <span class="keyword">return</span> find(matrix, rowStart, rowEnd, colStart, colMid -<span class="number">1</span>, target) ||</span><br><span class="line">        <span class="comment">//数组2</span></span><br><span class="line">            find(matrix, rowStart, rowMid - <span class="number">1</span>, colMid, colEnd, target);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//合并的数组2和4</span></span><br><span class="line">        <span class="keyword">return</span> find(matrix, rowStart, rowEnd, colMid + <span class="number">1</span>, colEnd, target) ||</span><br><span class="line">        <span class="comment">//数组3</span></span><br><span class="line">            find(matrix, rowMid + <span class="number">1</span>, rowEnd, colStart, colEnd, target);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>代码分析：</strong><br>每次判断可以淘汰掉 1 / 4 的数据，然后重新在剩下的3个小数组中进行递归地搜索，代码中使用了一个优化技巧，就是在淘汰数组4的时候将数组1和3合并成一个数组进行递归，淘汰数组1的时候合并数组2和4。这个算法的时间复杂度为log((4/3), m *n)，在LeetCode中测试发现其效率反而不如上面那个效率高。</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/summit/" rel="next" title="2019全球移动开发者技术峰会">
+                <i class="fa fa-chevron-left"></i> 2019全球移动开发者技术峰会
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/09/01/binaray/"
+     data-title="算法总结-二分查找法"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/09/01/binaray/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/09/01/binaray/"
+           data-title="算法总结-二分查找法" data-url="http://mushuichuan.com/2019/09/01/binaray/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode35"><span class="nav-number">1.</span> <span class="nav-text">LeetCode35</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode34"><span class="nav-number">2.</span> <span class="nav-text">LeetCode34</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode74"><span class="nav-number">3.</span> <span class="nav-text">LeetCode74</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode240"><span class="nav-number">4.</span> <span class="nav-text">LeetCode240</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
