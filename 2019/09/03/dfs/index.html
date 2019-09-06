@@ -1,0 +1,924 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。
+LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-traversal/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-深度优先算法">
+<meta property="og:url" content="http://mushuichuan.com/2019/09/03/dfs/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。
+LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-traversal/">
+<meta property="og:image" content="https://i.loli.net/2019/09/06/m7rl8ojsHpyezDf.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/05/B4SQrndUZHsa5Re.png">
+<meta property="og:updated_time" content="2019-09-06T03:14:11.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-深度优先算法">
+<meta name="twitter:description" content="深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。
+LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-traversal/">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-深度优先算法 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-深度优先算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-09-03T14:24:10+08:00" content="2019-09-03">
+              2019-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/09/03/dfs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/03/dfs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/09/03/dfs/" class="leancloud_visitors" data-flag-title="算法总结-深度优先算法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。<br><img src="https://i.loli.net/2019/09/06/m7rl8ojsHpyezDf.png" alt="dfs_parenttheses1.png"></p>
+<h2 id="LeetCode94"><a href="#LeetCode94" class="headerlink" title="LeetCode94"></a>LeetCode94</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="external">https://leetcode.com/problems/binary-tree-inorder-traversal/</a></p>
+<p><strong>题目分析：</strong> 树的遍历都有递归和非递归两种方式，对中序非递归来说需要使用栈的帮助来实现，我们需要从根节点出发寻找当前树的最左下角的叶子节点，并将路径上的节点都进栈。当找到后，再根据栈中存储的节点来依次遍历其根节点和右子树。</p>
+<p><strong>非递归代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nodes;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; path;</span><br><span class="line">    <span class="keyword">while</span> (root || !path.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (root) &#123; <span class="comment">//寻找当前节点的最左下的叶子节点</span></span><br><span class="line">            path.push(root);</span><br><span class="line">            root = root -&gt; left;</span><br><span class="line">        &#125;</span><br><span class="line">        root = path.top();</span><br><span class="line">        path.pop();</span><br><span class="line">        nodes.push_back(root -&gt; val);<span class="comment">//遍历当前节点</span></span><br><span class="line">        root = root -&gt; right;<span class="comment">//继续遍历右子树</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>代码主体是由两个 <code>while</code> 循环构成的，外层的循环确保了可以遍历到整棵二叉树，而内层循环则是寻找到当前节点下的最左下的叶子节点。每个节点都会进栈、出栈一次，所以时间复杂度为O(N)。</p>
+<p>中序遍历的递归算法非常简洁明了，无需多说，可以直接看代码。</p>
+<p><strong>递归代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inorderTraversal(TreeNode* root) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nodes;</span><br><span class="line">        inorder(root, nodes);</span><br><span class="line">        <span class="keyword">return</span> nodes;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nodes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        inorder(root -&gt; left, nodes);</span><br><span class="line">        nodes.push_back(root -&gt; val);</span><br><span class="line">        inorder(root -&gt; right, nodes);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br><code>inorder</code>方法中的参数我们使用了<code>&amp;</code>符号来确保了<code>nodes</code>传入的是引用，这样就会确保整个遍历过程只有一个我们在外面定义的<code>vector&lt;int&gt; nodes</code>。内部递归地调用顺序就是遍历的顺序，所以如果我们将<code>nodes.push_back(root -&gt; val)</code>同上面的递归调用交换，就变成了前序遍历，同理同下面的递归调换就变成了后序遍历。每个节点都会被访问一次，所以递归算法的时间复杂度同样是O(N)。</p>
+<h2 id="LeetCode230"><a href="#LeetCode230" class="headerlink" title="LeetCode230"></a>LeetCode230</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="external">https://leetcode.com/problems/kth-smallest-element-in-a-bst/</a></p>
+<p><strong>题目描述：</strong><br>在一棵二叉查找树中选择第 k 小的数，所谓二叉查找树就是树中每个节点都满足以下条件：左子树中所有的节点都小于根节点，而右子树中所有的节点都大于根节点。</p>
+<p><strong>题目分析：</strong><br>对于二叉查找树来说，其中序遍历结果就是一个递增的数列，所以在中序遍历的过程中遍历到的第 k 个数也就是我们要找得第 k 小的数。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	Stack&lt;TreeNode&gt; <span class="built_in">stack</span> = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">	<span class="keyword">while</span>(root != null || !<span class="built_in">stack</span>.isEmpty()) &#123;</span><br><span class="line">	 <span class="keyword">while</span>(root != null) &#123;</span><br><span class="line">	     <span class="built_in">stack</span>.push(root);    </span><br><span class="line">	     root = root.left;   </span><br><span class="line">	 &#125; </span><br><span class="line">	 root = <span class="built_in">stack</span>.pop();</span><br><span class="line">	 <span class="keyword">if</span>(--k == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">	 root = root.right;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> root.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>这里我们使用非递归的方式，每次出栈操作意味着遍历一个节点， 所以将 k - 1，而 k 被减到 0 的时候就是遍历到了第 k 个数，可以直接退出循环并返回结果。</p>
+<h2 id="LeetCode98"><a href="#LeetCode98" class="headerlink" title="LeetCode98"></a>LeetCode98</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank" rel="external">https://leetcode.com/problems/validate-binary-search-tree/</a></p>
+<p><strong>题目描述：</strong><br>给定一颗二叉树，判断是否是一棵二叉查找树。</p>
+<p><strong>题目分析：</strong><br>在上一题中我们已经知道了对二叉查找树进行中序遍历的结果是个递增的数列，所以要判断一棵二叉树是否是二叉查找树只需要对其进行遍历，然后判断其结果是否是递增的即可</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">boolean</span> isValidBST(TreeNode root) &#123;</span><br><span class="line">   <span class="keyword">if</span> (root == <span class="built_in">null</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">   <span class="built_in">Stack</span>&lt;TreeNode&gt; <span class="built_in">stack</span> = <span class="literal">new</span> <span class="built_in">Stack</span>&lt;&gt;();</span><br><span class="line">   TreeNode pre = <span class="built_in">null</span>;</span><br><span class="line">   <span class="keyword">while</span> (root != <span class="built_in">null</span> <span class="subst">||</span> <span class="subst">!</span><span class="built_in">stack</span><span class="built_in">.</span>isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">while</span> (root != <span class="built_in">null</span>) &#123;</span><br><span class="line">         <span class="built_in">stack</span><span class="built_in">.</span>push(root);</span><br><span class="line">         root = root<span class="built_in">.</span>left;</span><br><span class="line">      &#125;</span><br><span class="line">      root = <span class="built_in">stack</span><span class="built_in">.</span>pop();</span><br><span class="line">      <span class="keyword">if</span>(pre != <span class="built_in">null</span> <span class="subst">&amp;&amp;</span> root<span class="built_in">.</span>val &lt;= pre<span class="built_in">.</span>val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      pre = root;</span><br><span class="line">      root = root<span class="built_in">.</span>right;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>在进行中序遍历的过程中，我们使用一个名为<code>pre</code>的对象记录下前一个节点，然后在遍历的过程中如果出现前面的节点值大于当前的节点的时候，我们就可以认为这棵树不是一颗二叉查找树，从而直接返回<code>false</code>，而无需去遍历后面的节点了。</p>
+<h2 id="LeetCode301"><a href="#LeetCode301" class="headerlink" title="LeetCode301"></a>LeetCode301</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/remove-invalid-parentheses" target="_blank" rel="external">https://leetcode.com/problems/remove-invalid-parentheses</a></p>
+<p><strong>题目描述：</strong> 在一个字符串中含有一些<code>(</code>和<code>)</code>，需要删除最少的括号让这个字符串成为一个合乎规则的字符串，即每个<code>(</code>都有一个与之对应的<code>)</code>。返回所有的可能结果。</p>
+<p>例子1：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Input:</span> <span class="string">"()())()"</span></span><br><span class="line"><span class="label">Output:</span> [<span class="string">"()()()"</span>, <span class="string">"(())()"</span>]</span><br></pre></td></tr></table></figure>
+<p>例子2：</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">Input</span>: <span class="comment">"(a)())()"</span></span><br><span class="line"><span class="class">Output</span>: [<span class="comment">"(a)()()"</span>, <span class="comment">"(a())()"</span>]</span><br></pre></td></tr></table></figure>
+<p>例子3：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Input:</span> <span class="string">")("</span></span><br><span class="line"><span class="label">Output:</span> [<span class="string">""</span>]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这是一道困难级别的题目，比较有挑战性，可以用深度优先的思路来解决。我们分情况来分析一下，看看如何来决定字符的取舍：</p>
+<ol>
+<li>对于非括号的字符，肯定是都需要保留的。</li>
+<li>对于每个<code>(</code>， 我们都可以尝试着保留或者去掉。</li>
+<li>对于每个<code>)</code>， 同样我们可以尝试着保留或者去掉。</li>
+</ol>
+<p>基于上面的分析，如果将字符串里的每个字符作为一层的话，那我们就可以根据上面的3条结论来创建一棵树，如可以将字符串<code>&quot;a()&quot;</code>构建成一棵如下所示的树。很明显最后正确的返回应该是保留所有的字符串，也就是从根节点一直沿着左子树到叶子节点的路径。</p>
+<p><img src="https://i.loli.net/2019/09/05/B4SQrndUZHsa5Re.png" alt="dfs_parenttheses.png"></p>
+<p>这么一看似乎也不是很难嘛，怎么对得起困难的级别呢？别急，让我们在看另外一个要求：需要删除最少的括号，那么如何来确定需要删除的最少括号数量呢？我们再来具体分析一下哪些括号是不合乎规则的：</p>
+<ol>
+<li>对于<code>)</code>，我们需要确定前面有多少个还未配对的<code>(</code>，如果当前<code>)</code>的数目已经超过了还未配对的<code>(</code>的数目，那么这就是需要删除的。</li>
+<li>对于<code>(</code>， 我们需要确定后面有多少个<code>)</code>，超出<code>)</code>数目的<code>(</code>也都是要删除的。</li>
+</ol>
+<p>如例子3中第一个<code>)</code>， 在它之前并没有未配对的<code>(</code>，所以它是需要删除的。对于后面的<code>(</code>，在其之后也没有能与之配对的<code>)</code>，所以这个括号也是需要删除的。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">string</span>&gt; removeInvalidParentheses(<span class="type">string</span> s) &#123;</span><br><span class="line">    <span class="type">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    unordered_set&lt;<span class="type">string</span>&gt; <span class="literal">result</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">auto</span> c : s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(c == '(') left++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(c == ')') &#123;</span><br><span class="line">            <span class="keyword">if</span>(left &gt; <span class="number">0</span>) left--;</span><br><span class="line">            <span class="keyword">else</span> right++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    dfs(<span class="number">0</span>, <span class="number">0</span>, left, right, s, <span class="string">""</span>, <span class="literal">result</span>);</span><br><span class="line">    <span class="keyword">return</span> vector&lt;<span class="type">string</span>&gt;(<span class="literal">result</span>.begin(), <span class="literal">result</span>.<span class="keyword">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> dfs(<span class="type">int</span> pair, <span class="type">int</span> index, <span class="type">int</span> left, <span class="type">int</span> right, <span class="keyword">const</span> <span class="type">string</span>&amp; s, <span class="type">string</span> solution, unordered_set&lt;<span class="type">string</span>&gt;&amp; <span class="literal">result</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(index == s.size())&#123;</span><br><span class="line">        <span class="keyword">if</span>(pair == <span class="number">0</span> &amp;&amp; left == <span class="number">0</span> &amp;&amp; right == <span class="number">0</span>) <span class="literal">result</span>.insert(solution);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(s[index] == '(')&#123;</span><br><span class="line">        <span class="keyword">if</span>(left &gt; <span class="number">0</span>)  dfs(pair, index + <span class="number">1</span>, left - <span class="number">1</span>, right, s, solution, <span class="literal">result</span>);</span><br><span class="line">        dfs(pair + <span class="number">1</span>, index + <span class="number">1</span>, left, right, s, solution + s[index], <span class="literal">result</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s[index] == ')')&#123;</span><br><span class="line">        <span class="keyword">if</span>(right &gt; <span class="number">0</span>) dfs(pair, index + <span class="number">1</span>, left, right - <span class="number">1</span>, s, solution, <span class="literal">result</span>);</span><br><span class="line">        <span class="keyword">if</span>(pair &gt; <span class="number">0</span>) dfs(pair - <span class="number">1</span>, index + <span class="number">1</span>, left, right, s, solution + s[index], <span class="literal">result</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        dfs(pair, index + <span class="number">1</span>, left, right, s, solution + s[index], <span class="literal">result</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>我们首先遍历一遍整个字符串，并统计一下字符串中需要删除的两种括号的数量，然后使用<code>dfs</code>方法来进行深度优先遍历所有可能的结果。参数<code>left</code>和<code>right</code>分别代表了目前需要删除的左右括号数目；<code>solution</code>记录了当前的临时结果，也就是从根节点到当前节点路径上所有的字符组合；<code>pair</code>代表了目前左右括号数目是否是配对的，只有遍历到最后一个字符并且<code>pair</code>，<code>left</code>和<code>right</code>都为0时，说明我们找到了一个合法的结果，为了去掉重复的结果，我们使用了<code>set</code>来暂时保存结果，并在遍历结束后将其转换成一个<code>vector</code>返回。<br>当我们遍历到一个<code>(</code>字符时，如果<code>left &gt; 0</code>说明还有需要删除的<code>(</code>， 所以我们可以删除这个括号同时将<code>index + 1</code>进入一层的遍历；无聊是否还有需要删除的<code>(</code>， 我们都要尝试保留这个括号并进入下一层的遍历。对于<code>)</code>， 应用同样的逻辑。而对于非括号的字符，肯定是需要保留的，所以直接进入下层遍历。</p>
+<p>最后来看一下时间复杂度，在原字符串合法的情况下<code>left</code>和<code>right</code>都是0，每次递归也只有一个分支，所以复杂度为O(N)；最坏的情况下，字符串中只包含非法的括号，如上面的例子3，所以每次递归都会有两个分支，时间复杂应该为O(N<sup>2</sup>)。</p>
+<p>深度优先算法是回溯法的基础，回溯法可以用来解决很多问题如著名的八皇后问题等。在下篇文章中，我们来一起探讨一下回溯法的使用。</p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/binaray/" rel="next" title="算法总结-二分查找法">
+                <i class="fa fa-chevron-left"></i> 算法总结-二分查找法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/09/03/dfs/"
+     data-title="算法总结-深度优先算法"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/09/03/dfs/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/09/03/dfs/"
+           data-title="算法总结-深度优先算法" data-url="http://mushuichuan.com/2019/09/03/dfs/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode94"><span class="nav-number">1.</span> <span class="nav-text">LeetCode94</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode230"><span class="nav-number">2.</span> <span class="nav-text">LeetCode230</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode98"><span class="nav-number">3.</span> <span class="nav-text">LeetCode98</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode301"><span class="nav-number">4.</span> <span class="nav-text">LeetCode301</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
