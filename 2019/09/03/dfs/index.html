@@ -67,7 +67,8 @@ LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-trav
 LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-traversal/">
 <meta property="og:image" content="https://i.loli.net/2019/09/06/m7rl8ojsHpyezDf.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/05/B4SQrndUZHsa5Re.png">
-<meta property="og:updated_time" content="2019-09-06T03:14:11.300Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/06/gjTiyAC1wOLtQq7.png">
+<meta property="og:updated_time" content="2019-09-06T03:24:17.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法总结-深度优先算法">
 <meta name="twitter:description" content="深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。
@@ -351,6 +352,7 @@ LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-trav
 <p>我们首先遍历一遍整个字符串，并统计一下字符串中需要删除的两种括号的数量，然后使用<code>dfs</code>方法来进行深度优先遍历所有可能的结果。参数<code>left</code>和<code>right</code>分别代表了目前需要删除的左右括号数目；<code>solution</code>记录了当前的临时结果，也就是从根节点到当前节点路径上所有的字符组合；<code>pair</code>代表了目前左右括号数目是否是配对的，只有遍历到最后一个字符并且<code>pair</code>，<code>left</code>和<code>right</code>都为0时，说明我们找到了一个合法的结果，为了去掉重复的结果，我们使用了<code>set</code>来暂时保存结果，并在遍历结束后将其转换成一个<code>vector</code>返回。<br>当我们遍历到一个<code>(</code>字符时，如果<code>left &gt; 0</code>说明还有需要删除的<code>(</code>， 所以我们可以删除这个括号同时将<code>index + 1</code>进入一层的遍历；无聊是否还有需要删除的<code>(</code>， 我们都要尝试保留这个括号并进入下一层的遍历。对于<code>)</code>， 应用同样的逻辑。而对于非括号的字符，肯定是需要保留的，所以直接进入下层遍历。</p>
 <p>最后来看一下时间复杂度，在原字符串合法的情况下<code>left</code>和<code>right</code>都是0，每次递归也只有一个分支，所以复杂度为O(N)；最坏的情况下，字符串中只包含非法的括号，如上面的例子3，所以每次递归都会有两个分支，时间复杂应该为O(N<sup>2</sup>)。</p>
 <p>深度优先算法是回溯法的基础，回溯法可以用来解决很多问题如著名的八皇后问题等。在下篇文章中，我们来一起探讨一下回溯法的使用。</p>
+<p><img src="https://i.loli.net/2019/09/06/gjTiyAC1wOLtQq7.png" alt="signature.png"></p>
 
       
     </div>
