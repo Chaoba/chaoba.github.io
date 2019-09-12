@@ -1,0 +1,926 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="回溯法是一种通过暴力穷举的方式解决问题的方式，是深度优先搜索的一种具体应用。其思路不难理解，想象一下你在走一个迷宫，当在一个路口有A， B， C 三条岔路的时候你要怎么办呢？ 大家可以很容易地想到先尝试道路A， 如果走不通就回到这个路口尝试道路B，如果还走不通就尝试道路C，这就是一个典型地应用回溯法的例子。如果将目光着眼于整个迷宫，就可以发现这个迷宫其实就是一颗多叉树，每个路口就是一个节点，每个路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-回溯法">
+<meta property="og:url" content="http://mushuichuan.com/2019/09/10/backtracking/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="回溯法是一种通过暴力穷举的方式解决问题的方式，是深度优先搜索的一种具体应用。其思路不难理解，想象一下你在走一个迷宫，当在一个路口有A， B， C 三条岔路的时候你要怎么办呢？ 大家可以很容易地想到先尝试道路A， 如果走不通就回到这个路口尝试道路B，如果还走不通就尝试道路C，这就是一个典型地应用回溯法的例子。如果将目光着眼于整个迷宫，就可以发现这个迷宫其实就是一颗多叉树，每个路口就是一个节点，每个路">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/OCIzE7oUFVdkrpA.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/IMLFCoGkRcsdJhy.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jSbLopa34tCliuP.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/12/8-queens.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2019-09-12T03:13:51.683Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-回溯法">
+<meta name="twitter:description" content="回溯法是一种通过暴力穷举的方式解决问题的方式，是深度优先搜索的一种具体应用。其思路不难理解，想象一下你在走一个迷宫，当在一个路口有A， B， C 三条岔路的时候你要怎么办呢？ 大家可以很容易地想到先尝试道路A， 如果走不通就回到这个路口尝试道路B，如果还走不通就尝试道路C，这就是一个典型地应用回溯法的例子。如果将目光着眼于整个迷宫，就可以发现这个迷宫其实就是一颗多叉树，每个路口就是一个节点，每个路">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-回溯法 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-回溯法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-09-10T16:14:05+08:00" content="2019-09-10">
+              2019-09-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/09/10/backtracking/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/10/backtracking/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/09/10/backtracking/" class="leancloud_visitors" data-flag-title="算法总结-回溯法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>回溯法是一种通过暴力穷举的方式解决问题的方式，是深度优先搜索的一种具体应用。其思路不难理解，想象一下你在走一个迷宫，当在一个路口有A， B， C 三条岔路的时候你要怎么办呢？ 大家可以很容易地想到先尝试道路A， 如果走不通就回到这个路口尝试道路B，如果还走不通就尝试道路C，这就是一个典型地应用回溯法的例子。如果将目光着眼于整个迷宫，就可以发现这个迷宫其实就是一颗多叉树，每个路口就是一个节点，每个路口的岔路就是这个节点的子树，在这颗多叉树上应用深度优先搜索就是回溯法。LeetCode上关于回溯法的题目一般比较偏难，但是不管是如何变化，其解决的思路都是不变的，甚至有一定的“套路”可以解决大部分的问题。下面我们结合具体的题目来总结一下回溯法的使用。</p>
+<h2 id="LeetCode78"><a href="#LeetCode78" class="headerlink" title="LeetCode78"></a>LeetCode78</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/subsets/" target="_blank" rel="external">https://leetcode.com/problems/subsets/</a></p>
+<p><strong>题目描述：</strong><br>给定一个不包含重复数字的数组，返回所有的数组的子集并且不能有重复。</p>
+<p>例子：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [<span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>],</span><br><span class="line">  [<span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">3</span>],</span><br><span class="line">  [<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><strong>题目分析：</strong><br>如果不熟悉回溯法可能难以想到这道题可以用回溯法来解决，实际上这是一道很典型的回溯法题目，现在的关键是如何来构建这颗多叉树呢？首先我们创建一个数据为空的根节点，将数组中所有的数字都作为其子节点，对任何一个节点都将数组中这个节点数据后面所有的数看作子节点，这样上面的列子就可以构建成一棵如下所示的树。然后我们应用回溯法也即我们上文中总结过的深度优先遍历来遍历整棵树，并将所有的路径都记录下来就是最终要返回的结果。</p>
+<p><img src="https://i.loli.net/2019/09/11/OCIzE7oUFVdkrpA.png" alt="backtracking1.png"></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; subsets(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="literal">result</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    backtrack(nums, <span class="literal">result</span>, path, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> backtrack(vector&lt;<span class="type">int</span>&gt;&amp; nums, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> index)&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp = path;</span><br><span class="line">    <span class="literal">result</span>.push_back(temp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = index; i&lt; nums.size(); i++) &#123;</span><br><span class="line">        path.push_back(nums[i]);</span><br><span class="line">        backtrack(nums, <span class="literal">result</span>, path, i + <span class="number">1</span>);</span><br><span class="line">        path.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>在代码中我们创建了一个二维数组<code>result</code>来保存所有的结果，使用数组<code>path</code>来记录当前的路径数据。当我们第一次调用调用<code>backtrack</code>方法的时候，<code>path</code>为空，代表了根节点，将其插入到<code>result</code>中，之后每次递归调用都将当前的路径最为一个结果插入到<code>result</code>中。接下来的的循环就是遍历当前节点的所有子节点，对每个子节点进行三步操作：</p>
+<ol>
+<li>将子节点的数据插入到<code>path</code>中。</li>
+<li>递归地对这个子节点进行深度遍历。</li>
+<li>从<code>path</code>中移除当前的子节点，对下一个子节点进行同样的操作。</li>
+</ol>
+<p>上述代码是回溯法的一个基本应用，也可以说是回溯法的一个“套路”，大部分回溯法的题目都是在这个”套路“的基础上做一些改变来实现的，让我们来看一下下个题目加深对回溯法的理解。</p>
+<h2 id="LeetCode90"><a href="#LeetCode90" class="headerlink" title="LeetCode90"></a>LeetCode90</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/subsets-ii/" target="_blank" rel="external">https://leetcode.com/problems/subsets-ii/</a></p>
+<p><strong>题目描述：</strong><br>给定一个含有重复数字的数组，返回所有的数组的子集并且不能有重复。<br>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [<span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>],</span><br><span class="line">  [<span class="number">2</span>,<span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这道题是在上一题的基础上做了一点改变就是数组中含有重复的数字，我们在遍历的过程中要想办法来消除掉重复，那么如何才能做到呢？其实很简单，首先我们对整个数组进行排序，这样重复的数字就会靠在一起，然后我们在构建多叉树的时候对于重复的数字只用一次即可。如例子中有两个2，那么根节点下面的子节点就只有一个2。按照这种思路例子中的数组可以构建成如下所示的多叉树。</p>
+<p><img src="https://i.loli.net/2019/09/11/IMLFCoGkRcsdJhy.png" alt="backtracking2.png"></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; subsetsWithDup(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="literal">result</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    sort(nums.begin(), nums.<span class="keyword">end</span>());</span><br><span class="line">    backtrack(nums, <span class="literal">result</span>, path, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> backtrack(vector&lt;<span class="type">int</span>&gt;&amp; nums, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;<span class="type">int</span>&gt;&amp; path, <span class="type">int</span> index)&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; temp = path;</span><br><span class="line">    <span class="literal">result</span>.push_back(temp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = index; i&lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; index &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">        path.push_back(nums[i]);</span><br><span class="line">        backtrack(nums, <span class="literal">result</span>, path, i + <span class="number">1</span>);</span><br><span class="line">        path.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>在调用<code>backtrack</code>方法前，我们首先对数组进行了排序。在<code>backtrack</code>方法内的循环，我们判断当前的数字是否和上一个数字是重复的，如果是重复的则直接略过，这样就相当于将相同的数字在这一层给合并起来了。</p>
+<h2 id="LeetCode46"><a href="#LeetCode46" class="headerlink" title="LeetCode46"></a>LeetCode46</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/permutations/" target="_blank" rel="external">https://leetcode.com/problems/permutations/</a></p>
+<p><strong>题目描述：</strong> 给定一个不包含重复的数组，返回所有可能的排列。</p>
+<p>例子:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>],</span><br><span class="line">  [<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>],</span><br><span class="line">  [<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>],</span><br><span class="line">  [<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>],</span><br><span class="line">  [<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong> </p>
+<p>要应用回溯法来解决这道题关键是如何来构建这颗查找树？我们可以首先创建一个空的根节点，将数组中的所有的数字都作为其子节点，然后对每个节点，都将数组中其余的数作为这个节点的子节点。考虑到需要排除重复的数，在添加子节点的时候要排除当前节点到根节点路径上的所有的数。由于返回的数组长度都同远数组一致，所以加上空的根节点后整棵树的高度应该是 n + 1。例子中的数组可以构建成如下所示的树。树构建好之后，每个从根节点到叶子节点的路径就是一个可能的数组。</p>
+<p><img src="https://i.loli.net/2019/09/11/jSbLopa34tCliuP.png" alt="backtracking3.png"></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; permute(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="literal">result</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    backtrack(nums, <span class="literal">result</span>, path);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> backtrack(vector&lt;<span class="type">int</span>&gt;&amp; nums, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;<span class="type">int</span>&gt;&amp; path)&#123;</span><br><span class="line">    <span class="keyword">if</span>(path.size() == nums.size())&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp = path;</span><br><span class="line">        <span class="literal">result</span>.push_back(temp);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(find(path.begin(), path.<span class="keyword">end</span>(),nums[i]) != path.<span class="keyword">end</span>()) <span class="keyword">continue</span>;</span><br><span class="line">            path.push_back(nums[i]);</span><br><span class="line">            backtrack(nums, <span class="literal">result</span>, path);</span><br><span class="line">            path.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>只有当<code>path</code>的长度和原数组长度一致的时候，说明我们找到了一种可能的结果将其记录下来；否则我们就需要循环整个数组来构建其子节点。在构建每个子节点前，我们在<code>path</code>中查找一下当前的数字是否已经包含在父节点之中了，已经包含过的数字需要排除掉。满足条件的数字会作为当前的节点插入到<code>path</code>中，并进行递归地遍历。</p>
+<h2 id="LeetCode51"><a href="#LeetCode51" class="headerlink" title="LeetCode51"></a>LeetCode51</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="external">https://leetcode.com/problems/n-queens/</a></p>
+<p><strong>题目描述：</strong><br>n皇后问题，将n替换成8就是经典的8皇后问题。在国际象棋中，皇后可以沿着竖排、横排、双向对角线进行攻击，题目要求给定一个整数n, 在一个n * n的棋盘上放置n个皇后，并且这些皇后彼此之间都攻击不到对方，返回所有可能的结果。如针对8皇后问题，下图就是一个解，每个皇后都攻击不到别的皇后。</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/10/12/8-queens.png" alt=""></p>
+<p>例子</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Input:</span> <span class="number">4</span></span><br><span class="line"><span class="string">Output:</span> [</span><br><span class="line"> [<span class="string">".Q.."</span>,  <span class="comment">// Solution 1</span></span><br><span class="line">  <span class="string">"...Q"</span>,</span><br><span class="line">  <span class="string">"Q..."</span>,</span><br><span class="line">  <span class="string">"..Q."</span>],</span><br><span class="line"></span><br><span class="line"> [<span class="string">"..Q."</span>,  <span class="comment">// Solution 2</span></span><br><span class="line">  <span class="string">"Q..."</span>,</span><br><span class="line">  <span class="string">"...Q"</span>,</span><br><span class="line">  <span class="string">".Q.."</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>之前的题目都是遍历一个一维的数组，这个题目遍历的是一个二维数组，我们还是可以一样应用回溯法来解决。我们可以从第一行开始尝试每个位置，当我们在第一行中放置一个皇后后，当前行肯定不能再插入了，就需要在下一行中找到一个合法的位置放置下一个皇后。而为了判断某个位置是否能够放置皇后，我们还需要创建一个 n * n 大小的二维数组来记录已经放入皇后的位置。这样当我们放置了n个皇后后就找到了一个解。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">string</span>&gt;&gt; solveNQueens(<span class="type">int</span> n) &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; tag(n, vector&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    vector&lt;vector&lt;<span class="type">string</span>&gt;&gt; <span class="literal">result</span>;</span><br><span class="line">    find(<span class="literal">result</span>, tag, <span class="number">0</span>, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> find(vector&lt;vector&lt;<span class="type">string</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; tag, <span class="type">int</span> row, <span class="type">int</span> n) &#123;</span><br><span class="line">    <span class="keyword">if</span>(row == n)&#123;//找到一个解</span><br><span class="line">        <span class="literal">result</span>.push_back(convert(tag, n));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n ;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(isValid(<span class="literal">result</span>, tag, row, i, n))&#123;</span><br><span class="line">            tag[row][i] = <span class="number">1</span>;</span><br><span class="line">            find(<span class="literal">result</span>, tag, row + <span class="number">1</span>, n);</span><br><span class="line">            tag[row][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">bool</span> isValid(vector&lt;vector&lt;<span class="type">string</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; tag, <span class="type">int</span> row, <span class="type">int</span> column, <span class="type">int</span> n) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = row - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tag[i][column]) <span class="keyword">return</span> <span class="literal">false</span>; //向上检查竖排</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = row - <span class="number">1</span>, j = column - <span class="number">1</span>; i &gt;=<span class="number">0</span> &amp;&amp; j &gt;=<span class="number">0</span>; i--, j--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tag[i][j]) <span class="keyword">return</span> <span class="literal">false</span>;//检查左上对角线</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = row -<span class="number">1</span>, j = column + <span class="number">1</span>; i &gt;=<span class="number">0</span> &amp;&amp; j &lt; n; i--, j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(tag[i][j]) <span class="keyword">return</span> <span class="literal">false</span>;//检查右上对角线</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">vector&lt;<span class="type">string</span>&gt; convert(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; tag, <span class="type">int</span> n)&#123;</span><br><span class="line">    vector&lt;<span class="type">string</span>&gt; solution;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="type">string</span> row = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            row += tag[i][j]? <span class="string">"Q"</span>: <span class="string">"."</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        solution.push_back(row);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> solution;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>我们创建了二维数组<code>tag</code>来记录当前已经放置了皇后的位置， 然后从第一行开始遍历每一列， 如果当前的位置是合法的，就在<code>tag</code>中记录下这个位置，并递归地在下一行中进行深度遍历。 因为我们是一行行进行遍历的，所以当检查一个位置是否合法的时候只需要检查向上的竖排、左上对角线和右上对角线是否已经有皇后，下面还未遍历到是肯定没有放置皇后的。</p>
+<p>当行数<code>row</code>等于n时，说明我们已经放置了n个皇后找到了一个解，这时候就可以根据<code>tag</code>中记录的皇后放置位置来生成一个解并插入到<code>result</code>中。</p>
+<p>最后总结一下回溯法的”套路“：</p>
+<ol>
+<li>根据需要将原始数组进行排序。</li>
+<li>创建递归方法，将记录结果的<code>result</code>,记录路径的<code>path</code>, 记录坐标的<code>index</code>等作为参数。</li>
+<li>在递归方法内部根据条件决定是否将当前的<code>path</code>等插入到<code>result</code>中。</li>
+<li>深度优先遍历所有满足条件的子节点，记录当前状态，调用递归方法进入下一层，最后恢复状态。</li>
+</ol>
+<p>虽然回溯法的题目在LeetCode中以中等和困难级别居多，但是如果掌握了上述的套路，相信绝大部分的题目都将不是问题。</p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/03/dfs/" rel="next" title="算法总结-深度优先算法">
+                <i class="fa fa-chevron-left"></i> 算法总结-深度优先算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/09/10/backtracking/"
+     data-title="算法总结-回溯法"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/09/10/backtracking/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/09/10/backtracking/"
+           data-title="算法总结-回溯法" data-url="http://mushuichuan.com/2019/09/10/backtracking/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode78"><span class="nav-number">1.</span> <span class="nav-text">LeetCode78</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode90"><span class="nav-number">2.</span> <span class="nav-text">LeetCode90</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode46"><span class="nav-number">3.</span> <span class="nav-text">LeetCode46</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode51"><span class="nav-number">4.</span> <span class="nav-text">LeetCode51</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
