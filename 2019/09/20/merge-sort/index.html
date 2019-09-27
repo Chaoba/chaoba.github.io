@@ -1,0 +1,917 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="归并排序是分治法的一种应用，其思路是将数组分为左右两部分，分别递归地进行归并排序，然后将这两部分给合并起来。归并排序的c++递归实现可以参考下面的模板：
+1234567 int mergeSort(iterator l, iterator r) &amp;#123;    if (r - l &amp;lt;= 1) return;     iterator m = l + (r - l) / 2;    int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-归并排序">
+<meta property="og:url" content="http://mushuichuan.com/2019/09/20/merge-sort/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="归并排序是分治法的一种应用，其思路是将数组分为左右两部分，分别递归地进行归并排序，然后将这两部分给合并起来。归并排序的c++递归实现可以参考下面的模板：
+1234567 int mergeSort(iterator l, iterator r) &amp;#123;    if (r - l &amp;lt;= 1) return;     iterator m = l + (r - l) / 2;    int">
+<meta property="og:image" content="https://i.loli.net/2019/09/20/Iajuig3KS9J1yF2.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/20/H56bxq3URAEngtD.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2019-09-26T08:40:12.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-归并排序">
+<meta name="twitter:description" content="归并排序是分治法的一种应用，其思路是将数组分为左右两部分，分别递归地进行归并排序，然后将这两部分给合并起来。归并排序的c++递归实现可以参考下面的模板：
+1234567 int mergeSort(iterator l, iterator r) &amp;#123;    if (r - l &amp;lt;= 1) return;     iterator m = l + (r - l) / 2;    int">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-归并排序 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-归并排序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-09-20T11:12:01+08:00" content="2019-09-20">
+              2019-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/09/20/merge-sort/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/20/merge-sort/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/09/20/merge-sort/" class="leancloud_visitors" data-flag-title="算法总结-归并排序">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>归并排序是分治法的一种应用，其思路是将数组分为左右两部分，分别递归地进行归并排序，然后将这两部分给合并起来。归并排序的c++递归实现可以参考下面的模板：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="type">int</span> mergeSort(<span class="keyword">iterator</span> l, <span class="keyword">iterator</span> r) &#123;</span><br><span class="line">    <span class="keyword">if</span> (r - l &lt;= <span class="number">1</span>) <span class="keyword">return</span>; </span><br><span class="line">    <span class="keyword">iterator</span> m = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> count = mergeSort(l, m) + mergeSort(m, r);</span><br><span class="line">    inplace_merge(l, m, r);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，<code>l</code>和<code>r</code>分别代表了需要排序的起始点和终点，需要注意的是这个区间是左闭右开的，也就是说<code>l</code>所指向的元素会参与到这轮排序中，而<code>r</code>不会。代码里用到的<code>inplace_merge</code>是c++的内置函数，会将左右两部分在数组内部给合并起来。</p>
+<p>归并排序不仅可以用来排序。在上述代码中，当进行完左右两部分的递归排序，在调用<code>inplace_merge</code>进行合并之前，这个数组会有如下的特性：</p>
+<ol>
+<li>左右部分都分别是有序递增的。</li>
+<li>左半部分元素的<code>index</code>肯定是小于右半部分的。</li>
+</ol>
+<p>结合上述的特性，我们只要在调用<code>inplace_merge</code>前做一些有针对性的处理就可以解决那些有两个index <code>i</code>, <code>j</code>， 当 <code>i &lt; j</code> 时 <code>nums[i]</code> 和 <code>nums[j]</code> 满足某种条件的问题。</p>
+<p>让我们结合具体的题目来看一下。</p>
+<h2 id="LeetCode315"><a href="#LeetCode315" class="headerlink" title="LeetCode315"></a>LeetCode315</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="external">https://leetcode.com/problems/count-of-smaller-numbers-after-self/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组，要对数组中的每个数都计算出后面有多个比这个数小的数。<br>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">5</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">1</span>]</span><br><span class="line">Output: [<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>] </span><br><span class="line">Explanation:</span><br><span class="line"><span class="number">5</span>的后面有<span class="number">2</span>和<span class="number">1</span>这两个比它小的数。</span><br><span class="line"><span class="number">2</span>后面有<span class="number">1</span>这一个比它小的数。</span><br><span class="line"><span class="number">6</span>后面有<span class="number">1</span>这一个比它小的数。</span><br><span class="line"><span class="number">1</span>后面没有比它小的数。</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这道题目最简单的方式就是使用两重循环，对每个数都遍历一遍后面有多少个小于它的数。这种方法的时间复杂度是O(N<sup>2</sup>)，不是很理想，如果面试时只给出这种解法的话肯定是不会给通过的。所以我们要使用归并排序的方法来进行优化。</p>
+<p>我们来思考一下，在归并排序进行合并操作前左右两部分都是排好序状态，因为题目要求的是计算后面有多少小于自己的数，所以对于左半部分的每个数都可以在右半部分中容易计算出满足条件的数；而对于右半部分的可以先忽略，在下一层的递归中进行处理。如下图所示，对于数字4，我们可以从mid开始往后遍历右半部分找到2、3这两个小于4的数，其他的数也都一样。这只是一层递归，当对左右两部分分别进行递归的时候需要进行相同的操作，而且要将所有的的结果都累加起来。</p>
+<p><img src="https://i.loli.net/2019/09/20/Iajuig3KS9J1yF2.png" alt="mergesort1.png"></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> iterator vector&lt;pair&lt;int,int&gt;&gt;::iterator</span></span><br><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; countSmaller(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; count(n);</span><br><span class="line">        <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; pairs;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            pairs.push_back(&#123;nums[i], i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        merge(pairs.begin(), pairs.end(), count);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(iterator left, iterator right, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; count)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(right - left &lt;= <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">auto</span> m = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        merge(left, m, count);</span><br><span class="line">        merge(m, right, count);</span><br><span class="line">        <span class="keyword">auto</span> j = m;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i = left; i &lt; m; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; right &amp;&amp; (*i).first &gt; (*j).first) j++;</span><br><span class="line">            count[(*i).second] += j - m;</span><br><span class="line">        &#125;</span><br><span class="line">        inplace_merge(left, m, right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>我们首先定义了<code>count</code>这个vector，并使用传引用的方式传入到递归方法中来记录递归过程中所有的结果。因为排序会改变原始的数据的位置，所以我们创建另外一个vector <code>pairs</code>来记录下每个数的位置。</p>
+<p>在递归函数中，当<code>right - left &lt;= 1</code>时说明现在要排序的数小于2个，无需进行排序可以直接返回。然后根据左右的坐标计算出中间坐标并对左右两边进行递归的排序操作。之后对左半部分的每个数都在右半部分中找出满足条件数的数量并保存到<code>count</code>中。最后使用c++的内置函数<code>inplace_merge</code>将左右两部分给合并起来。</p>
+<p>归并排序的时间复杂度为O(NLog(N)), 这里做的改变就是在递归函数内添加了一个for循环，增加的时间复杂度为O(N)级别，所以总体的时间复杂度还是O(NLog(N))。</p>
+<h2 id="LeetCode327"><a href="#LeetCode327" class="headerlink" title="LeetCode327"></a>LeetCode327</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/count-of-range-sum/" target="_blank" rel="external">https://leetcode.com/problems/count-of-range-sum/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组和一个范围<code>[lower, upper]</code>, 对这个数组进行分组求和，计算出这些分组和处于这个范围内的数量。</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [-<span class="number">2</span>,<span class="number">5</span>,-<span class="number">1</span>], lower = -<span class="number">2</span>, upper = <span class="number">2</span>,</span><br><span class="line">Output: <span class="number">3</span> </span><br><span class="line">解释：</span><br><span class="line">[<span class="number">0</span>,<span class="number">0</span>]的和为-<span class="number">2</span>，处于范围内，数目+<span class="number">1</span>。</span><br><span class="line">[<span class="number">0</span>,<span class="number">1</span>]的和为<span class="number">3</span>，超出范围。</span><br><span class="line">[<span class="number">0</span>,<span class="number">2</span>]的和为<span class="number">2</span>，处于范围内，数目+<span class="number">1</span>。</span><br><span class="line">[<span class="number">1</span>,<span class="number">1</span>]的和为<span class="number">5</span>，超出范围。</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>]的和为<span class="number">4</span>，超出范围。</span><br><span class="line">[<span class="number">2</span>,<span class="number">2</span>]的和为-<span class="number">1</span>，处于范围内，数目+<span class="number">1.</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>要使用归并排序的方法来解这道题需要首先将题目做一下转换。我们可以创建一个大小为 n + 1 的数组 sum，用 sum[i]代表前i项的和，这样就可以将题目转换成寻找 i 和 j, 使<code>lower &lt;= sums[j] - sums[i] &lt;= upper</code>。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">int</span> countRangeSum(vector&lt;<span class="built_in">int</span>&gt;&amp; nums, <span class="built_in">int</span> lower, <span class="built_in">int</span> upper) &#123;</span><br><span class="line">        vector&lt;long&gt; <span class="built_in">sum</span>(nums.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">        for(<span class="built_in">int</span> i = <span class="number">0</span>; i&lt; nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="built_in">sum</span>[i+<span class="number">1</span>] = <span class="built_in">sum</span>[i] + nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">int</span> n =  <span class="built_in">merge</span>(<span class="built_in">sum</span>, <span class="number">0</span>, <span class="built_in">sum</span>.<span class="built_in">size</span>(), lower, upper);</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">merge</span>(vector&lt;long&gt;&amp; <span class="built_in">sum</span>, <span class="built_in">int</span> left, <span class="built_in">int</span> right,<span class="built_in">int</span> lower, <span class="built_in">int</span> upper)&#123;</span><br><span class="line">        <span class="keyword">if</span>(right - left &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">count</span> = <span class="built_in">merge</span>(<span class="built_in">sum</span>, left ,mid, lower, upper)</span><br><span class="line">            + <span class="built_in">merge</span>(<span class="built_in">sum</span>, mid, right, lower, upper);</span><br><span class="line">        </span><br><span class="line">        for(<span class="built_in">int</span> m = left, i = mid, j = mid; m &lt; mid; m++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; right &amp;&amp; <span class="built_in">sum</span>[i] - <span class="built_in">sum</span>[m] &lt; lower) i++;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; right &amp;&amp; <span class="built_in">sum</span>[j] - <span class="built_in">sum</span>[m] &lt;= upper) j++;</span><br><span class="line">            <span class="built_in">count</span> += j - i ;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        inplace_merge(<span class="built_in">sum</span>.begin() + left, <span class="built_in">sum</span>.begin() + mid, <span class="built_in">sum</span>.begin() + right);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>首先创建 大小为 n + 1 的数组 sum，然后遍历数组并将前面所有数字累加的和填充到这个数组中。递归方法<code>merge</code>的返回值为<code>left</code>到<code>right</code>的范围内满足条件的组合数目。</p>
+<p>在递归方法内，通过对左右两部分子集进行递归调用获取到这两部分中满足条件的组合数目，然后通过一个for循环统计那些横跨了左右两部分的满足条件的组合数目。特别注意到因为在左右两部分子集已经进行了递归的归并排序，这两个子集内的数据都是有序递增的，所以我们可以通过两个<code>while</code>循环找到以<code>m</code>开始的所有满足条件的集合数目。如下图所示的数组当<code>lower = 1</code>， <code>upper = 2</code>，<code>m</code>指向4的时候<code>i</code>和<code>j</code>最终的位置就会分别指向5和9，此时横跨左右两部分的组合数就为2。</p>
+<p><img src="https://i.loli.net/2019/09/20/H56bxq3URAEngtD.png" alt="mergesort2.png"></p>
+<p>最后使用<code>inplace_merge</code>方法将左右两部分进行合并并将这些所有的结果加起来即为当前范围内所有满足条件的组合数目。</p>
+<h2 id="LeetCode493"><a href="#LeetCode493" class="headerlink" title="LeetCode493"></a>LeetCode493</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/reverse-pairs/" target="_blank" rel="external">https://leetcode.com/problems/reverse-pairs/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组<code>nums</code>，如果两个数的index <code>(i, j)</code> 满足条件 <code>i &lt; j 并且 nums[i] &gt; 2*nums[j]</code>，那么这两个数就是一个重要交换对，需要返回数组中这样的重要交换对的数目。</p>
+<p>例子:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]</span><br><span class="line">Output: <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Input: [<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>]</span><br><span class="line">Output: <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong> 这个题目可以很容易地通过归并排序来解决，只要在排序过程中判断一下左右两部分有多少对满足条件的数即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> reversePairs(vector&lt;<span class="built_in">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    return mergeSort(nums, <span class="number">0</span>, nums.size());</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">int</span> mergeSort(vector&lt;<span class="built_in">int</span>&gt;&amp; nums, <span class="built_in">int</span> <span class="built_in">left</span>, <span class="built_in">int</span> <span class="built_in">right</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">right</span> - <span class="built_in">left</span> &lt;= <span class="number">1</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">mid</span> = (<span class="built_in">left</span> + <span class="built_in">right</span>) / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">int</span> count = mergeSort(nums, <span class="built_in">left</span>, <span class="built_in">mid</span>)</span><br><span class="line">        + mergeSort(nums, <span class="built_in">mid</span>, <span class="built_in">right</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="built_in">left</span>, j = <span class="built_in">mid</span>; i&lt; <span class="built_in">mid</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; <span class="built_in">right</span> &amp;&amp; nums[i] &gt; nums[j] &amp;&amp; nums[i] &gt; <span class="number">2</span>l * nums[j]) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        count += j - <span class="built_in">mid</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    inplace_merge(nums.begin() + <span class="built_in">left</span>, nums.begin() + <span class="built_in">mid</span>, nums.begin() + <span class="built_in">right</span>);</span><br><span class="line">    return count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>在左右两部分排序结束后，遍历所有左半部分的数据在右半部分中查找满足条件<code>nums[i] &gt; 2*nums[j]</code>的数据就是题目要求的重要交换对。特别注意这里使用<code>2l * nums[j]</code>, 当<code>nums[j]</code>的数较大的时候，乘以2容易造成<code>int</code>类型的数据溢出，使用<code>long</code>类型可以防止此类错误。</p>
+<p>上面三个题目都是困难级别的，如果不使用归并排序的话基本上只能采用两重循环这种效率低下的方法来解决。只要题目是查找数组中的两个坐标并要求坐标上对应的数组满足某种关系，我们都可以套用归并排序的模板来解决。需要牢记的是左右两部分排序后都是有序递增的，利用好这个特性可以帮助我们提高查找满足条件数据的效率。掌握上述模板后，相对来讲归并排序不是很难。</p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/10/backtracking/" rel="next" title="算法总结-回溯法">
+                <i class="fa fa-chevron-left"></i> 算法总结-回溯法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/09/20/merge-sort/"
+     data-title="算法总结-归并排序"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/09/20/merge-sort/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/09/20/merge-sort/"
+           data-title="算法总结-归并排序" data-url="http://mushuichuan.com/2019/09/20/merge-sort/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode315"><span class="nav-number">1.</span> <span class="nav-text">LeetCode315</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode327"><span class="nav-number">2.</span> <span class="nav-text">LeetCode327</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode493"><span class="nav-number">3.</span> <span class="nav-text">LeetCode493</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
