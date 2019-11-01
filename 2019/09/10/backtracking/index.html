@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/11/jSbLopa34tCliuP.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/12/8-queens.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
-<meta property="og:updated_time" content="2019-09-12T03:13:51.683Z">
+<meta property="og:updated_time" content="2019-11-01T07:46:34.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法总结-回溯法">
 <meta name="twitter:description" content="回溯法是一种通过暴力穷举的方式解决问题的方式，是深度优先搜索的一种具体应用。其思路不难理解，想象一下你在走一个迷宫，当在一个路口有A， B， C 三条岔路的时候你要怎么办呢？ 大家可以很容易地想到先尝试道路A， 如果走不通就回到这个路口尝试道路B，如果还走不通就尝试道路C，这就是一个典型地应用回溯法的例子。如果将目光着眼于整个迷宫，就可以发现这个迷宫其实就是一颗多叉树，每个路口就是一个节点，每个路">
@@ -334,7 +334,7 @@
 <p><strong>代码：</strong></p>
 <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; permute(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="literal">result</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    backtrack(nums, <span class="literal">result</span>, path);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">void</span> backtrack(vector&lt;<span class="type">int</span>&gt;&amp; nums, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; <span class="literal">result</span>, vector&lt;<span class="type">int</span>&gt;&amp; path)&#123;</span><br><span class="line">    <span class="keyword">if</span>(path.size() == nums.size())&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; temp = path;</span><br><span class="line">        <span class="literal">result</span>.push_back(temp);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(find(path.begin(), path.<span class="keyword">end</span>(),nums[i]) != path.<span class="keyword">end</span>()) <span class="keyword">continue</span>;</span><br><span class="line">            path.push_back(nums[i]);</span><br><span class="line">            backtrack(nums, <span class="literal">result</span>, path);</span><br><span class="line">            path.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>代码分析：</strong><br>只有当<code>path</code>的长度和原数组长度一致的时候，说明我们找到了一种可能的结果将其记录下来；否则我们就需要循环整个数组来构建其子节点。在构建每个子节点前，我们在<code>path</code>中查找一下当前的数字是否已经包含在父节点之中了，已经包含过的数字需要排除掉。满足条件的数字会作为当前的节点插入到<code>path</code>中，并进行递归地遍历。</p>
-<h2 id="LeetCode51"><a href="#LeetCode51" class="headerlink" title="LeetCode51"></a>LeetCode51</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/n-queens/" target="_blank" rel="external">https://leetcode.com/problems/n-queens/</a></p>
+<h2 id="LeetCode51"><a href="#LeetCode51" class="headerlink" title="LeetCode51"></a>LeetCode51</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/permutations/[](https://leetcode.com/problems/permutations/" target="_blank" rel="external">https://leetcode.com/problems/permutations/[](https://leetcode.com/problems/permutations/</a>)</p>
 <p><strong>题目描述：</strong><br>n皇后问题，将n替换成8就是经典的8皇后问题。在国际象棋中，皇后可以沿着竖排、横排、双向对角线进行攻击，题目要求给定一个整数n, 在一个n * n的棋盘上放置n个皇后，并且这些皇后彼此之间都攻击不到对方，返回所有可能的结果。如针对8皇后问题，下图就是一个解，每个皇后都攻击不到别的皇后。</p>
 <p><img src="https://assets.leetcode.com/uploads/2018/10/12/8-queens.png" alt=""></p>
 <p>例子</p>
@@ -471,7 +471,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

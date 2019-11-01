@@ -1,0 +1,927 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="前面我们了解了深度优先算法，在遍历一棵树的时候会深入地遍历完树的一个分支后才会去遍历其它的分支。而广度优先算法则是从根节点开始一层一层的进行遍历，只有完全遍历完一层所有的节点后才会进入下一层的遍历。广度优先算法的一般套路如下：
+
+创建一个队列并将根将节点插入到个队列中，此时根节点作为第一层，总共有一个节点。
+在每层遍历开始前，队列的长度就是这一层的节点总数，我们记录下这个数目然后不断地将节点出队进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-广度优先算法">
+<meta property="og:url" content="http://mushuichuan.com/2019/10/22/bfs/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="前面我们了解了深度优先算法，在遍历一棵树的时候会深入地遍历完树的一个分支后才会去遍历其它的分支。而广度优先算法则是从根节点开始一层一层的进行遍历，只有完全遍历完一层所有的节点后才会进入下一层的遍历。广度优先算法的一般套路如下：
+
+创建一个队列并将根将节点插入到个队列中，此时根节点作为第一层，总共有一个节点。
+在每层遍历开始前，队列的长度就是这一层的节点总数，我们记录下这个数目然后不断地将节点出队进">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2019-11-01T09:45:06.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-广度优先算法">
+<meta name="twitter:description" content="前面我们了解了深度优先算法，在遍历一棵树的时候会深入地遍历完树的一个分支后才会去遍历其它的分支。而广度优先算法则是从根节点开始一层一层的进行遍历，只有完全遍历完一层所有的节点后才会进入下一层的遍历。广度优先算法的一般套路如下：
+
+创建一个队列并将根将节点插入到个队列中，此时根节点作为第一层，总共有一个节点。
+在每层遍历开始前，队列的长度就是这一层的节点总数，我们记录下这个数目然后不断地将节点出队进">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-广度优先算法 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-广度优先算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-10-22T15:54:51+08:00" content="2019-10-22">
+              2019-10-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/10/22/bfs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/10/22/bfs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/10/22/bfs/" class="leancloud_visitors" data-flag-title="算法总结-广度优先算法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面我们了解了深度优先算法，在遍历一棵树的时候会深入地遍历完树的一个分支后才会去遍历其它的分支。而广度优先算法则是从根节点开始一层一层的进行遍历，只有完全遍历完一层所有的节点后才会进入下一层的遍历。广度优先算法的一般套路如下：</p>
+<ol>
+<li>创建一个队列并将根将节点插入到个队列中，此时根节点作为第一层，总共有一个节点。</li>
+<li>在每层遍历开始前，队列的长度就是这一层的节点总数，我们记录下这个数目然后不断地将节点出队进行遍历并将其子节点插入到队列中，同时每遍历一个节点就将前面记录的数字减一。</li>
+<li>当数字为零时，表明这一层的所有节点已经遍历完了，返回第二步进行迭代遍历直到队列为空为止。</li>
+</ol>
+<p>我们可以结合LeetCode的题目和代码来了解一下。</p>
+<h2 id="LeetCode102"><a href="#LeetCode102" class="headerlink" title="LeetCode102"></a>LeetCode102</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/word-ladder/" target="_blank" rel="external">https://leetcode.com/problems/binary-tree-level-order-traversal/</a></p>
+<p><strong>题目描述：</strong><br>给定一棵二叉树，对其一层层地从左到右遍历，并按层次返回所有节点的数值。</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">给定二叉树[<span class="number">3</span>,<span class="number">9</span>,<span class="number">20</span>,null,null,<span class="number">15</span>,<span class="number">7</span>],</span><br><span class="line">    <span class="number">3</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">9</span>  <span class="number">20</span></span><br><span class="line">    /  \</span><br><span class="line">   <span class="number">15</span>   <span class="number">7</span></span><br><span class="line">其遍历结果为:</span><br><span class="line">[</span><br><span class="line">  [<span class="number">3</span>],</span><br><span class="line">  [<span class="number">9</span>,<span class="number">20</span>],</span><br><span class="line">  [<span class="number">15</span>,<span class="number">7</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这是一道中等难度的题目，只需要对其进行广度优先遍历，然后按遍历的层次将每层的结果给分别记录下来即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class <span class="type">Solution</span> &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; levelOrder(<span class="type">TreeNode</span>* root) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) &#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; row;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="literal">result</span>;</span><br><span class="line">        queue&lt;<span class="type">TreeNode</span>*&gt; q;</span><br><span class="line">        q.push(root);</span><br><span class="line">        <span class="type">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q.front()-&gt;left) &#123; q.push(q.front()-&gt;left); &#125;</span><br><span class="line">            <span class="keyword">if</span> (q.front()-&gt;right) &#123; q.push(q.front()-&gt;right); &#125;</span><br><span class="line">            row.push_back(q.front()-&gt;val), q.pop();</span><br><span class="line">            <span class="keyword">if</span> (--count == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="literal">result</span>.emplace_back(row), row.clear();</span><br><span class="line">                count = q.size();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>在上述代码中，我们使用一个二维的数组来记录遍历的结果，数组的行数就是树的层级深度，每一行里保存的就是二叉树每一层的数据。创建一个队列用来保存下一层要遍历的节点，在初始的时候将根节点插入到队列中，变量 count 用来保存下一层里节点的数目，所以在插入根节点后其值为1。当队列不为空的时候，说明还有节点未遍历到，所以需要循环地遍历队列中的节点。遍历每个节点都将其不为空的左右子树插入到队列的尾部并将这个节点的数值插入到临时数组 raw 中。每次遍历完一个节点后，都将 count 的数值减一，当其值为0的时候代表这一层的遍历已经结束，此时数列中的所有节点就是下一层的节点。接下来将 count 的数值设为队列的长度，这样就记录下了下一层要遍历的节点数目。再将临时数组 raw 插入到 result 中并清空之后就可以继续对下一层的遍历了。</p>
+<h2 id="LeetCode127"><a href="#LeetCode127" class="headerlink" title="LeetCode127"></a>LeetCode127</h2><p><strong>题目链接：</strong> <a href="https://leetcode.com/problems/word-ladder/" target="_blank" rel="external">https://leetcode.com/problems/word-ladder/</a></p>
+<p><strong>题目描述：</strong> 给定一个 beginWord 和一个 endWord 以及一个单词列表。从 beginWord 开始每次只能更改单词中一个字母，并且这个更改字母后的单词必须在前面的单词列表中，找出一条从 beginWord 到 endWord 的最短路径，并返回其长度，没有此路径则返回0。</p>
+<p>注意</p>
+<ul>
+<li>所有的单词长度一致。</li>
+<li>单词列表中没有重复。</li>
+<li>所有单词为小写字母。</li>
+<li>beginWord 和 endWord 不相同且不为空。</li>
+</ul>
+<p>例子</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入<span class="symbol">:</span></span><br><span class="line">beginWord = <span class="string">"hit"</span>,</span><br><span class="line">endWord = <span class="string">"cog"</span>,</span><br><span class="line">wordList = [<span class="string">"hot"</span>,<span class="string">"dot"</span>,<span class="string">"dog"</span>,<span class="string">"lot"</span>,<span class="string">"log"</span>,<span class="string">"cog"</span>]</span><br><span class="line"></span><br><span class="line">输出<span class="symbol">:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">最短路径为 <span class="string">"hit"</span> -&gt; <span class="string">"hot"</span> -&gt; <span class="string">"dot"</span> -&gt; <span class="string">"dog"</span> -&gt; <span class="string">"cog"</span>, 长度为<span class="number">5</span>。</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>要使用广度优先算法，需要首先根据题目来构建一棵树。可以以 beginWord 为根节点，单词列表中所有和 beginWord 只有一个字母不同的单词都作为其子节点。而剩下的单词中和某个子节点只有一个字母不同的单词就是这个子节点的子节点。在使用广度优先算法遍历这棵树的时候，如果发现了 endWord，那么 从根节点到 endWord 的深度就是最短路径。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; dict(wordList.begin(), wordList.end());</span><br><span class="line">    <span class="keyword">if</span>(!dict.count(endWord)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; wordQueue;</span><br><span class="line">    wordQueue.push(beginWord);</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> currentCount = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> len = beginWord.size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!wordQueue.empty())&#123;</span><br><span class="line">        <span class="built_in">string</span> word = wordQueue.front();</span><br><span class="line">        wordQueue.pop();</span><br><span class="line">        currentCount --;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">char</span> c = word[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="string">'a'</span>; j &lt;= <span class="string">'z'</span>; j++)&#123;</span><br><span class="line">                word[i] = j;</span><br><span class="line">                <span class="keyword">if</span>(word == endWord) <span class="keyword">return</span> level + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(dict.count(word))&#123;</span><br><span class="line">                    wordQueue.push(word);</span><br><span class="line">                    dict.erase(word);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            word[i] = c;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(currentCount == <span class="number">0</span>)&#123;</span><br><span class="line">            currentCount = wordQueue.size();</span><br><span class="line">            level ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>上述代码基本就是套用我们在一开始提出来的套路。中间的 for 循环通过将当前的单词的每个字母都从 a 到 z 替换一遍来在单词列表中查找其子节点。为了加快查找速度，我们将单词列表放在了 set 中。如果在 set 中查找到了一个更改后的单词，那这个单词就是原单词的子节点，将其入队并从 set 中删除。 如果更改后的单词恰好就是 endWord，说明我们找到了这样的一条最短路径，直接返回 endWord 的深度即可。<br>这道题目其实还可以进一步优化，从 beginWord 到 endWord 的最短路径反过来也都是一样，所以就可以从两头开始一起向中间查找，当在中间相遇的时候就说明有一条联通的路径了。具体实现就由读者自己来尝试吧。</p>
+<h2 id="LeetCode743"><a href="#LeetCode743" class="headerlink" title="LeetCode743"></a>LeetCode743</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/network-delay-time/" target="_blank" rel="external">https://leetcode.com/problems/network-delay-time/</a></p>
+<p><strong>题目描述：</strong><br>有标签为从1到 N 的 N 个网络节点，给定一个信息传输时间的列表 <code>times</code>, 其中<code>times[i] = (u, v, w)</code> 代表了信息从节点 u 传输到节点 v 花费时间为 w。从节点 K 开始发出一个信息，计算出信息传递到所有节点所需要的最小时间，如果不能传输到每个节点就返回 -1。</p>
+<p>例子</p>
+<p><img src="https://assets.leetcode.com/uploads/2019/05/23/931_example_1.png" alt=""></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：times = [[<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>]], N = <span class="number">4</span>, K = <span class="number">2</span></span><br><span class="line">输出：<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>将节点 K 看作是根节点，所有 K 能直接到达的节点就是 K 的子节点，这样就可以构建出一棵树来。对这棵树进行广度优先遍历就能按层次遍历到每个节点。由于到每个节点都需要花费时间，所以根节点到某个节点 A 的总时间就是根节点到节点 A 的父节点的时间加上 A 的父节点的时间到 A 的时间。此外还要考虑到有些节点可能会有多条路径都可以到达，这种情况下我们需要取这多条路径中时间最短的一条。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">networkDelayTime</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; times, <span class="keyword">int</span> N, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;&gt; <span class="built_in">map</span>(N + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> time : times) &#123;</span><br><span class="line">        <span class="built_in">map</span>[time[<span class="number">0</span>]].push_back(&#123;time[<span class="number">1</span>], time[<span class="number">2</span>]&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> cmp = [](pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; left, pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; right) &#123; <span class="keyword">return</span> left.second &gt; right.second; &#125;;</span><br><span class="line">    priority_queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;, <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;, <span class="keyword">decltype</span>(cmp)&gt; <span class="built_in">queue</span>(cmp);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">queue</span>.push(&#123;K, <span class="number">0</span>&#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; distance(N + <span class="number">1</span>, -<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(!<span class="built_in">queue</span>.empty() &amp;&amp; count &lt; N)&#123;</span><br><span class="line">        <span class="keyword">auto</span> node = <span class="built_in">queue</span>.top();</span><br><span class="line">        <span class="built_in">queue</span>.pop();</span><br><span class="line">        <span class="keyword">if</span>(distance[node.first] &gt;= <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        distance[node.first] = node.second;</span><br><span class="line">        count++;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> next : <span class="built_in">map</span>[node.first])&#123;</span><br><span class="line">            <span class="built_in">queue</span>.push(&#123;next.first, next.second + node.second&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count == N ? *max_element(distance.begin() + <span class="number">1</span>, distance.end()) : -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong></p>
+<p>上述代码在文章开头提到的套路的基础上做了一些改进。我们首先对原始数据做一下处理，创建一个大小为 N + 1 的 vector, 将节点 i 所有能到达的节点和时间都插入到 vector 中 index 为 i 的位置中，这样可以方便后面查找子节点的操作。</p>
+<p>接着我们创建一个优先级队列，将最短时间可以到达的节点放到最前面，将花费时间多的节点放在后面，这样如果一个节点有多条路径可以到达，先出队的肯定是花费时间最短的那条。队列在一开始先入队 <code>{k, 0}</code> 这个 pair，代表根节点到达自己的时间是0。</p>
+<p>distance 数组我们用来保存到达每个节点所需要的时间，初始化为-1 表明所有的节点都还未计算出时间。count 用来记录已经计算了几个节点，当 count的值等于 N 时，表明所有的节点都计算完了，即使队列中还有数据，也肯定是那些花费时间长的路径，所以我们就可以退出接下来的循环。</p>
+<p>在循环的中，我们从队列中取出一个节点，由于我们是优先级队列，所以如果发现这个节点在 distance 中已经有了记录就可以直接丢弃，而无需再次计算。每次计算完一个节点后，先将 count 的值加一，然后遍历所有当前节点的子节点，并更新子节点的时间后插入到队列中。</p>
+<p>最后，只要判断一下 count 的值就可以知道是否遍历过了所有的节点。因为我们在 distance 数组中已经记录下了到每个节点所需的最少时间，所以里面的最大值就是题目的解。</p>
+<p>总结一下，广度优先算法需要借助一个队列，这个队列我们可以根据题目要求改为优先级队列。在将根节点入队后，我们只需要在队列比不为空的前提下循环地从队列中取出节点进行遍历并将子节点入队就可以完成遍历。</p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/merge-sort/" rel="next" title="算法总结-归并排序">
+                <i class="fa fa-chevron-left"></i> 算法总结-归并排序
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/10/22/bfs/"
+     data-title="算法总结-广度优先算法"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/10/22/bfs/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/10/22/bfs/"
+           data-title="算法总结-广度优先算法" data-url="http://mushuichuan.com/2019/10/22/bfs/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode102"><span class="nav-number">1.</span> <span class="nav-text">LeetCode102</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode127"><span class="nav-number">2.</span> <span class="nav-text">LeetCode127</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode743"><span class="nav-number">3.</span> <span class="nav-text">LeetCode743</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

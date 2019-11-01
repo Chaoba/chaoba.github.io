@@ -230,6 +230,136 @@
             
               
                 
+                <a class="post-title-link" href="/2019/10/22/bfs/" itemprop="url">
+                  算法总结-广度优先算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-10-22T15:54:51+08:00" content="2019-10-22">
+              2019-10-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/10/22/bfs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/10/22/bfs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/10/22/bfs/" class="leancloud_visitors" data-flag-title="算法总结-广度优先算法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前面我们了解了深度优先算法，在遍历一棵树的时候会深入地遍历完树的一个分支后才会去遍历其它的分支。而广度优先算法则是从根节点开始一层一层的进行遍历，只有完全遍历完一层所有的节点后才会进入下一层的遍历。广度优先算法的一般套路如下：
+
+创建一个队列并将根将节点插入到个队列中，此时根节点作为第一层，总共有一个节点。
+在每层遍历开始前，队列的长度就是这一层的节点总数，我们记录下这个数目然后不断地将节点出队进行遍历并将其子节点插入到队列中，同时每遍历一个节点就将前面记录的数字减一。
+当数字为零时，表明这一层的所有节点已经遍历完了，返回第二步进行迭代遍历直到队列为空为止。
+
+我们可以结合LeetCode的题
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/10/22/bfs/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/09/20/merge-sort/" itemprop="url">
                   算法总结-归并排序
                 </a>
@@ -1371,132 +1501,6 @@ Tab键（可自动补全命令或文件名）
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/11/cmake/" itemprop="url">
-                  使用cmake解决Android中对第三方库的依赖
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-11T20:58:23+08:00" content="2017-06-11">
-              2017-06-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/06/11/cmake/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/11/cmake/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2017/06/11/cmake/" class="leancloud_visitors" data-flag-title="使用cmake解决Android中对第三方库的依赖">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          现在Android studio已经支持使用cmake来进行native开发了。比起ndk来说，cmake好用多了，比如可以在Android studio里面直接dubug native代码，对native 代码也支持高亮显示、代码提示、快捷跳转和自动格式化等功能。总得来说使用Android studio开发c/c++现在几乎和开发java一样方便了。
-现在假设我们有这样一个需求：我们需要依赖一个第三方的so库；我们需要提供给客户我们打好包后的so库;我们还需要创建我们自己的jni库来进行测试，要怎么进行配置呢？
-首先我们创建一个工程，记得选中”include c++ support”，这样A
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/11/cmake/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1543,7 +1547,7 @@ Tab键（可自动补全命令或文件名）
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
