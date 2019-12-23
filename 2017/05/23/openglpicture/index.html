@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="木水川的博客">
 <meta property="og:description" content="在两年前，我受到Tweetable Mathematical Art的启发，使用c++根据一定的公式生成图片并通过jni调用将其在Android上展示出来，项目见Github。但是即使使用了jni，生成一张图片也基本都需要几百毫秒，可以说速度比较慢。既然是画图的工作那还是交给GPU来干吧，下面就使用opengl es 来将这些图做出来。
 我们的思路是画一个满屏的正方形到手机屏幕上，并在这个正方形里">
-<meta property="og:image" content="http://7xp3vb.com1.z0.glb.clouddn.com/gl.gif">
+<meta property="og:image" content="http://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/gl.gif">
 <meta property="og:updated_time" content="2017-05-23T13:19:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用opengl生产图片">
@@ -306,7 +306,7 @@
 <p>转换完成后，我们可以直接复制原来的计算公式到shader中了，shader的语法跟c差不多，还有很多内置的函数的可以调用，如：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r=<span class="built_in">sin</span>((<span class="number">512.0</span>-i)/(<span class="number">512.0</span>-j))*<span class="number">255.</span>;</span><br><span class="line">g=<span class="built_in">sin</span>((<span class="number">512.0</span>-j)/(<span class="number">512.0</span>-i))*<span class="number">255.</span>;</span><br><span class="line">b=<span class="built_in">cos</span>((<span class="number">512.0</span>-i)/(<span class="number">512.0</span>-j))*<span class="number">255.</span>;</span><br></pre></td></tr></table></figure></p>
 <p>最后还有一点要注意的就是shader颜色的值是0到1.0的，所以计算出来的值最后都要除以255。<br>完整的项目可以见<a href="https://github.com/Chaoba/OpenglPicture" target="_blank" rel="external">Github</a></p>
 <p>运行结果如下图，使用opengl后速度简直是鸟枪换炮，画一张图片的时间还不用1毫秒。</p>
-<p><img src="http://7xp3vb.com1.z0.glb.clouddn.com/gl.gif" alt=""></p>
+<p><img src="http://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/gl.gif" alt=""></p>
 
       
     </div>
