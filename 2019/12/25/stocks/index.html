@@ -1,0 +1,997 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="股票的买卖问题就是在已知股价波动情况和其它一些限制条件的前提下，合理地安排买卖的时间点来获取最高的利润，基本上都是通过贪心算法和动态规划来解决。下面结合具体的题目进行分析。
+LeetCode121 股票买卖时机问题1题目链接：https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+题目描述：
+给定一个数组代表每天的股价，在只允许">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-股票买卖">
+<meta property="og:url" content="http://mushuichuan.com/2019/12/25/stocks/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="股票的买卖问题就是在已知股价波动情况和其它一些限制条件的前提下，合理地安排买卖的时间点来获取最高的利润，基本上都是通过贪心算法和动态规划来解决。下面结合具体的题目进行分析。
+LeetCode121 股票买卖时机问题1题目链接：https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+题目描述：
+给定一个数组代表每天的股价，在只允许">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/stock_price.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2020-01-05T11:27:21.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-股票买卖">
+<meta name="twitter:description" content="股票的买卖问题就是在已知股价波动情况和其它一些限制条件的前提下，合理地安排买卖的时间点来获取最高的利润，基本上都是通过贪心算法和动态规划来解决。下面结合具体的题目进行分析。
+LeetCode121 股票买卖时机问题1题目链接：https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+题目描述：
+给定一个数组代表每天的股价，在只允许">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-股票买卖 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-股票买卖
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-12-25T08:18:11+08:00" content="2019-12-25">
+              2019-12-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/12/25/stocks/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/12/25/stocks/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2019/12/25/stocks/" class="leancloud_visitors" data-flag-title="算法总结-股票买卖">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>股票的买卖问题就是在已知股价波动情况和其它一些限制条件的前提下，合理地安排买卖的时间点来获取最高的利润，基本上都是通过贪心算法和动态规划来解决。下面结合具体的题目进行分析。</p>
+<h2 id="LeetCode121__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98981"><a href="#LeetCode121__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98981" class="headerlink" title="LeetCode121 股票买卖时机问题1"></a>LeetCode121 股票买卖时机问题1</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定一个数组代表每天的股价，在只允许买卖一次的情况下找出可以得到的最高利润。</p>
+<p>例子<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">7</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>]</span><br><span class="line">Output: <span class="number">5</span></span><br><span class="line">Explanation: 在第二天以价格<span class="number">1</span>买得股票，然后再第<span class="number">5</span>天以价格<span class="number">6</span>卖出股票就可以得到最高的利润<span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>题目分析：</strong><br>利润就是卖出的价格减去买入价格，想得到利润就需要在低价买入，然后在高价卖出，否则就是赔钱, 而想要获得最高的利润就需要让这个价格差最大。例子中股票价格可以绘制成如下所示的折线图，当在第二天以价格1买入后，后面的任何一天卖出都是获利的，但是最高的利润是以价格6卖出，这是因为1和6之间的价格差最大，如果以价格3买入则无论如何也不能获取到最高的利润。所以算法的思路可以归纳为找到一个价格的谷底，在这个谷底价格后面找到一个价格封顶，使两者的差额最大。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/stock_price.png" alt=""></p>
+<p><strong>代码：</strong></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> maxProfit(vector&lt;<span class="built_in">int</span>&gt;&amp; prices) &#123;</span><br><span class="line">    <span class="built_in">int</span> buy = INT_MAX<span class="comment">;</span></span><br><span class="line">    <span class="built_in">int</span> profit = <span class="number">0</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span><span class="comment">; i&lt; prices.size(); i++)&#123;</span></span><br><span class="line">        buy = <span class="built_in">min</span>(buy, prices[i])<span class="comment">;</span></span><br><span class="line">        profit = <span class="built_in">max</span>(profit, prices[i] - buy)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> profit<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>在<code>for</code>循环中，通过<code>min</code>函数来找到当前股价的最低值，并保存在<code>buy</code>变量中，这就是当前为止买入的最低价。当前的价格减去买入的价格即为当前的利润，将当前为止最大的利润通过<code>max</code>函数计算出来之后保存到<code>profit</code>变量中。遍历完整个数组后<code>profit</code>即为能够获得的最大利润。因为只遍历了一遍，所以时间复杂度为O(N)。</p>
+<h2 id="LeetCode122__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98982"><a href="#LeetCode122__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98982" class="headerlink" title="LeetCode122 股票买卖时机问题2"></a>LeetCode122 股票买卖时机问题2</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组代表每天的股价，在可以买卖任意次数的情况下找出可以得到的最高利润(不能同时进行多项交易，即买股票前必须先卖掉所有的股票）。</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">7</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>]</span><br><span class="line">Output: <span class="number">7</span></span><br><span class="line">Explanation: 在第二天以价格<span class="number">1</span>买入后第三天以价格<span class="number">5</span>卖出，得到利润<span class="number">4</span>，然后在第四天也价格<span class="number">3</span>买入第五条以价格<span class="number">6</span>卖出，得到利润<span class="number">3</span>，总共即为<span class="number">7.</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>因为可以买卖任意多次，所以只要明天的价格比今天高，就今天买入，明天卖出。即使今天卖出了还是可以买入的。这样就不会放过任何股价的上涨从而获取到最高的利润。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> profit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.size(); i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices[i] &gt; prices[i - <span class="number">1</span>])&#123;</span><br><span class="line">            profit += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> profit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>从第二天开始遍历整个数组，只要涨价了就进行今天买入明天卖出的操作就可以获取到最大的利润。因为只遍历了一遍，所以时间复杂度为O(N)。</p>
+<h2 id="LeetCode123__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98983"><a href="#LeetCode123__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98983" class="headerlink" title="LeetCode123 股票买卖时机问题3"></a>LeetCode123 股票买卖时机问题3</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组代表每天的股价，在最多可以进行两次买卖的情况下找出可以得到的最高利润(不能同时进行多项交易，即买股票前必须先卖掉所有的股票）。<br>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">3</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>]</span><br><span class="line">Output: <span class="number">6</span></span><br><span class="line">Explanation: 第四天以价格<span class="number">0</span>买入第六条以价格<span class="number">3</span>卖出，得到利润<span class="number">3</span>；第七天以价格<span class="number">1</span>买入第八天以价格<span class="number">4</span>卖出得到利润<span class="number">3</span>，总共为<span class="number">6</span>。</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这是一道困难级别的题目。在一次的买卖当中想要获取到最大的利润就需要在最低的价格买入最高的价格卖出，即买卖的价格差最大；第二次买卖则是在第一次卖出之后再次找到一个最大的价格差。可以假设初始拥有的资金为0，可以借钱买入股票，则在买入价格为n的股票后，手上剩余的钱即为-n， -n越大则代表买入的价格越低；而以价格m卖出之后手上剩余的钱即为m - n， m - n 越大代表获得的利润越高。只要我们在进行两次买卖操做的过程中保证两次买入和两次卖出后剩余的钱一直是最多的，那第二次卖出后手上的钱就是最大的利润。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">int</span> maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">    int <span class="keyword">buy1 </span>= INT_MIN, <span class="keyword">sell1 </span>= <span class="number">0</span>, <span class="keyword">buy2 </span>= INT_MIN, <span class="keyword">sell2 </span>= <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    for(int i<span class="number">=0</span><span class="comment">; i &lt; prices.size(); i++) &#123;                     </span></span><br><span class="line">        <span class="keyword">buy1 </span>= max(<span class="keyword">buy1, </span>-prices[i])<span class="comment">;</span></span><br><span class="line">        <span class="keyword">sell1 </span>= max(<span class="keyword">sell1, </span>prices[i] + <span class="keyword">buy1);</span><br><span class="line"></span>        <span class="keyword">buy2 </span>= max(<span class="keyword">buy2, </span><span class="keyword">sell1 </span>- prices[i])<span class="comment">;</span></span><br><span class="line">        <span class="keyword">sell2 </span>= max(<span class="keyword">sell2, </span>prices[i] + <span class="keyword">buy2);</span><br><span class="line"></span>    &#125;</span><br><span class="line">    return <span class="keyword">sell2;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>代码里用buy1和sell1代表第一次买卖后手上能够剩余的最多的钱，buy2和sell2代表第二次买卖后手上能够剩余的最多的钱。通过max函数保证了buy1是以最低的价格进行第一次买入，而sell1的计算方式则是为了保证在buy1买入后能获取的最大利润；因为buy2操作是在sell1之后进行的操作，所以要在使用<code>sell1 - prices[i]</code>来计算第二次买入后手上剩余的钱，同样通过max函数保证了buy2是以sell1之后的最低价格买入。如果对整个的过程还不是很理解，可以结合下面的表格来讲算法在心里面给跑一下，可以有更深刻的理解。由于只遍历了一遍，所以时间复杂度为O(N)。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>3</th>
+<th>3</th>
+<th>5</th>
+<th>0</th>
+<th>0</th>
+<th>3</th>
+<th>1</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buy1</td>
+<td>-3</td>
+<td>-3</td>
+<td>-3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sell1</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>buy2</td>
+<td>-3</td>
+<td>-3</td>
+<td>-3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>sell2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="LeetCode188__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98984"><a href="#LeetCode188__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98984" class="headerlink" title="LeetCode188 股票买卖时机问题4"></a>LeetCode188 股票买卖时机问题4</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组代表每天的股价，在最多可以进行k次买卖的情况下找出可以得到的最高利润(不能同时进行多项交易，即买股票前必须先卖掉所有的股票）。<br>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">3</span>], k = <span class="number">2</span></span><br><span class="line">Output: <span class="number">7</span></span><br><span class="line">Explanation: 以价格<span class="number">2</span>买入价格<span class="number">6</span>卖出，得到利润<span class="number">4</span>；以价格<span class="number">0</span>买入价格<span class="number">3</span>卖出，得到利润<span class="number">3</span>，总共为<span class="number">7</span>。</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这同样是一道困难级别的题目。当k = 2 时，这道题目其实和上一道题是一样的。但是现在的k是不确定的，那我们能不能以相同的思路来解决这题呢? 答案当然是肯定的。我们只要创建两个大小为k + 1的数组分别用来保存每次买卖后手上剩余的最多钱即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    k = min(k, (<span class="keyword">int</span>)prices.size() / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;buy(k + <span class="number">1</span>, INT_MIN);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;sell(k + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prices.size(); i++) &#123;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= k; j++) &#123;</span><br><span class="line">	        buy[j] = max(buy[j], sell[j - <span class="number">1</span>] - prices[i]);</span><br><span class="line">	        sell[j] = max(sell[j], buy[j] + prices[i]);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	    </span><br><span class="line">	<span class="keyword">return</span> sell[k];	    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>由于k的值是不确定的，所以需要对 k == 0 这种 corner case 进行处理，否则程序会报错。一次完整的交易需要买和卖两天来完成，所以最多只能进行 prices.size() / 2 次交易。这里创建了两个长度为 k + 1 的数组 buy 和sell 分别用来保存每次买卖操作后手上剩余的钱，当完成所有的遍历后最后一次卖出时剩余的钱就是最大的利润。时间复杂度也不难看出是O(k * N)。上述代码提交后总的运行时间会是600ms+, 并不是很理想还需要进一步的优化。</p>
+<p>当k大于数组长度的一半时，这道题就转换成了股票买卖时机问题2，相当于可以买卖任意次数，这时就可以直接套用问题2的算法来减少运行时间。优化后的代码如下。</p>
+<p><strong>优化代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k &gt; prices.size() / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> profit = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt; prices.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i] &gt; prices[i - <span class="number">1</span>])&#123;</span><br><span class="line">                profit += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> profit;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(k &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">   <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;buy(k + <span class="number">1</span>, INT_MIN);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;sell(k + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; prices.size(); i++) &#123;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= k; j++) &#123;</span><br><span class="line">	        buy[j] = max(buy[j], sell[j - <span class="number">1</span>] - prices[i]);</span><br><span class="line">	        sell[j] = max(sell[j], buy[j] + prices[i]);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	    </span><br><span class="line">	<span class="keyword">return</span> sell[k];	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>优化代码分析：</strong><br>上述代码将<code>k &gt; prices.size() / 2</code>的情况套用过来问题2的算法，只要涨价就进行买入卖出操作，可以保证获取到所有的涨价利润，其它情况下才采用原始代码里的算法。优化后代码的运行时间为4ms, 可见优化的效果非常明显。</p>
+<h2 id="LeetCode309__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98985"><a href="#LeetCode309__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98985" class="headerlink" title="LeetCode309 股票买卖时机问题5"></a>LeetCode309 股票买卖时机问题5</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组代表每天的股价，可以进行任意次买卖但是每次卖出后要有一天的冷却期不能买入股票。找出可以得到的最高利润(不能同时进行多项交易，即买股票前必须先卖掉所有的股票）。</p>
+<p><strong>题目分析：</strong><br>卖出股票后有一天的冷却期，所以股票的持有状态会有三种，分别是买入、卖出和冷却。可以使用三个数组buy, sell 和 cooldown 来存储每天这三种状态下的最高利润，如sell[i]代表第 i 天卖出状态下能得到的最高利润。买入的状态可以持续多天，如第一天买入，第二天和第三天并没有卖出则这两天都是买入状态。卖出后状态转换为卖出状态，然后第二天转为冷却状态，冷却状态同样可以持续多天。</p>
+<p>对任意一天来讲，其买入状态有两个入口：一个就是昨天买入状态的持续；另一个就是昨天冷却，今天买入，即用昨天冷却的钱减去今天的股价。具体选择哪个入口取决于哪个入口可以让今天的买入状态下保持钱最多。同样卖出状态也有两个入口：一个就是昨天的卖出状态持续；另一个就是在昨天买入状态的基础上今天卖出，即用昨天买入的钱加入今天的股价。具体选择哪个入口同样取决于哪个入口可以让今天的卖出状态下保持钱最多。冷却状态由于不做任何操作所以当天冷却状态的钱同昨天卖出状态的钱是保持一致的。用代码将上述的状态转换写出来如下：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buy<span class="string">[i]</span> = max(buy<span class="string">[i - 1]</span>, cooldown<span class="string">[i - 1]</span> - prices<span class="string">[i]</span>;</span><br><span class="line">sell<span class="string">[i]</span> = max(sell<span class="string">[i - 1]</span>, buy<span class="string">[i - 1]</span> + prices<span class="string">[i]</span>;</span><br><span class="line">cooldown<span class="string">[i]</span> = sell<span class="string">[i - 1]</span>;</span><br></pre></td></tr></table></figure>
+<p>注意到冷却状态和卖出状态之间的关系，那 <code>cooldown[i - 1]</code> 就等于 <code>sell[i - 2]</code>, 将其替换到第一行中之后就可以去掉冷却状态，将代码转换成两个状态的转换：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">buy<span class="string">[i]</span> = max(buy<span class="string">[i - 1]</span>, sell<span class="string">[i - 2]</span> - prices<span class="string">[i]</span>;</span><br><span class="line">sell<span class="string">[i]</span> = max(sell<span class="string">[i - 1]</span>, buy<span class="string">[i - 1]</span> + prices<span class="string">[i]</span>;</span><br></pre></td></tr></table></figure>
+<p>明确了买入和卖出的状态转换后就不难写出代码。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = prices.size();</span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;buy(n + <span class="number">1</span>, INT_MIN);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;sell(n + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    buy[<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> price = prices[i - <span class="number">1</span>];</span><br><span class="line">        buy[i] = max(buy[i - <span class="number">1</span>], sell[i - <span class="number">2</span>] - price);</span><br><span class="line">        sell[i] = max(sell[i - <span class="number">1</span>], buy[i - <span class="number">1</span>] + price);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sell[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>因为代码里涉及到 -2 的下标操作，所以为了简化代码这里创建的buy和sell数组的大小都为 n + 1，并且直接将第一天buy[1] 初始化为买入的价格即 -prices[0]。然后从第二天开始遍历股价数组，同时根据上面推导出来的公式分别计算买入和卖出的最高利润。最后一次卖出就是可以获得的最高利润。由于只遍历了一遍，所以时间复杂度为O(N)。</p>
+<h2 id="LeetCode714__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98986"><a href="#LeetCode714__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98986" class="headerlink" title="LeetCode714 股票买卖时机问题6"></a>LeetCode714 股票买卖时机问题6</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/" target="_blank" rel="external">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/</a></p>
+<p><strong>题目描述：</strong><br>给定一个数组代表每天的股价，可以进行任意次买卖但是每次买卖都需要有交易费。找出可以得到的最高利润(不能同时进行多项交易，即买股票前必须先卖掉所有的股票）。</p>
+<p><strong>题目分析：</strong><br>这道题目同上一题非常类似，计算买入状态利润的算法是一样的，不同的就是在计算卖出状态利润时对每一次卖出操作要减去交易费。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = prices.size();</span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;buy(n, INT_MIN);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;sell(n, <span class="number">0</span>);</span><br><span class="line">    buy[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt; n; i++) &#123;</span><br><span class="line">        buy[i] = max(buy[i - <span class="number">1</span>], sell[i - <span class="number">1</span>] - prices[i]);</span><br><span class="line">        sell[i] = max(sell[i - <span class="number">1</span>], buy[i - <span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sell[n - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>代码分析：</strong><br>在上述代码中，同样创建了两个数组buy和selL来保存每天每种状态的最高利润。时间复杂度同样为O(N)，没有优化的空间，但是在空间上可以继续优化。观察状态转换部分的代码，我们完全可以使用几个变量来代替数组。优化后的代码如下所示。</p>
+<p><strong>优化代码：</strong></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> maxProfit(vector&lt;<span class="built_in">int</span>&gt;&amp; prices, <span class="built_in">int</span> fee) &#123;</span><br><span class="line">    <span class="built_in">int</span> n = prices.size()<span class="comment">;</span></span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    <span class="built_in">int</span> buy(-prices[<span class="number">0</span>]), sell(<span class="number">0</span>), preBuy<span class="comment">;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">1</span><span class="comment">; i&lt; n; i++) &#123;</span></span><br><span class="line">        preBuy = buy<span class="comment">;</span></span><br><span class="line">        buy = <span class="built_in">max</span>(buy, sell - prices[i])<span class="comment">;</span></span><br><span class="line">        sell = <span class="built_in">max</span>(sell, preBuy + prices[i] - fee)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sell<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，LeetCode上的股票买卖问题就整理完了。总结起来就是需要注意股票的买和卖这两个状态，找出这两个状态的转换方式，代码就不难写出来了。</p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/22/bfs/" rel="next" title="算法总结-广度优先算法">
+                <i class="fa fa-chevron-left"></i> 算法总结-广度优先算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2019/12/25/stocks/"
+     data-title="算法总结-股票买卖"
+     data-content=""
+     data-url="http://mushuichuan.com/2019/12/25/stocks/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/12/25/stocks/"
+           data-title="算法总结-股票买卖" data-url="http://mushuichuan.com/2019/12/25/stocks/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode121__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98981"><span class="nav-number">1.</span> <span class="nav-text">LeetCode121 股票买卖时机问题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode122__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98982"><span class="nav-number">2.</span> <span class="nav-text">LeetCode122 股票买卖时机问题2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode123__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98983"><span class="nav-number">3.</span> <span class="nav-text">LeetCode123 股票买卖时机问题3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode188__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98984"><span class="nav-number">4.</span> <span class="nav-text">LeetCode188 股票买卖时机问题4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode309__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98985"><span class="nav-number">5.</span> <span class="nav-text">LeetCode309 股票买卖时机问题5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode714__u80A1_u7968_u4E70_u5356_u65F6_u673A_u95EE_u98986"><span class="nav-number">6.</span> <span class="nav-text">LeetCode714 股票买卖时机问题6</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
