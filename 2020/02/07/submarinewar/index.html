@@ -1,0 +1,922 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="家里的娃报名火花思维有一天收到了火花思维给寄来的一套很有趣的教具：潜艇大作战。这套玩具看上去很像小时候玩过的华容道。华容道是通过移动各种不同的棋子最终将曹操移动到下面中间处的出口，潜艇大作战同样是移动各种棋子将潜水艇移动到下面中间处的出口。不同之处就在于潜艇大作战的棋子更丰富一些，不但有些棋子有伸到外面的“耳朵”附件，而且通过旋转、排列不同的棋子可以摆出各种不同难度的棋局。教具中附带的文档给出了6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="潜艇大作战">
+<meta property="og:url" content="http://mushuichuan.com/2020/02/07/submarinewar/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="家里的娃报名火花思维有一天收到了火花思维给寄来的一套很有趣的教具：潜艇大作战。这套玩具看上去很像小时候玩过的华容道。华容道是通过移动各种不同的棋子最终将曹操移动到下面中间处的出口，潜艇大作战同样是移动各种棋子将潜水艇移动到下面中间处的出口。不同之处就在于潜艇大作战的棋子更丰富一些，不但有些棋子有伸到外面的“耳朵”附件，而且通过旋转、排列不同的棋子可以摆出各种不同难度的棋局。教具中附带的文档给出了6">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/submarinewar.jpeg">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1581065176257.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2020-02-09T03:51:34.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="潜艇大作战">
+<meta name="twitter:description" content="家里的娃报名火花思维有一天收到了火花思维给寄来的一套很有趣的教具：潜艇大作战。这套玩具看上去很像小时候玩过的华容道。华容道是通过移动各种不同的棋子最终将曹操移动到下面中间处的出口，潜艇大作战同样是移动各种棋子将潜水艇移动到下面中间处的出口。不同之处就在于潜艇大作战的棋子更丰富一些，不但有些棋子有伸到外面的“耳朵”附件，而且通过旋转、排列不同的棋子可以摆出各种不同难度的棋局。教具中附带的文档给出了6">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 潜艇大作战 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                潜艇大作战
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-02-07T10:09:29+08:00" content="2020-02-07">
+              2020-02-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/02/07/submarinewar/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/02/07/submarinewar/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2020/02/07/submarinewar/" class="leancloud_visitors" data-flag-title="潜艇大作战">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>家里的娃报名火花思维有一天收到了火花思维给寄来的一套很有趣的教具：潜艇大作战。<br><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/submarinewar.jpeg" alt=""><br>这套玩具看上去很像小时候玩过的<a href="https://baike.baidu.com/item/%E5%8D%8E%E5%AE%B9%E9%81%93/23619" target="_blank" rel="external">华容道</a>。华容道是通过移动各种不同的棋子最终将曹操移动到下面中间处的出口，潜艇大作战同样是移动各种棋子将潜水艇移动到下面中间处的出口。不同之处就在于潜艇大作战的棋子更丰富一些，不但有些棋子有伸到外面的“耳朵”附件，而且通过旋转、排列不同的棋子可以摆出各种不同难度的棋局。教具中附带的文档给出了60个难度逐渐升高的棋局和对应答案，十分具有可玩性，孩子也十分喜欢。<br>在陪孩子玩的过程中，<strong>啊哈，灵机一动</strong>：这不就是一个很标准的DFS(深度优先搜索)问题吗？在每一步都会有2~3种走法，使用DFS进行暴力穷举就可以找出所有可能的解法。那就写个程序应用上DFS来解一下这个问题吧。</p>
+<h1 id="u9898_u76EE_u5206_u6790"><a href="#u9898_u76EE_u5206_u6790" class="headerlink" title="题目分析"></a>题目分析</h1><p>首先是棋盘的设计。在这里可以用一个二维矩阵来代表棋盘，考虑到棋子和各种附加的“耳朵”附件，棋子的大小是不可能占用1✖️1大小的空间，所以这里将棋子的大小定义为5✖️5，横竖都是3排棋子也就是15✖️15。此外看图中潜水艇和大号的水雷都有可能伸出到棋盘的外面，所以在棋盘的四周还需要加上两排棋盘边，最后得出棋盘的大小应该为19乘以19，恰好和围棋的棋盘一样。棋盘的左上角作为坐标(0,0), 右下角为(18,18)。</p>
+<p>下面就是棋子和附件的设计。前面已经提到过棋子的大小都是5✖️5，区别就是棋子的各种附件，按棋子的类别来分别设计一下：</p>
+<ol>
+<li>潜水艇✖️1。潜水艇有两个螺旋桨的附件，可以将其设计为两个2✖️2的矩阵；此外潜水艇的下面还有一个小夹子，这个小夹子也会阻碍棋子的移动，可以将其设计为一个1✖️1的矩阵。</li>
+<li>大水雷✖️1。大水雷就是上图中左下角的棋子，将大水雷定义为3✖️3的矩阵，其中1✖️1的角位于棋子之内，这样大水雷在左边和右边都伸出去了两排。</li>
+<li>中水雷✖️1。中水雷就是上图中大水雷之上的棋子，将中水雷定义为3✖️2的矩阵。上下各留出一个空行，然后一列位于棋子内部，伸出棋子的大小为一排。</li>
+<li>小水雷✖️5。小水雷定义为2✖️2的矩阵，位于棋子的一角上。小水雷按水雷位置的不同又分为3类：<ul>
+<li>只有一个小水雷。</li>
+<li>有两个在同一边的小水雷。</li>
+<li>有两个在对角上的小水雷。</li>
+</ul>
+</li>
+</ol>
+<p>这样棋子都设计完了，需要注意的就是除了潜水艇，其它的棋子在初始拜访的时候都是可以旋转的。如上图中大水雷在棋子的左下角，那么左上、右上和右下都是可能的位置。</p>
+<p>最后就是可移动性的判别。可以看到，棋子相互之间是不会阻碍移动的，起阻碍作用的都是棋子的附件，所以在移动的时候只需要判断是否有附件会造成阻碍即可。</p>
+<h1 id="u7A0B_u5E8F_u8BBE_u8BA1"><a href="#u7A0B_u5E8F_u8BBE_u8BA1" class="headerlink" title="程序设计"></a>程序设计</h1><p>基于以上的分析，接下来就可以进行程序设计了。本文中的代码使用c++实现。</p>
+<h2 id="u57FA_u7C7B_u548Cenume"><a href="#u57FA_u7C7B_u548Cenume" class="headerlink" title="基类和enume"></a>基类和enume</h2><p>首先定义一下Point类，用来代表棋盘上的一个点, 重写了其+操作符方便后续进行位置计算。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    Point(<span class="keyword">int</span> i, <span class="keyword">int</span> j) : x(i), y(j) &#123;&#125;</span><br><span class="line">    ~Point() &#123;&#125;</span><br><span class="line">    Point operator+(<span class="keyword">const</span> Point &amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> <span class="title">Point</span><span class="params">(x + b.x, y + b.y)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接下来定义一下Square类，代表了棋盘上的一个方格的区域，作为棋子和附件类的基类使用。width 和 height 分别代表了这个方格的宽和高，leftTop代表了这个方格的左上角的坐标，这样就可以在棋盘上准确地定义方格所会覆盖的区域。此外定义了两个虚函数<code>addToBoard</code>和<code>removeFromBoard</code>用来在棋盘上添加和移除方格，添加失败则代表着出现了棋子或者附件冲突的非法操作，一般在棋盘初始化时棋子摆放错误造成的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Square</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> width, height;</span><br><span class="line">    Point leftTop;</span><br><span class="line">    <span class="keyword">bool</span> valid = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    Square(<span class="keyword">int</span> w, <span class="keyword">int</span> h) : leftTop(Point(-<span class="number">1</span>, -<span class="number">1</span>)), width(w), height(h)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">addToBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, Point position)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        leftTop = position;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">removeFromBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Square() &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在定义棋子和附件类之前，还需要定义几个enum数组，便于我们后续的编程操作。</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//棋盘上的点当前的类型，NONE为棋盘上的空位置，CHESS和DECORATION分别代表了棋子和附件。</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">OBJECT_VALUE</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="constant">    NONE</span> = <span class="number">0</span>,</span><br><span class="line"><span class="constant">    CHESS</span> = <span class="number">1</span>,</span><br><span class="line"><span class="constant">    DECORATION</span> = <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//附件在棋子上的位置，4个角加4条边，总共有8个位置。</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">POSITION</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="constant">    LEFT_TOP</span> = <span class="number">0</span>,</span><br><span class="line"><span class="constant">    RIGHT_TOP</span> = <span class="number">1</span>,</span><br><span class="line"><span class="constant">    LEFT_BOTTOM</span> = <span class="number">2</span>,</span><br><span class="line"><span class="constant">    RIGHT_BOTTOM</span> = <span class="number">3</span>,</span><br><span class="line"><span class="constant">    LEFT_BORDER</span> = <span class="number">4</span>,</span><br><span class="line"><span class="constant">    TOP_BORDER</span> = <span class="number">5</span>,</span><br><span class="line"><span class="constant">    RIGHT_BORDER</span> = <span class="number">6</span>,</span><br><span class="line"><span class="constant">    BOTTOM_BORDER</span> = <span class="number">7</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//棋子移动的方向，由于棋子只能上下左右移动，所以有4个方向。</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">DERIECTION</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="constant">    LEFT</span> = <span class="number">0</span>,</span><br><span class="line"><span class="constant">    UP</span> = <span class="number">1</span>,</span><br><span class="line"><span class="constant">    DOWN</span> = <span class="number">2</span>,</span><br><span class="line"><span class="constant">    RIGHT</span> = <span class="number">3</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//棋子的类型，分别是潜水艇、小水雷、中水雷和大水雷。</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CHESS_TYPE</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="constant">    SUB_MARINE</span> = <span class="number">6</span>,</span><br><span class="line"><span class="constant">    SMALL_MINE</span> = <span class="number">7</span>,</span><br><span class="line"><span class="constant">    MIDDLE_MINE</span> = <span class="number">8</span>,</span><br><span class="line"><span class="constant">    BIG_MINE</span> = <span class="number">9</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="u9644_u4EF6_u7C7B"><a href="#u9644_u4EF6_u7C7B" class="headerlink" title="附件类"></a>附件类</h2><p>定义好了上述的enum后就可以继续定义附件类。附件类继承自<code>Square</code>类，需要实现自己的<code>addToBoard</code>和<code>removeFromBoard</code>方法。其中<code>addToBoard</code>方法会在附件类的范围内判断附件是否超出了棋盘、是否被其它附件已经占用了等非法情况，如果出现非法情况则直接返回false代表添加附件失败。如果是合法的，则将棋盘上当前附件的区域的值都设置为2，代表当前附件添加到了棋盘上。<code>removeFromBoard</code>方法则很简单，遍历整个附件的区域，将所有区域的值改回为0，代表这部分棋盘为空，可以添加其它的棋子或者附件。</p>
+<p>最重要的<code>canMove</code>方法，这个方法用来判断当前的附件可以向哪个方向移动。由于棋子的大小为5✖️5，而附件是跟随棋子移动的，所以其最大可以移动的距离就是5。在下面代码中，当需要判断是否可以向上移动的时候，只要判断附件最上面的一行从距离1到距离5是否可以移动即可。当移动过程中发现超出边界或者遇到其它的附件则代表不可移动，直接返回false。由于代码太长，这里略去了其它三个方向的判断代码，读者可以自行思考如何进行判断或者通过文章下面的链接下载源码查看实现方式。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Decoration : <span class="keyword">public</span> Square</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Decoration(<span class="keyword">int</span> width, <span class="keyword">int</span> height) : Square(width, height)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Decoration() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canMove</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, DERIECTION deriction)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> move = <span class="number">1</span>; move &lt;= <span class="number">5</span>; move++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">switch</span> (deriction)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> UP:</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = leftTop.x, j = leftTop.y; j &lt; leftTop.y + width; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (i - move &lt; <span class="number">0</span> || board[i - move][j] == DECORATION)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> DOWN: ...</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEFT: ...</span><br><span class="line">                <span class="keyword">break</span>; </span><br><span class="line">            <span class="keyword">case</span> RIGHT: ...</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">removeFromBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> x = leftTop.x + i;</span><br><span class="line">                <span class="keyword">int</span> y = leftTop.y + j;</span><br><span class="line">                <span class="keyword">if</span> (board[x][y] == DECORATION)</span><br><span class="line">                &#123;</span><br><span class="line">                    board[x][y] = NONE;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">addToBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, Point position)</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        Square::addToBoard(board, position);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (position.x &lt; <span class="number">0</span> || position.x &gt; <span class="number">19</span> || position.y &lt; <span class="number">0</span> || position.y &gt; <span class="number">19</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; width; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> x = leftTop.x + i;</span><br><span class="line">                <span class="keyword">int</span> y = leftTop.y + j;</span><br><span class="line">                <span class="keyword">if</span> (board[x][y] == DECORATION)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//Confilct with other decoration</span></span><br><span class="line">                    <span class="built_in">cout</span> &lt;&lt; <span class="string">"board x:"</span> &lt;&lt; x &lt;&lt; <span class="string">" y:"</span> &lt;&lt; y &lt;&lt; <span class="string">" is ocupied by DECORATION"</span> &lt;&lt; endl;</span><br><span class="line">                    valid = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    board[x][y] = DECORATION;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>定义好了附件类，就可以很轻松地将所有的附件给定义出来了，只需要指定对应附件的大小即可。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//小水雷，大小为2✖️2。</span></span><br><span class="line"><span class="tag">class</span> <span class="tag">SmallMine</span> : <span class="tag">public</span> <span class="tag">Decoration</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="tag">public</span>:</span><br><span class="line">    <span class="tag">SmallMine</span>() : <span class="tag">Decoration</span>(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="tag">SmallMine</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//中水雷，大小为2✖️3，水平放置时为3✖️2。</span></span><br><span class="line"><span class="tag">class</span> <span class="tag">MiddleMine</span> : <span class="tag">public</span> <span class="tag">Decoration</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="tag">public</span>:</span><br><span class="line">    <span class="tag">MiddleMine</span>() : <span class="tag">Decoration</span>(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="tag">MiddleMine</span>(bool horizental) : <span class="tag">Decoration</span>(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="tag">MiddleMine</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//大水雷，大小为3✖️3。</span></span><br><span class="line"><span class="tag">class</span> <span class="tag">BigMine</span> : <span class="tag">public</span> <span class="tag">Decoration</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="tag">public</span>:</span><br><span class="line">    <span class="tag">BigMine</span>() : <span class="tag">Decoration</span>(<span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="tag">BigMine</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//螺旋桨，大小为2✖️2。</span></span><br><span class="line"><span class="tag">class</span> <span class="tag">Propeller</span> : <span class="tag">public</span> <span class="tag">Decoration</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="tag">public</span>:</span><br><span class="line">    <span class="tag">Propeller</span>() : <span class="tag">Decoration</span>(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="tag">Propeller</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//小夹子，大小为1✖️1。</span></span><br><span class="line"><span class="tag">class</span> <span class="tag">Clip</span> : <span class="tag">public</span> <span class="tag">Decoration</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="tag">public</span>:</span><br><span class="line">    <span class="tag">Clip</span>() : <span class="tag">Decoration</span>(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="tag">Clip</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="u68CB_u5B50_u7C7B"><a href="#u68CB_u5B50_u7C7B" class="headerlink" title="棋子类"></a>棋子类</h2><p>棋子基类<code>Chess</code>同附件类一样也继续了<code>Square</code>类并实现了自己的<code>addToBoard</code>和<code>removeFromBoard</code>方法, 其实现与附件类基本相同，但是会添加对附件的操作，下面代码中省略掉了具体实现。棋子类内部有个数组<code>decorations</code>用来保存当前棋子所有的附件，不同棋子有不同种类和数量的附件。由于所有的棋子大小都是5✖️5，所有在构造方法中直接调用<code>Square</code>的构造方法并将方格的大小设置为5✖️5。虚函数<code>chessType</code> 由子类来实现返回子类的棋子类型。</p>
+<p>在棋子类的<code>canMove</code>方法中，需要根据棋子的类型和附件的排列方式来判断是否可以移动。如有两个小水雷的棋子，并且这两个小水雷在同一列上，当需要判断是否能向上移动的时候，我们只需要判断上面的那个小水雷是否可以移动即可，否则会出现下面的小水雷被上面的所阻碍的情况，从而造成判断错误。而对于潜水艇来讲，当处于出口位置时，我们就需要忽略小夹子向下是否可以移动，因为小夹子必然会超出棋盘的范围。</p>
+<p>需要注意的是析构函数中需要delete棋子中的所有附件类指针，当然我们也可以使用智能指针来简化这部分逻辑。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Chess : <span class="keyword">public</span> Square</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;Decoration *, Point&gt;&gt; decorations;</span><br><span class="line">    Chess() : Square(<span class="number">5</span>, <span class="number">5</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> CHESS_TYPE <span class="title">chessType</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canMove</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, DERIECTION deriction)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (decorations.size() == <span class="number">3</span>)</span><br><span class="line">        &#123; <span class="comment">// Check the clip of submarine chess.</span></span><br><span class="line">            <span class="keyword">auto</span> clip = decorations[<span class="number">1</span>].first;</span><br><span class="line">            <span class="keyword">if</span> (deriction == DOWN &amp;&amp; clip-&gt;leftTop.x == <span class="number">16</span> &amp;&amp; clip-&gt;leftTop.y == <span class="number">9</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Skip the check for clip in the exit position for down deriction.</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!clip-&gt;canMove(board, deriction))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">auto</span> front = decorations.front().first;</span><br><span class="line">        <span class="keyword">auto</span> back = decorations.back().first;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (decorations.size() == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> front-&gt;canMove(board, deriction);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">auto</span> frontLeftTop = front-&gt;leftTop;</span><br><span class="line">            <span class="keyword">auto</span> backLeftTop = back-&gt;leftTop;</span><br><span class="line">            <span class="comment">//Check for the situations that two decorations are in the same line and deriction.</span></span><br><span class="line">            <span class="keyword">switch</span> (deriction)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> UP:</span><br><span class="line">                <span class="keyword">if</span> (sameCol(frontLeftTop, backLeftTop))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//For up, we only need to check the upper one.</span></span><br><span class="line">                    <span class="keyword">return</span> (frontLeftTop.x &lt; backLeftTop.x ? front : back)</span><br><span class="line">                        -&gt;canMove(board, deriction);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> DOWN: ...</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEFT: ...</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> RIGHT: ...</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (front-&gt;canMove(board, deriction) &amp;&amp; back-&gt;canMove(board, deriction));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">removeFromBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">addToBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, Point position)</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">virtual</span> ~Chess()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> decoration : decorations)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">delete</span> decoration.first;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有了棋子基类就可以继续定义各种不同的棋子类。不同的棋子类要添加上不同的附件，并需要根据附件的位置来计算好附件的正确坐标。特别是各种水雷类，由于水雷有各种不同的摆放位置，所以需要针对每个位置进行判断。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> SubMarine : <span class="keyword">public</span> Chess</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SubMarine() : Chess()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//Add two propellers on top left and top right.</span></span><br><span class="line">        decorations.push_back(&#123;<span class="keyword">new</span> Propeller(), &#123;<span class="number">0</span>, -<span class="number">2</span>&#125;&#125;);</span><br><span class="line">        decorations.push_back(&#123;<span class="keyword">new</span> Clip(), &#123;<span class="number">4</span>, <span class="number">2</span>&#125;&#125;);</span><br><span class="line">        decorations.push_back(&#123;<span class="keyword">new</span> Propeller(), &#123;<span class="number">0</span>, width&#125;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    ~SubMarine() &#123;&#125;</span><br><span class="line">    <span class="function">CHESS_TYPE <span class="title">chessType</span><span class="params">()</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SUB_MARINE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> SmallMineChess : <span class="keyword">public</span> Chess</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SmallMineChess(<span class="built_in">vector</span>&lt;POSITION&gt; positions) : Chess()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> position : positions)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (position &gt; RIGHT_BOTTOM)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"SmallMine must on four corners!"</span> &lt;&lt; endl;</span><br><span class="line">                valid = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (position)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> LEFT_TOP:</span><br><span class="line">                decorations.push_back(&#123;<span class="keyword">new</span> SmallMine(), &#123;<span class="number">0</span>, <span class="number">0</span>&#125;&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> RIGHT_TOP:</span><br><span class="line">                decorations.push_back(&#123;<span class="keyword">new</span> SmallMine(), &#123;<span class="number">0</span>, width - <span class="number">2</span>&#125;&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEFT_BOTTOM:</span><br><span class="line">                decorations.push_back(&#123;<span class="keyword">new</span> SmallMine(), &#123;height - <span class="number">2</span>, <span class="number">0</span>&#125;&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> RIGHT_BOTTOM:</span><br><span class="line">                decorations.push_back(&#123;<span class="keyword">new</span> SmallMine(), &#123;height - <span class="number">2</span>, width - <span class="number">2</span>&#125;&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"wrong position"</span> &lt;&lt; position &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~SmallMineChess() &#123;&#125;</span><br><span class="line">    <span class="function">CHESS_TYPE <span class="title">chessType</span><span class="params">()</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SMALL_MINE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> MiddleMineChess : <span class="keyword">public</span> Chess</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MiddleMineChess(POSITION position) : Chess()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (position &lt; RIGHT_BOTTOM)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"MiddleMine must on four borders!"</span> &lt;&lt; endl;</span><br><span class="line">            valid = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (position)</span><br><span class="line">        &#123;</span><br><span class="line">        ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~MiddleMineChess() &#123;&#125;</span><br><span class="line">    <span class="function">CHESS_TYPE <span class="title">chessType</span><span class="params">()</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> MIDDLE_MINE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> BigMineChess : <span class="keyword">public</span> Chess</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    BigMineChess(POSITION position) : Chess()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (position &gt; RIGHT_BOTTOM)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"BigMine must on four corners!"</span> &lt;&lt; endl;</span><br><span class="line">            valid = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (position)</span><br><span class="line">        &#123;</span><br><span class="line">        ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~BigMineChess() &#123;&#125;</span><br><span class="line">    <span class="function">CHESS_TYPE <span class="title">chessType</span><span class="params">()</span> override</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BIG_MINE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="u7B97_u6CD5_u5B9E_u73B0"><a href="#u7B97_u6CD5_u5B9E_u73B0" class="headerlink" title="算法实现"></a>算法实现</h2><p>至此所有的准备工作都已经完成了，下面就可以具体地来实现DFS算法, 为了便于调试定义了一个<code>printBoard</code>方法将棋盘整个打印出来，如下图所示打印出来的就是第一关的示意图。中间是8个棋子和一个空格，周围是多出来的两排“棋盘边”，可以让伸出来的附件在上面移动。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1581065176257.jpg" alt=""></p>
+<p>接下来就是算法的实现。<code>findPath</code>方法是程序的接口，接收从外部传入的棋盘和棋子数据，其中的棋子数据就是一个3✖️3的二维数组，里面保存的就是棋子在真实棋盘中的初始位置。找出其中的空格作为算法的起始位置之后调用<code>dfsFind</code>方法开始启动深度优先算法。算法的流程如下：</p>
+<ol>
+<li>以当前的空格为起点，依次遍历4个方向，排除掉来的方向之后从剩下的方向中找到一个可以移动的方向。</li>
+<li>如果发现一个可移动的方向就将当前的移动方向加入到<code>path</code>中，这是我们最后获取到答案的依据。</li>
+<li>将这个可移动的棋子从棋盘中删除。</li>
+<li>在棋子数组中移动这个棋子到新的位置。</li>
+<li>将移动到新位置的棋子重新添加到棋盘上。此时我们需要看下潜水艇棋子是否移动到了下面中间的出口位置。当潜水艇棋子移动到这个位置的时候如果它还可以往下移动那就是找到了一条解题的路径。</li>
+<li>如果上一步没有找到解那说明还需要继续寻找，递归地调用<code>dfsFind</code>方法进行寻找。</li>
+<li>当前方向上没有找到解，说明当前方向上是无解的，需要恢复棋盘和棋子的状态到步骤2之前，继续查找下一个方向。</li>
+</ol>
+<p>以上就是算法的整体实现，如果对深度优先算法不太了解可能理解起来会有点困难，可以先看一下前面对深度优先算法总结的文章，理解深度优先算法后再来看这里的算法就会很清晰了。此外要想程序运行起来还需要实现题目的输入和输出，在本文中将不再赘述，感兴趣的读者可以自行查看源码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> SubmarineWar</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; moveDeriction[<span class="number">4</span>] = &#123;&#123;<span class="number">0</span>, -<span class="number">1</span>&#125;, &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">int</span> maxStep;</span><br><span class="line">    <span class="keyword">int</span> showLog;</span><br><span class="line">    <span class="keyword">int</span> findShortest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SubmarineWar(<span class="keyword">int</span> _maxStep, <span class="keyword">int</span> _showLog, <span class="keyword">int</span> _findShortest) : maxStep(_maxStep), showLog(_showLog), findShortest(_findShortest) &#123;&#125;</span><br><span class="line">    ~SubmarineWar() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findPath(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;Chess *&gt;&gt; &amp;chesses, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span><br><span class="line">    &#123;</span><br><span class="line">	    <span class="keyword">if</span>(chesses.size() != <span class="number">3</span> || chesses[<span class="number">0</span>].size() != <span class="number">3</span> || board.size() != <span class="number">19</span> || board[<span class="number">0</span>].size() != <span class="number">19</span>) &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"chesses or board size error!"</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (showLog)</span><br><span class="line">        &#123;</span><br><span class="line">            printBoard(board);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; minPath;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!chesses[i][j])</span><br><span class="line">                &#123;</span><br><span class="line">                    dfsFind(chesses, board, path, minPath, i, j);</span><br><span class="line">                    <span class="keyword">if</span> (!minPath.empty())</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// cout &lt;&lt; "Find a path" &lt;&lt; endl;</span></span><br><span class="line">                        <span class="keyword">return</span> minPath;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//(x,y) is the empty chess location.</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfsFind</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;Chess *&gt;&gt; &amp;chesses, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;path, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;minPath, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (path.size() &gt; maxStep)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((!path.empty() &amp;&amp; path.back() == i))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//The deriection last step comes from.</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> nextX = x + moveDeriction[i].first;</span><br><span class="line">            <span class="keyword">int</span> nextY = y + moveDeriction[i].second;</span><br><span class="line">            <span class="keyword">if</span> (nextX &lt; <span class="number">0</span> || nextX &gt; <span class="number">2</span> || nextY &lt; <span class="number">0</span> || nextY &gt; <span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//1. Find a valid movable deriction.</span></span><br><span class="line">            <span class="keyword">if</span> (chesses[nextX][nextY]-&gt;canMove(board, DERIECTION(<span class="number">3</span> - i))) <span class="comment">//Move to the current empty position.</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//2. Save the path.</span></span><br><span class="line">                path.push_back(<span class="number">3</span> - i);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//3. Remove this chess from board.</span></span><br><span class="line">                chesses[nextX][nextY]-&gt;removeFromBoard(board);</span><br><span class="line">                <span class="comment">//4. Move this chess in chess array.</span></span><br><span class="line">                chesses[x][y] = chesses[nextX][nextY];</span><br><span class="line">                chesses[nextX][nextY] = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//5. Add this chess to the board with the target position.</span></span><br><span class="line">                <span class="keyword">if</span> (!chesses[x][y]-&gt;addToBoard(board, &#123;<span class="number">2</span> + x * <span class="number">5</span>, <span class="number">2</span> + y * <span class="number">5</span>&#125;))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">cout</span> &lt;&lt; <span class="string">"add to board failed"</span> &lt;&lt; endl;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (x == <span class="number">2</span> &amp;&amp; y == <span class="number">1</span> &amp;&amp; chesses[x][y]-&gt;chessType() == SUB_MARINE)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (chesses[x][y]-&gt;canMove(board, DOWN))</span><br><span class="line">                    &#123;</span><br><span class="line">                        path.push_back(DOWN);</span><br><span class="line">                        <span class="keyword">if</span> (maxStep &gt; path.size())</span><br><span class="line">                        &#123;</span><br><span class="line">                            minPath = path;</span><br><span class="line">                            maxStep = minPath.size();</span><br><span class="line">                            <span class="keyword">if</span> (!findShortest)</span><br><span class="line">                            &#123;</span><br><span class="line">                                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        path.pop_back();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//6. Do dfs search.(nextX, nextY) shoule be empty chess.</span></span><br><span class="line">                <span class="keyword">if</span> (dfsFind(chesses, board, path, minPath, nextX, nextY))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//find a path</span></span><br><span class="line">                    <span class="keyword">if</span> (!findShortest)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//7. Revert chess position</span></span><br><span class="line">                chesses[x][y]-&gt;removeFromBoard(board);</span><br><span class="line">                chesses[nextX][nextY] = chesses[x][y];</span><br><span class="line">                chesses[x][y] = <span class="literal">nullptr</span>;</span><br><span class="line">                <span class="keyword">if</span> (!chesses[nextX][nextY]-&gt;addToBoard(board, &#123;<span class="number">2</span> + nextX * <span class="number">5</span>, <span class="number">2</span> + nextY * <span class="number">5</span>&#125;))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">cout</span> &lt;&lt; <span class="string">"add to board failed"</span> &lt;&lt; endl;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                path.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h1><p>其实深度优先算法不是本文中的难点，真正的难点是对棋子和附件类的设计以及对是否可移动的判断。在实现过程中，由于附件种类很多并且还涉及到各个移动方法，所以是否可移动是出现bug最多的地方。实现过程中由于设计的失误也出现不少返工，将各个细节都想清楚后再实现应该可以节省不少时间的，真是应了那句老话“磨刀不误砍柴工”。</p>
+<p>最后附上文中的程序源码链接：<a href="https://github.com/Chaoba/SubmarineWar" target="_blank" rel="external">https://github.com/Chaoba/SubmarineWar</a>, 感兴趣的读者可以自行阅读并运行源码并欢迎提出宝贵意见。</p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/stocks/" rel="next" title="算法总结-股票买卖">
+                <i class="fa fa-chevron-left"></i> 算法总结-股票买卖
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2020/02/07/submarinewar/"
+     data-title="潜艇大作战"
+     data-content=""
+     data-url="http://mushuichuan.com/2020/02/07/submarinewar/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2020/02/07/submarinewar/"
+           data-title="潜艇大作战" data-url="http://mushuichuan.com/2020/02/07/submarinewar/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u9898_u76EE_u5206_u6790"><span class="nav-number">1.</span> <span class="nav-text">题目分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u7A0B_u5E8F_u8BBE_u8BA1"><span class="nav-number">2.</span> <span class="nav-text">程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u57FA_u7C7B_u548Cenume"><span class="nav-number">2.1.</span> <span class="nav-text">基类和enume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u9644_u4EF6_u7C7B"><span class="nav-number">2.2.</span> <span class="nav-text">附件类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u68CB_u5B50_u7C7B"><span class="nav-number">2.3.</span> <span class="nav-text">棋子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7B97_u6CD5_u5B9E_u73B0"><span class="nav-number">2.4.</span> <span class="nav-text">算法实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
