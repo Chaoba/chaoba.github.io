@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="当需要遍历数组或者字符串并从中找出满足条件的子集或者子串的时候，简单的方法就是使用嵌套的循环来实现，但是这样的实现通常时间复杂度会太高，此时就可也考虑使用双指针来对算法进行优化。双指针顾名思义，就是需要应用到、两个指针，一个指针在前一个指针在后，通过移动这两个指针来找到满足条件的解。
+LeetCode15题目链接：https://leetcode.com/problems/3sum/
+题目描述：从">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-双指针">
+<meta property="og:url" content="http://mushuichuan.com/2020/02/13/twopoints/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="当需要遍历数组或者字符串并从中找出满足条件的子集或者子串的时候，简单的方法就是使用嵌套的循环来实现，但是这样的实现通常时间复杂度会太高，此时就可也考虑使用双指针来对算法进行优化。双指针顾名思义，就是需要应用到、两个指针，一个指针在前一个指针在后，通过移动这两个指针来找到满足条件的解。
+LeetCode15题目链接：https://leetcode.com/problems/3sum/
+题目描述：从">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/rainwatertrap.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2020-02-15T06:37:45.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-双指针">
+<meta name="twitter:description" content="当需要遍历数组或者字符串并从中找出满足条件的子集或者子串的时候，简单的方法就是使用嵌套的循环来实现，但是这样的实现通常时间复杂度会太高，此时就可也考虑使用双指针来对算法进行优化。双指针顾名思义，就是需要应用到、两个指针，一个指针在前一个指针在后，通过移动这两个指针来找到满足条件的解。
+LeetCode15题目链接：https://leetcode.com/problems/3sum/
+题目描述：从">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-双指针 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-双指针
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-02-13T16:18:18+08:00" content="2020-02-13">
+              2020-02-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/02/13/twopoints/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/02/13/twopoints/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2020/02/13/twopoints/" class="leancloud_visitors" data-flag-title="算法总结-双指针">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当需要遍历数组或者字符串并从中找出满足条件的子集或者子串的时候，简单的方法就是使用嵌套的循环来实现，但是这样的实现通常时间复杂度会太高，此时就可也考虑使用双指针来对算法进行优化。双指针顾名思义，就是需要应用到、两个指针，一个指针在前一个指针在后，通过移动这两个指针来找到满足条件的解。</p>
+<h2 id="LeetCode15"><a href="#LeetCode15" class="headerlink" title="LeetCode15"></a>LeetCode15</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/3sum/" target="_blank" rel="external">https://leetcode.com/problems/3sum/</a></p>
+<p><strong>题目描述：</strong><br>从一个数组中找出所有不重复的三元组，每个三元组中的数字之和为0。</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">数组 nums = [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">4</span>],</span><br><span class="line"></span><br><span class="line">满足条件的解:</span><br><span class="line">[</span><br><span class="line">  [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [-<span class="number">1</span>, -<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>用三个for循环可以很容易将算法写出来，但是那样的话时间复杂度为O(N<sup>3</sup>)，很不理想。这时就可以应用到双指针了。首先需要将数组进行排序，一方面便于使用双指针进行查找，另一方面便于跳过重复的数字。然后再遍历整个数组来寻找合法三元组的第一个数。</p>
+<p>如下所示,对于每个数 i，在其右边剩下的数中使用两个指针 j 和 k 分别从前后相向进行遍历，查找满足条件的三元组。这样优化后，算法的整体复杂度为O(N<sup>2</sup>)，比之前降低了一个数量级</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> i→</span><br><span class="line">-<span class="number">4</span>, -<span class="number">1</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">	 j→          ←k</span><br></pre></td></tr></table></figure>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    sort(nums.begin(), nums.end()); <span class="comment">//数组排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) <span class="keyword">continue</span>; <span class="comment">//跳过重复的数字</span></span><br><span class="line">        <span class="keyword">int</span> j = i + <span class="number">1</span>, k = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; k) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = nums[i] + nums[j] + nums[k];</span><br><span class="line">            <span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;<span class="comment">//找到一个满足条件的三元组</span></span><br><span class="line">                result.push_back(&#123;nums[i], nums[j], nums[k]&#125;);</span><br><span class="line">                <span class="comment">//跳过与nums[j]和nums[k]重复的数字</span></span><br><span class="line">                <span class="keyword">while</span>(j &lt; k &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) j++;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; k &amp;&amp; nums[k] == nums[k - <span class="number">1</span>]) k--;</span><br><span class="line">                j++;</span><br><span class="line">                k--;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; <span class="number">0</span>) &#123; <span class="comment">//和大于零，通过将k往左边移动来减少和。</span></span><br><span class="line">                k--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//和小于零，通过将j往右边移动来增加和。</span></span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode19"><a href="#LeetCode19" class="headerlink" title="LeetCode19"></a>LeetCode19</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="external">https://leetcode.com/problems/remove-nth-node-from-end-of-list/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>从一个单链表中删除倒数第n个节点，并返回删除这个节点后链表的头节点。n一定是个有效的数字。</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定链表: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>, n = <span class="number">2.</span></span><br><span class="line"></span><br><span class="line">删除倒数第<span class="number">2</span>个节点后链表变成: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">5.</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong></p>
+<p>一个简单的算法就是首先遍历一遍整个链表，记录下链表的长度，然后再次遍历并计数，根据链表的长度计算出需要删除的节点的位置并将其删除。但是这样就需要遍历链表两次，使用双指针就可以在只遍历一次的基础上删除该节点。</p>
+<p>使用双指针解决链表相关的问题时，可以将其想象成两个人赛跑。小学应用题来了：甲乙这两个人跑得一样快，让甲先跑n步，然后乙再出发，当甲到达终点的时候，乙离终点有多远呢？如果会做这道应用题，那么解这个题目的算法就不难写出来了。只是需要注意如果倒数第n个节点恰好是头结点这个特殊情况。此外，该方法还可以应用在判断链表是否有环等题目上。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ListNode</span>* removeNthFromEnd(<span class="type">ListNode</span>* head, int n) &#123;</span><br><span class="line">    <span class="type">ListNode</span> *<span class="keyword">left</span> = head, *<span class="keyword">right</span> = head;</span><br><span class="line">    <span class="keyword">while</span>(n-- &gt; <span class="number">0</span>) &#123; <span class="comment">//right先往前走n步</span></span><br><span class="line">        <span class="keyword">right</span> = <span class="keyword">right</span>-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">right</span>)&#123; <span class="comment">//right已经到达了终点，说明要删除的就是头节点，此时直接返回第二个节点即可</span></span><br><span class="line">            <span class="keyword">return</span>  head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">right</span>-&gt;next) &#123; <span class="keyword">left</span>和<span class="keyword">right</span>同步往终点走</span><br><span class="line">        <span class="keyword">left</span> = <span class="keyword">left</span>-&gt;next;</span><br><span class="line">        <span class="keyword">right</span> = <span class="keyword">right</span>-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//left的下个节点就是倒数第n的节点，将其删除。</span></span><br><span class="line">    <span class="keyword">left</span>-&gt;next = <span class="keyword">left</span>-&gt;next-&gt;next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode42"><a href="#LeetCode42" class="headerlink" title="LeetCode42"></a>LeetCode42</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="external">https://leetcode.com/problems/trapping-rain-water/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定一个非负整数数组代表各个竖条的高度，每个竖条的宽度都为1。计算出下完雨后，所有竖条组成的容器最多可以盛多少雨水。如数组<code>[0,1,0,2,1,0,1,3,2,1,2,1]</code>及其能盛的最多的水为6。具体可以参考下图。<br><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/rainwatertrap.png" alt=""></p>
+<p><strong>题目分析：</strong><br>这是一道困难级别的题目。可以对每个竖条进行单独分析。如果一个竖条上想要存上水，则在其两侧必然都有比其高的竖条作为边。而这个竖条上能存的最多的水则是由其左侧最高的边和右侧最高的边中最低那个决定的。如上图中中间那个高度为0的竖条，其左侧最高的为2，右侧最高为3，所以这个竖条之上最多可以盛的水为2。</p>
+<p>具体算法的实现可以使用双指针分别指向数组的两端，然后将低边向高边移动，同时记录下当前最高的边，计算出每个竖条上能盛的水并记录下来即可。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> trap(vector&lt;<span class="built_in">int</span>&gt;&amp; <span class="variable">height</span>) &#123;</span><br><span class="line">	<span class="built_in">int</span> sum = <span class="number">0</span>, maxLeft = <span class="number">0</span>, maxRight = <span class="number">0</span>;<span class="comment">//maxLeft和maxRight分别记录下左右两边最高的边</span></span><br><span class="line">	<span class="built_in">int</span> left = <span class="number">0</span>, right = <span class="variable">height</span>.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(left &lt; right) &#123;</span><br><span class="line">	    <span class="keyword">if</span>(<span class="variable">height</span>[left] &lt; <span class="variable">height</span>[right]) &#123;<span class="comment">//左侧的较低</span></span><br><span class="line">	        <span class="keyword">if</span>(<span class="variable">height</span>[left] &lt; maxLeft) &#123;<span class="comment">//当前的竖条小于左侧的最高边，计算能盛的水量</span></span><br><span class="line">	            sum += maxLeft - <span class="variable">height</span>[left];</span><br><span class="line">	        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	            maxLeft = <span class="variable">height</span>[left];<span class="comment">//当前竖条较高，无法盛水，将其最为一个边</span></span><br><span class="line">	        &#125;</span><br><span class="line">	        left++;<span class="comment">//左侧较低，向较高的右侧移动</span></span><br><span class="line">	    &#125; <span class="keyword">else</span> &#123;<span class="comment">//右侧的较低</span></span><br><span class="line">	        <span class="keyword">if</span>(<span class="variable">height</span>[right] &lt; maxRight) &#123;</span><br><span class="line">	            sum += maxRight - <span class="variable">height</span>[right];</span><br><span class="line">	        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	            maxRight = <span class="variable">height</span>[right];</span><br><span class="line">	        &#125;</span><br><span class="line">	        right--;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>双指针就是应用两个指针同向或者逆向按照一定的条件进行移动来找出解的方法。在应用双指针的时候要考虑清楚指针的起始位置、移动方向和移动条件。此外双指针还有一些具体的应用如滑动窗口等将在后文中进行研究。<br><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png">    </p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/submarinewar/" rel="next" title="潜艇大冒险">
+                <i class="fa fa-chevron-left"></i> 潜艇大冒险
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2020/02/13/twopoints/"
+     data-title="算法总结-双指针"
+     data-content=""
+     data-url="http://mushuichuan.com/2020/02/13/twopoints/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2020/02/13/twopoints/"
+           data-title="算法总结-双指针" data-url="http://mushuichuan.com/2020/02/13/twopoints/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode15"><span class="nav-number">1.</span> <span class="nav-text">LeetCode15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode19"><span class="nav-number">2.</span> <span class="nav-text">LeetCode19</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode42"><span class="nav-number">3.</span> <span class="nav-text">LeetCode42</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

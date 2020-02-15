@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/20/Iajuig3KS9J1yF2.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/20/H56bxq3URAEngtD.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
-<meta property="og:updated_time" content="2019-11-01T07:45:45.468Z">
+<meta property="og:updated_time" content="2020-02-14T03:30:07.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法总结-归并排序">
 <meta name="twitter:description" content="归并排序是分治法的一种应用，其思路是将数组分为左右两部分，分别递归地进行归并排序，然后将这两部分给合并起来。归并排序的c++递归实现可以参考下面的模板：
@@ -343,7 +343,7 @@
 <figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> reversePairs(vector&lt;<span class="built_in">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    return mergeSort(nums, <span class="number">0</span>, nums.size());</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">int</span> mergeSort(vector&lt;<span class="built_in">int</span>&gt;&amp; nums, <span class="built_in">int</span> <span class="built_in">left</span>, <span class="built_in">int</span> <span class="built_in">right</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">right</span> - <span class="built_in">left</span> &lt;= <span class="number">1</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">mid</span> = (<span class="built_in">left</span> + <span class="built_in">right</span>) / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">int</span> count = mergeSort(nums, <span class="built_in">left</span>, <span class="built_in">mid</span>)</span><br><span class="line">        + mergeSort(nums, <span class="built_in">mid</span>, <span class="built_in">right</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="built_in">left</span>, j = <span class="built_in">mid</span>; i&lt; <span class="built_in">mid</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; <span class="built_in">right</span> &amp;&amp; nums[i] &gt; nums[j] &amp;&amp; nums[i] &gt; <span class="number">2</span>l * nums[j]) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        count += j - <span class="built_in">mid</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    inplace_merge(nums.begin() + <span class="built_in">left</span>, nums.begin() + <span class="built_in">mid</span>, nums.begin() + <span class="built_in">right</span>);</span><br><span class="line">    return count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>代码分析：</strong><br>在左右两部分排序结束后，遍历所有左半部分的数据在右半部分中查找满足条件<code>nums[i] &gt; 2*nums[j]</code>的数据就是题目要求的重要交换对。特别注意这里使用<code>2l * nums[j]</code>, 当<code>nums[j]</code>的数较大的时候，乘以2容易造成<code>int</code>类型的数据溢出，使用<code>long</code>类型可以防止此类错误。</p>
 <p>上面三个题目都是困难级别的，如果不使用归并排序的话基本上只能采用两重循环这种效率低下的方法来解决。只要题目是查找数组中的两个坐标并要求坐标上对应的数组满足某种关系，我们都可以套用归并排序的模板来解决。需要牢记的是左右两部分排序后都是有序递增的，利用好这个特性可以帮助我们提高查找满足条件数据的效率。掌握上述模板后，相对来讲归并排序不是很难。</p>
-<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+<p><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png">    </p>
 
       
     </div>
@@ -462,7 +462,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
