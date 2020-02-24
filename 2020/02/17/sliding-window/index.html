@@ -1,0 +1,932 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="滑动窗口通常应用在从字符串中寻找满足条件的子串一类的题目中，是上文中双指针算法的一种特殊形式。滑动窗口算法的关键是需要一个数组来记录下当前窗口中每个字符的数目，然后再根据具体的条件来移动窗口前后的指针。
+LeetCode3题目链接：
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+题目描述：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法总结-滑动窗口">
+<meta property="og:url" content="http://mushuichuan.com/2020/02/17/sliding-window/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="滑动窗口通常应用在从字符串中寻找满足条件的子串一类的题目中，是上文中双指针算法的一种特殊形式。滑动窗口算法的关键是需要一个数组来记录下当前窗口中每个字符的数目，然后再根据具体的条件来移动窗口前后的指针。
+LeetCode3题目链接：
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+题目描述：">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2020-02-24T10:33:31.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法总结-滑动窗口">
+<meta name="twitter:description" content="滑动窗口通常应用在从字符串中寻找满足条件的子串一类的题目中，是上文中双指针算法的一种特殊形式。滑动窗口算法的关键是需要一个数组来记录下当前窗口中每个字符的数目，然后再根据具体的条件来移动窗口前后的指针。
+LeetCode3题目链接：
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+题目描述：">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法总结-滑动窗口 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法总结-滑动窗口
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-02-17T14:51:43+08:00" content="2020-02-17">
+              2020-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/02/17/sliding-window/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/02/17/sliding-window/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2020/02/17/sliding-window/" class="leancloud_visitors" data-flag-title="算法总结-滑动窗口">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>滑动窗口通常应用在从字符串中寻找满足条件的子串一类的题目中，是上文中双指针算法的一种特殊形式。滑动窗口算法的关键是需要一个数组来记录下当前窗口中每个字符的数目，然后再根据具体的条件来移动窗口前后的指针。</p>
+<h2 id="LeetCode3"><a href="#LeetCode3" class="headerlink" title="LeetCode3"></a>LeetCode3</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="external">https://leetcode.com/problems/longest-substring-without-repeating-characters/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>从一个字符串中找到一个最长的不包含重复字符串的子串，然后返回其长度。</p>
+<p>例子</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Input</span>: <span class="string">"pwwkew"</span></span><br><span class="line"><span class="attribute">Output</span>: <span class="string">3 </span></span><br><span class="line"><span class="attribute">Explanation</span>: <span class="string">最长子串为 "wke", 其长度为 3.</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>题目可以使用双重循环对每个子串进行判断，但是效率不高，使用滑动窗口可以在O(N)的时间复杂度下解决问题。窗口的滑动总共分为3步：</p>
+<ol>
+<li>窗口右边往前滑动，同时记录好窗口内都有哪些字符。这一步需要提前创建个数组<code>map</code>记录下每个字符已经是否包含在窗口中。</li>
+<li>判断窗口那的子串是否满足需求。这一步同样是通过<code>map</code>数组来判断，如果数组中没有这个字符的记录，可以认为当前是一个可能的解。</li>
+<li>窗口左边往前滑动到窗口中没有重复字符了为止。在滑动的过程中将遇到的字符从数组中减去。</li>
+</ol>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">128</span>, <span class="number">0</span>);<span class="comment">//记录下窗口中出现过的字符</span></span><br><span class="line">    <span class="keyword">int</span> longest = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j &lt; s.size()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">map</span>[s[j]]) &#123;<span class="comment">//数组中没有当前的字符串，找到一个可能的解。</span></span><br><span class="line">            longest = max(longest, (j - i + <span class="number">1</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">//数组中有记录当前的字符串，出现重复。</span></span><br><span class="line">            <span class="keyword">while</span>(i &lt; j &amp;&amp; <span class="built_in">map</span>[s[j]] &gt; <span class="number">0</span>) &#123;<span class="comment">//将窗口左侧往前滑动，直到当前窗口内没有重复字符串为止。</span></span><br><span class="line">                <span class="built_in">map</span>[s[i]]--;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">map</span>[s[j]] ++;</span><br><span class="line">        j++;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> longest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode76"><a href="#LeetCode76" class="headerlink" title="LeetCode76"></a>LeetCode76</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank" rel="external">https://leetcode.com/problems/minimum-window-substring/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定两个字符串 S 和 T, 在O(N)的时间复杂度前提下从 S 中找到包含 T 中所有字符的最短子串。</p>
+<p>例子：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Input:</span> S = <span class="string">"ADOBECODEBANC"</span>, T = <span class="string">"ABC"</span></span><br><span class="line"><span class="label">Output:</span> <span class="string">"BANC"</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong></p>
+<p>由于题目要求O(N)的时间复杂度，所以这里首先就考虑使用滑动窗口来解决。和之前一样，首先创建一个数组来记录窗口内字符的数目，但是这一次数组要初始化为 T 中的每个字符的数目，如例子中字符’A’, ‘B’和’C’在数组中对应的数字为1，其它的都为0。</p>
+<p>在窗口右侧滑动的过程中，在数组中将所遇到的字符数目减一。当数组中所有的数都小于等于0时，就代表找到了一个可能的解。之后需要移动窗口作则，与右侧相反在数组中将所遇到的字符数目加一。由于左侧的前部可能包含一些不在 T 中的字符，所以可能在左侧移动之后数组中所有的数还都小于等于0，这说明找到了一个更优的解。当数组中出现了大于0的数值时，说明现在窗口内的字符串是不满足要求的，需要继续滑动窗口的右侧来寻找。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">string</span> minWindow(<span class="type">string</span> s, <span class="type">string</span> t) &#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; map(<span class="number">128</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">auto</span> c : t) &#123; //初始化数组为t中各个字符的个数</span><br><span class="line">        map[c]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> count = t.size();</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="literal">result</span> = &#123;<span class="number">0</span>, s.size()&#125;;//记录最短字符串的起始位置和长度</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(j &lt; s.size()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(map[s[j]] &gt; <span class="number">0</span>) &#123;// s[j]在t中，找到一个字符串，count减一</span><br><span class="line">            count--;</span><br><span class="line">        &#125;</span><br><span class="line">        map[s[j]]--;//将数组中对应的字符数目减一并往前移动窗口</span><br><span class="line">        j++;</span><br><span class="line">        <span class="keyword">while</span>(count == <span class="number">0</span>) &#123;//找到了可能的解</span><br><span class="line">            <span class="keyword">if</span>(j - i &lt; <span class="literal">result</span>.second)&#123;</span><br><span class="line">                <span class="literal">result</span> = &#123;i, j - i&#125;;//找到了更优的解</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(map[s[i]] == <span class="number">0</span>)&#123;//s[i]是包含在 t 中的字符，窗口左侧往前移动后，需要查找的字符数目加一</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">            map[s[i]]++;//移动窗口左侧并将对应的字符数目加一</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> s.substr(<span class="literal">result</span>.first, <span class="literal">result</span>.second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode239"><a href="#LeetCode239" class="headerlink" title="LeetCode239"></a>LeetCode239</h2><p><strong>题目链接：</strong><br><a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="external">https://leetcode.com/problems/sliding-window-maximum/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>有一个长度为k的滑动窗口，从一个数组的左侧向右滑动。返回滑动窗口中每一步最大的值。</p>
+<p>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">3</span>,-<span class="number">1</span>,-<span class="number">3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>], and k = <span class="number">3</span></span><br><span class="line">Output: [<span class="number">3</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>] </span><br><span class="line">Explanation: </span><br><span class="line"></span><br><span class="line">Window position                Max</span><br><span class="line">---------------               -----</span><br><span class="line">[<span class="number">1</span>  <span class="number">3</span>  -<span class="number">1</span>] -<span class="number">3</span>  <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span> [<span class="number">3</span>  -<span class="number">1</span>  -<span class="number">3</span>] <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span> [-<span class="number">1</span>  -<span class="number">3</span>  <span class="number">5</span>] <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  -<span class="number">1</span> [-<span class="number">3</span>  <span class="number">5</span>  <span class="number">3</span>] <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  -<span class="number">1</span>  -<span class="number">3</span> [<span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>] <span class="number">7</span>       <span class="number">6</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  -<span class="number">1</span>  -<span class="number">3</span>  <span class="number">5</span> [<span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>]      <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong><br>这是一道困难级别的题目，想要在O(N)的时间复杂度下解决就需要使用到<code>deque</code>。<code>deque</code>是这样一种队列，即从其头部和尾部就可以进行复杂度为O(1)的插入和删除操作，但是如果频繁地在其中间进行插入和删除操作，其性能就不如普通的链表了。著名的LRU缓存内部一般就是用<code>deque</code>来实现的，最近使用的数据从头部进行插入，当缓存满了的时候就从尾部进行删除。</p>
+<p>回到本题中，<code>deque</code>将用来保存当前窗口中较大数据的坐标集合，并且从头部到尾部递减，这样头部坐标对应的数据就是当前窗口中最大的数据。而为了保证<code>deque</code>中对应的数据是递减的，就需要在插入新的数据坐标时进行判断，当前的数据是否比尾部的数据大，如果是则将尾部较小的数据坐标给删除掉，然后将当前数据插入到尾部。那会不会删除掉的数据会是可能的最大值呢？是不可能的。这是因为随着窗口的滑动，新插入的数据必然会比之前的数据“活得”更久，所以在以后的窗口中最大的数据就有可能是这个新插入的这个较大的数据。</p>
+<p><code>deque</code>头部的数据是最大值，那什么时候将头部的数据删掉呢？当然是当窗口滑出头部数据所在的位置，此时新的头部数据就是下个滑动窗口的最大值。</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; maxSlidingWindow(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k) &#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; <span class="literal">result</span>;</span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty() &amp;&amp; nums[q.back()] &lt; nums[i]) &#123;</span><br><span class="line">            q.pop_back();//删掉所有尾部较小的值的坐标，这些值不可能是最大值了</span><br><span class="line">        &#125;</span><br><span class="line">        q.push_back(i);//将当前数值坐标插入到尾部，保持队列有序递减</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(q.front() + k == i)&#123;</span><br><span class="line">            q.pop_front();//头部的数据的坐标已经滑出窗口了，将其删除</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= k - <span class="number">1</span>)&#123;//窗口的右侧从 k - <span class="number">1</span> 开始滑动，k - <span class="number">1</span> 之前还没有窗口不能取最大值</span><br><span class="line">            <span class="literal">result</span>.push_back(nums[q.front()]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode424"><a href="#LeetCode424" class="headerlink" title="LeetCode424"></a>LeetCode424</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/longest-repeating-character-replacement/" target="_blank" rel="external">https://leetcode.com/problems/longest-repeating-character-replacement/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定一个仅包含大写字母的字符串，最多更改k个字母，计算出更改后连续字母的最大长度。</p>
+<p>例子：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Input:</span></span><br><span class="line">s = <span class="string">"ABAB"</span>, k = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="label">Output:</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="label">Explanation:</span></span><br><span class="line">可以将两个<span class="string">'A'</span>改为<span class="string">'B'</span>，结果为<span class="string">"AAAA"</span>，长度为<span class="number">4.</span></span><br></pre></td></tr></table></figure>
+<p><strong>题目分析：</strong></p>
+<p>当滑动窗口右侧滑动的时候，窗口的长度会增加，此时如果窗口的长度等于窗口中数目最多的字母数加上k, 则这个窗口就是一个可能解。只要将所有可能的解都找出来，取其中最长的就是最终的结果。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> characterReplacement(<span class="type">string</span> s, <span class="type">int</span> k) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="literal">result</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> maxC = <span class="number">0</span>; //记录窗口中字母最多的字母数</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; v(<span class="number">26</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; j &lt; s.size(); j++)&#123;</span><br><span class="line">        maxC = max(maxC, ++v[s[j] - 'A']); //窗口右侧往前滑动，更新一下最多的字母数</span><br><span class="line">        <span class="keyword">while</span>(j - i + <span class="number">1</span> - maxC &gt; k)&#123; //窗口太长了，将左侧往前移动</span><br><span class="line">            v[s[i++] - 'A']--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="literal">result</span> = max(<span class="literal">result</span>, j - i + <span class="number">1</span>); //当前窗口是一个可能的解，记录下最长长度</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">result</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode567"><a href="#LeetCode567" class="headerlink" title="LeetCode567"></a>LeetCode567</h2><p><strong>题目链接：</strong></p>
+<p><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank" rel="external">https://leetcode.com/problems/permutation-in-string/</a></p>
+<p><strong>题目描述：</strong></p>
+<p>给定两个只包含小写字母的非空字符串s1和s2，判断是否有一个s1中字母的任意组合是s2的子串。</p>
+<p><strong>题目分析：</strong></p>
+<p>s2是比较长的的字符串，需要在s2上应用滑动窗口。和之前一样，可以先建一个数组，将s1中每个字符的数目给记录下来，当窗口在s2上滑动时，对右边碰到的字符就将其数目减一，对左边碰到的字符就将其数目加一。同时滑动的过程中还要确保窗口中的字符都包含在s1中，而且每个字符的数目不能多于s1中对应字符的数目。这样当数组中记录的数字都为0而且窗口的长度恰好等于s1时，就说明找到了这样的一个子串。</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkInclusion</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">26</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> c : s1) &#123; <span class="comment">//记录下s1中每个字符的数目</span></span><br><span class="line">	    <span class="built_in">map</span>[c - <span class="string">'a'</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>; r &lt; s2.size(); r++) &#123;</span><br><span class="line">	    <span class="keyword">int</span> index = s2[r] - <span class="string">'a'</span>;</span><br><span class="line">	    <span class="built_in">map</span>[index] --; <span class="comment">//窗口右侧滑动，对应字符数目减一</span></span><br><span class="line">	    <span class="keyword">if</span> (<span class="built_in">map</span>[index] &lt; <span class="number">0</span>) &#123; <span class="comment">//字符数目小于0，说明窗口中有不包含在s1中字符或者某个字符数目超过了s1中相同字符的数目，需要缩小窗口</span></span><br><span class="line">	        <span class="keyword">while</span>(s2[r] != s2[l]) &#123;</span><br><span class="line">	            <span class="built_in">map</span>[s2[l] - <span class="string">'a'</span>]++;</span><br><span class="line">	            l++;</span><br><span class="line">	        &#125;</span><br><span class="line">	        <span class="built_in">map</span>[s2[l] - <span class="string">'a'</span>]++;</span><br><span class="line">	        l++;</span><br><span class="line">	    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (r - l + <span class="number">1</span> == s1.size())&#123;<span class="comment">// 窗口的长度等于s1的长度，找到了一个子串</span></span><br><span class="line">	        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>解决滑动窗口的题目一般都是通过一个数组来记录下字符的数目，然后在窗口的滑动过程中对数组中的数目进行加减，最后分析窗口左右两边滑动的条件。在明确了窗口的滑动条件后，就不难找出目标解了。<br><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png">    </p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/13/twopoints/" rel="next" title="算法总结-双指针">
+                <i class="fa fa-chevron-left"></i> 算法总结-双指针
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2020/02/17/sliding-window/"
+     data-title="算法总结-滑动窗口"
+     data-content=""
+     data-url="http://mushuichuan.com/2020/02/17/sliding-window/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2020/02/17/sliding-window/"
+           data-title="算法总结-滑动窗口" data-url="http://mushuichuan.com/2020/02/17/sliding-window/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode3"><span class="nav-number">1.</span> <span class="nav-text">LeetCode3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode76"><span class="nav-number">2.</span> <span class="nav-text">LeetCode76</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode239"><span class="nav-number">3.</span> <span class="nav-text">LeetCode239</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode424"><span class="nav-number">4.</span> <span class="nav-text">LeetCode424</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode567"><span class="nav-number">5.</span> <span class="nav-text">LeetCode567</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
