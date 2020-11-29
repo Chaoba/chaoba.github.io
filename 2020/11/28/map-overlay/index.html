@@ -1,0 +1,890 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="很多大厂面试时都会考算法，然后招人进去了可能就干一些 ctrl+c/ctrl+v 的简单工作，所以就有了面试造飞机，实际工作拧螺丝钉的调侃说法。其实不然，虽然程序员大部分的工作可能不会涉及到算法，但是一旦遇到那些需要算法的复杂情况，如果对这个算法不熟的话可能会卡住你好几天的时间；但是如果你会这个算法的话那可能仅仅需要几个小时。前一段时间工作中就遇到了这样的一个问题最后使用了BFS算法才完美地解决了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFS计算出面积最大的矩形">
+<meta property="og:url" content="http://mushuichuan.com/2020/11/28/map-overlay/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="很多大厂面试时都会考算法，然后招人进去了可能就干一些 ctrl+c/ctrl+v 的简单工作，所以就有了面试造飞机，实际工作拧螺丝钉的调侃说法。其实不然，虽然程序员大部分的工作可能不会涉及到算法，但是一旦遇到那些需要算法的复杂情况，如果对这个算法不熟的话可能会卡住你好几天的时间；但是如果你会这个算法的话那可能仅仅需要几个小时。前一段时间工作中就遇到了这样的一个问题最后使用了BFS算法才完美地解决了">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606654538182.jpg">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606654371906.jpg">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606648720939.jpg">
+<meta property="og:image" content="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606650949911.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2020-11-29T12:59:43.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BFS计算出面积最大的矩形">
+<meta name="twitter:description" content="很多大厂面试时都会考算法，然后招人进去了可能就干一些 ctrl+c/ctrl+v 的简单工作，所以就有了面试造飞机，实际工作拧螺丝钉的调侃说法。其实不然，虽然程序员大部分的工作可能不会涉及到算法，但是一旦遇到那些需要算法的复杂情况，如果对这个算法不熟的话可能会卡住你好几天的时间；但是如果你会这个算法的话那可能仅仅需要几个小时。前一段时间工作中就遇到了这样的一个问题最后使用了BFS算法才完美地解决了">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> BFS计算出面积最大的矩形 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                BFS计算出面积最大的矩形
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-11-28T20:07:41+08:00" content="2020-11-28">
+              2020-11-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/11/28/map-overlay/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/11/28/map-overlay/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2020/11/28/map-overlay/" class="leancloud_visitors" data-flag-title="BFS计算出面积最大的矩形">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>很多大厂面试时都会考算法，然后招人进去了可能就干一些 ctrl+c/ctrl+v 的简单工作，所以就有了面试造飞机，实际工作拧螺丝钉的调侃说法。其实不然，虽然程序员大部分的工作可能不会涉及到算法，但是一旦遇到那些需要算法的复杂情况，如果对这个算法不熟的话可能会卡住你好几天的时间；但是如果你会这个算法的话那可能仅仅需要几个小时。前一段时间工作中就遇到了这样的一个问题最后使用了BFS算法才完美地解决了这个问题。</p>
+<h2 id="u95EE_u9898_u63CF_u8FF0"><a href="#u95EE_u9898_u63CF_u8FF0" class="headerlink" title="问题描述"></a>问题描述</h2><p>当开发导航SDK的时候，需要在展示地图的同时在地图上覆盖一些View来展示一些重要的信息，如往左转，前方有收费站、服务区等。但是我们不希望这些View将地图上正在展示的一些重要的POI给遮住，这就需要我们根据这些View的大小、位置和数目来动态地调整地图的大小和中心位置，确保这些重要的POI一直处于正常的展示状态。</p>
+<h2 id="u95EE_u9898_u5206_u6790"><a href="#u95EE_u9898_u5206_u6790" class="headerlink" title="问题分析"></a>问题分析</h2><p>问题的最终目的是在当前屏幕的范围上刨除掉所有遮挡View后，找出那个最大的矩形区域，然后调用地图的API来调整地图即可。地图API不在本文的讨论范围，所以我们仅仅关注如何找出这个矩形。<br>如下图所示，屏幕最初始就是一个矩形，我们以红色矩形作为遮挡View,当添加一个红色的矩形在其上面之后，最大面积的矩形就是黄色虚线框和绿色虚线框中某一个(严格意义上来讲在红色矩形的左边和上边也会有两个狭窄的矩形，但是实际中红色矩形框都是靠着四边的，最后的结果不可能在这两个狭窄的矩形中产生，所以在这里直接将其忽略掉以提高性能)，所以。根据红色矩形右下角的坐标，我们就可以计算出这两个新矩形的位置和面积。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606654538182.jpg" alt=""></p>
+<p>但是遮挡View可能不止一个,如果再添加一个红色矩形后，原本的黄色虚线矩形就可以被裁剪成下图中的两个黄色虚线矩形框。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606654371906.jpg" alt=""></p>
+<p>继续添加一个红色矩形后原本的绿色虚线框矩形也可以被裁剪成下图中的两个绿色虚线矩形框。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606648720939.jpg" alt=""></p>
+<p>有发现规律吗？原始的一个矩形在添加一个红色矩形后，被裁剪成了两个矩形，当有新的红色矩形被添加到这两个矩形后，每个矩形又被裁剪成了两个新的矩形，这像不像二叉树呢？原始的矩形是根节点，下面会生成一些子节点，而我们就是要从所有的子节点中找到面积最大的那个，由于子节点会在遍历的过程中生成，所以我们可以使用BFS算法一层层的进行遍历。但是这并不是严格的二叉树，当红色矩形添加到矩形的中间位置的时候，其生成的子节点可能会有三个或者四个。另外就是当新添加的红色矩形和现有的矩形并没有重叠的地方时，那这个红色矩形就可以完全忽略掉，当前的节点直接复制自己生成一个新的字节点。同时这就引入了下面一个问题：如何判断两个矩形是否有互相重叠的地方？</p>
+<h3 id="u5224_u65AD_u4E24_u4E2A_u77E9_u5F62_u662F_u5426_u6709_u4E92_u76F8_u91CD_u53E0_u7684_u5730_u65B9"><a href="#u5224_u65AD_u4E24_u4E2A_u77E9_u5F62_u662F_u5426_u6709_u4E92_u76F8_u91CD_u53E0_u7684_u5730_u65B9" class="headerlink" title="判断两个矩形是否有互相重叠的地方"></a>判断两个矩形是否有互相重叠的地方</h3><p>如果要直接判断两个矩形是否有互相重叠的地方会比较复杂，因为重叠的方式会有很多中，如分别有一个角重叠、两个角重叠、一个矩形包含另外一个等等，非常容易把人搞得头大。这时就可以采用反向思维的方式，什么情况下两个矩形不会有重叠的地方呢？我们以一个矩形作为基准，当它的上边线比另外一个矩形的下边线低的时候，那它们两个肯定就不会重叠；或者当它的左边线比另外一个矩形的右边线靠右的时候，那他们同样也不会重叠；同样的道理也适用于右边线和底边线。</p>
+<p><img src="https://blog-1300973602.cos.ap-beijing.myqcloud.com/qiniu/1606650949911.jpg" alt=""></p>
+<p>至此，问题已经分析得很清楚了，我们只需要以原始的矩形为根节点，然后BFS遍历遮挡矩形树，每个遮挡矩形如果和当前树中的一层矩形有重叠的话就为其生成新的子接点，如果没有重叠的部分，则当前节点就复制自己作为子节点。当前一层所有矩形都遍历完成后我们就取出下一个遮挡矩形进行下一层的遍历。这棵树的深度就是遮挡矩形的数目，当遍历到最后一层的时候那个面积最大的矩形就是我们要找的目标。</p>
+<h2 id="u7B97_u6CD5_u5B9E_u73B0"><a href="#u7B97_u6CD5_u5B9E_u73B0" class="headerlink" title="算法实现"></a>算法实现</h2><p>为了方便算法的实现，我们首先定义个矩形类，上下左右四个点作为其属性。按照前面的分析，我们定义了<code>isOverLap</code>方法来判断当前的矩形是否和其它的矩形有重叠的地方；另外还定义了几个<code>update</code>方法用来快速生成其子节点; 最后我们还实现了<code>Comparable</code>接口方便我们最后找到面积最大的矩形。代码以Kotlin实现，此外坐标系以左上角为原点，x轴向右，y轴向下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapOverLayRect</span></span>(</span><br><span class="line">  <span class="variable"><span class="keyword">var</span> left</span>: <span class="typename">Int</span>,</span><br><span class="line">  <span class="variable"><span class="keyword">var</span> top</span>: <span class="typename">Int</span>,</span><br><span class="line">  <span class="variable"><span class="keyword">var</span> right</span>: <span class="typename">Int</span>,</span><br><span class="line">  <span class="variable"><span class="keyword">var</span> bottom</span>: <span class="typename">Int</span></span><br><span class="line">) : Comparable<span class="type">&lt;MapOverLayRect&gt;</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">isOverLap</span><span class="params">(reactAnother: <span class="typename">MapOverLayRect</span>)</span>: Boolean &#123;</span></span><br><span class="line">    <span class="keyword">return</span> !(</span><br><span class="line">      right <span class="type">&lt;= reactAnother.left ||</span><br><span class="line">        bottom &lt;= reactAnother.top ||</span><br><span class="line">        left &gt;</span>= reactAnother.right ||</span><br><span class="line">        top &gt;= reactAnother.bottom</span><br><span class="line">      )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">updateTop</span><span class="params">(newTop: <span class="typename">Int</span>)</span>: MapOverLayRect &#123;</span></span><br><span class="line">    <span class="keyword">return</span> MapOverLayRect(left, newTop, right, bottom)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">updateLeft</span><span class="params">(newLeft: <span class="typename">Int</span>)</span>: MapOverLayRect &#123;</span></span><br><span class="line">    <span class="keyword">return</span> MapOverLayRect(newLeft, top, right, bottom)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">updateRight</span><span class="params">(newRight: <span class="typename">Int</span>)</span>: MapOverLayRect &#123;</span></span><br><span class="line">    <span class="keyword">return</span> MapOverLayRect(left, top, newRight, bottom)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">updateBottom</span><span class="params">(newBottom: <span class="typename">Int</span>)</span>: MapOverLayRect &#123;</span></span><br><span class="line">    <span class="keyword">return</span> MapOverLayRect(left, top, right, newBottom)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">compareTo</span><span class="params">(other: <span class="typename">MapOverLayRect</span>)</span>: Int &#123;</span></span><br><span class="line">    <span class="keyword">return</span> (((right - left) * (bottom - top)) - ((other.right - other.left) * (other.bottom - other.top)))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义好了矩形类就可以使用BFS算法进行遍历并寻找最大的矩形了</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">override fun bfs(): MapOverLayRect &#123;</span><br><span class="line">  val queue = LinkedList&lt;MapOverLayRect&gt;()</span><br><span class="line"> <span class="comment"> // 将根节点入队</span></span><br><span class="line">  queue.push(MapOverLayRect(<span class="number">0</span>, <span class="number">0</span>, width, height))</span><br><span class="line"></span><br><span class="line"> <span class="comment"> // mapOverlays 中保存着所有的遮挡矩形，对其进行遍历的同时使用BFS算法</span></span><br><span class="line">  mapOverlays</span><br><span class="line">    .forEach &#123;</span><br><span class="line">     <span class="comment"> // size 为当前层的节点数</span></span><br><span class="line">      var size = queue.size</span><br><span class="line">     <span class="comment"> // size 大于0则代表当前层没有遍历完毕</span></span><br><span class="line">      <span class="keyword">while</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="comment"> // 有重叠的部分，则需要对当前矩形进行裁剪生成子节点</span></span><br><span class="line">        val subMapRect = queue.pollFirst()</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">it</span>.isOverLap(subMapRect)) &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">it</span>.top - subMapRect.top &lt; subMapRect.bottom - <span class="keyword">it</span>.bottom) &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的上半部分，将下半部分进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateTop(<span class="keyword">it</span>.bottom))</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">it</span>.top - subMapRect.top &gt; subMapRect.bottom - <span class="keyword">it</span>.bottom) &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的下半部分，将上半部分进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateBottom(<span class="keyword">it</span>.top))</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的中间，将上、下两部分分别进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateTop(<span class="keyword">it</span>.bottom))</span><br><span class="line">            queue.offerLast(subMapRect.updateBottom(<span class="keyword">it</span>.top))</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">it</span>.left - subMapRect.left &lt; subMapRect.<span class="constant">right</span> - <span class="keyword">it</span>.<span class="constant">right</span>) &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的左半部分，将右半部分进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateLeft(<span class="keyword">it</span>.<span class="constant">right</span>))</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">it</span>.left - subMapRect.left &lt; subMapRect.<span class="constant">right</span> - <span class="keyword">it</span>.<span class="constant">right</span>) &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的右半部分，将左半部分进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateRight(<span class="keyword">it</span>.left))</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment"> // 遮挡矩形在当前矩形的中间，将左、右两部分分别进行裁剪生成新的矩形子节点</span></span><br><span class="line">            queue.offerLast(subMapRect.updateLeft(<span class="keyword">it</span>.<span class="constant">right</span>))</span><br><span class="line">            queue.offerLast(subMapRect.updateRight(<span class="keyword">it</span>.left))</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="comment"> // 没有重叠的部分则字节以当前节点作为子节点</span></span><br><span class="line">          queue.offerLast(subMapRect)</span><br><span class="line">        &#125;</span><br><span class="line">        size<span class="comment">--</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment"></span><br><span class="line">// 选择最大的矩形返回</span></span><br><span class="line">  <span class="constant">return</span> queue.maxOrNull()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这就是我运用BFS算法解决工作中遇到的实际问题时的解决方案，将思路分析清楚后算法的实现并不复杂，但是如果之前没有掌握BFS算法的话可能想破脑袋也解决不了这个问题。所以大家还是要熟练掌握这些基本的算法，一方面面试的时候可以轻松应对，另一方面当工作中真的遇到需要算法解决的问题时也不至于浪费太多的脑力和时间还解决不了结果导致辛辛苦苦加班哦。<br><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/17/sliding-window/" rel="next" title="算法总结-滑动窗口">
+                <i class="fa fa-chevron-left"></i> 算法总结-滑动窗口
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2020/11/28/map-overlay/"
+     data-title="BFS计算出面积最大的矩形"
+     data-content=""
+     data-url="http://mushuichuan.com/2020/11/28/map-overlay/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2020/11/28/map-overlay/"
+           data-title="BFS计算出面积最大的矩形" data-url="http://mushuichuan.com/2020/11/28/map-overlay/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u95EE_u9898_u63CF_u8FF0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u95EE_u9898_u5206_u6790"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5224_u65AD_u4E24_u4E2A_u77E9_u5F62_u662F_u5426_u6709_u4E92_u76F8_u91CD_u53E0_u7684_u5730_u65B9"><span class="nav-number">2.1.</span> <span class="nav-text">判断两个矩形是否有互相重叠的地方</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7B97_u6CD5_u5B9E_u73B0"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
