@@ -1,0 +1,907 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/libs/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Node, Kotlin," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="想象一下有这样的一种场景：你的工程中会用到各种动物类来代表每一种动物，所以每次添加新的动物种类的时候你就需要手动写一个动物类。如果只有几个动物还好说，但是如果动物不断增加到几十个甚至是上百个呢？难道你就要重复上百遍地写这种无聊的代码吗？不会偷懒的程序员不是好的程序员，在本文中我们就来研究一下如何使用EJS模板结合NodeJS来批量地自动生成代码,从而解放我们的双手来偷懒。
+EJS 是什么EJS是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用EJS模板自动生成代码">
+<meta property="og:url" content="http://mushuichuan.com/2021/05/22/templateCodes/index.html">
+<meta property="og:site_name" content="木水川的博客">
+<meta property="og:description" content="想象一下有这样的一种场景：你的工程中会用到各种动物类来代表每一种动物，所以每次添加新的动物种类的时候你就需要手动写一个动物类。如果只有几个动物还好说，但是如果动物不断增加到几十个甚至是上百个呢？难道你就要重复上百遍地写这种无聊的代码吗？不会偷懒的程序员不是好的程序员，在本文中我们就来研究一下如何使用EJS模板结合NodeJS来批量地自动生成代码,从而解放我们的双手来偷懒。
+EJS 是什么EJS是一">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png">
+<meta property="og:updated_time" content="2021-05-23T02:25:55.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用EJS模板自动生成代码">
+<meta name="twitter:description" content="想象一下有这样的一种场景：你的工程中会用到各种动物类来代表每一种动物，所以每次添加新的动物种类的时候你就需要手动写一个动物类。如果只有几个动物还好说，但是如果动物不断增加到几十个甚至是上百个呢？难道你就要重复上百遍地写这种无聊的代码吗？不会偷懒的程序员不是好的程序员，在本文中我们就来研究一下如何使用EJS模板结合NodeJS来批量地自动生成代码,从而解放我们的双手来偷懒。
+EJS 是什么EJS是一">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用EJS模板自动生成代码 | 木水川的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?59e380fb80aa3c052ca65b12d6459f39";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木水川的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用EJS模板自动生成代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-05-22T10:41:45+08:00" content="2021-05-22">
+              2021-05-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2021/05/22/templateCodes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2021/05/22/templateCodes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2021/05/22/templateCodes/" class="leancloud_visitors" data-flag-title="使用EJS模板自动生成代码">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>想象一下有这样的一种场景：你的工程中会用到各种动物类来代表每一种动物，所以每次添加新的动物种类的时候你就需要手动写一个动物类。如果只有几个动物还好说，但是如果动物不断增加到几十个甚至是上百个呢？难道你就要重复上百遍地写这种无聊的代码吗？不会偷懒的程序员不是好的程序员，在本文中我们就来研究一下如何使用<a href="https://ejs.bootcss.com/#docs" target="_blank" rel="external">EJS</a>模板结合NodeJS来批量地自动生成代码,从而解放我们的双手来偷懒。</p>
+<h2 id="EJS__u662F_u4EC0_u4E48"><a href="#EJS__u662F_u4EC0_u4E48" class="headerlink" title="EJS 是什么"></a>EJS 是什么</h2><p><a href="https://ejs.bootcss.com/#docs" target="_blank" rel="external">EJS</a>是一套简单的模板语言，可以让开发者使用JavaScript 代码生成 HTML 页面，具有快速开发、语法简单、执行迅速等特点。EJS支持多种标签，在我们的模板中将会主要应用这样的标签<code>&lt;%= EJS %&gt;</code>，标签内的内容会在JS中执行，我们可以在里面添加<code>if</code>等语句，也可以将JS中的变量应用到模板中。更多详细的信息可以进入官网查看，在本文中不再赘述。</p>
+<h2 id="u5982_u4F55_u81EA_u52A8_u751F_u6210_u4EE3_u7801"><a href="#u5982_u4F55_u81EA_u52A8_u751F_u6210_u4EE3_u7801" class="headerlink" title="如何自动生成代码"></a>如何自动生成代码</h2><p>下面进入本文的正题，如何来自动生成代码。总体来说我们需要配置一个Json文件、编写EJS模板文件、编写NodeJS程序读入Json和EJS文件并生成代码文件这三步。</p>
+<h3 id="Json_u914D_u7F6E_u6587_u4EF6"><a href="#Json_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="Json配置文件"></a>Json配置文件</h3><p>首先我们需要一个Json格式的配置文件，在配置文件中定义好我们需要生成的类以及每个类的一些具体属性配置，如下所示一个Json中我们定义了6种动物，每个动物有名字、腿的数量和是否可以飞三个属性。我们将会遍历所有的动物对象并根据它们的这三个属性来生成具体的动物类。配置文件保存为<code>animals.json</code>文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="number">1</span></span>,</span><br><span class="line">  "<span class="attribute">animals</span>": <span class="value">[</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Dog"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">4</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Eagle"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">2</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">true</span></span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Ant"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">6</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Spider"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">8</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Whale"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">0</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Tuna"</span></span>,</span><br><span class="line">      "<span class="attribute">legs</span>": <span class="value"><span class="number">0</span></span>,</span><br><span class="line">      "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u7F16_u5199EJS_u6A21_u677F_u6587_u4EF6"><a href="#u7F16_u5199EJS_u6A21_u677F_u6587_u4EF6" class="headerlink" title="编写EJS模板文件"></a>编写EJS模板文件</h3><p>在编写EJS文件之前，我们先定义好Animal接口，从而我们生成的动物类都可以实现这个接口。在Animal接口中，我们定义了<code>getLegsNumber</code>和 <code>canFly</code>两个方法，生成的动物类将会根据我们之前的配置来实现这两个方法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">interface Animal &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Get the legs number of this animal.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> the legs number.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getLegsNumber</span><span class="params">()</span>: Integer</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Whether this animal can fly or not.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> true if this animal can fly, otherwise false.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">canFly</span><span class="params">()</span>: Boolean</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来我们来编写EJS模板文件，在文件的头部我们用<code>&lt;%=  %&gt;</code>标签来定义三个属性，其中<code>locals</code>是我们将会传入到模板文件中的动物的Json对象。模板文件的实现和写一个正常的类差不多，需要我们写入类的整体实现并加入注释，但是要将关键部位替换成<code>&lt;%=  %&gt;</code>标签应用上前面定义好的属性。如下所示，一个简单的Animal类实现了Animal接口中的两个方法，其返回值替换成我们之前定义好的<code>legs</code>和<code>canFly</code>属性，而类名我们用<code>name</code>属性来代替，这样生成的类就会拥有我们在Json中定义的属性。模板文件保存为<code>Animal.ejs</code>文件</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;%</span><br><span class="line">  const name = locals.name</span><br><span class="line">  const legs = locals.legs</span><br><span class="line">  const canFly = locals.canFly</span><br><span class="line">-%&gt;</span></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> Class for animal <span class="variable">&lt;%- name %&gt;</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">class <span class="variable">&lt;%- name %&gt;</span>() : Animal &#123;</span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> Get the legs number of this animal.</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return the legs number.</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    override fun getLegsNumber(): Integer = <span class="variable">&lt;%- legs %&gt;</span></span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> Whether this animal can fly or not.</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return true if this animal can fly, otherwise false.</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    override fun canFly(): Boolean = <span class="variable">&lt;%- canFly %&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u7F16_u5199NodeJS_u4EE3_u7801"><a href="#u7F16_u5199NodeJS_u4EE3_u7801" class="headerlink" title="编写NodeJS代码"></a>编写NodeJS代码</h3><p>配置文件和模板文件都准备好了，下面就是编写NodeJS代码读取配置文件和模板文件并生成代码文件了。首先我们定义一个<code>writeIfModified</code>方法用来对比新旧代码并将我们新生成的代码写入到指定的文件中。然后读取Json文件到<code>animalCollections</code>中，接下来读取EJS模板模板文件并使用ejs库来编译。最后我们遍历所有的动物对象，将其应用到编译的ejs对象中并生成对应的代码。NodeJS代码保存为animalParser.js文件</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env node</span></span><br><span class="line"><span class="string">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> ejs = <span class="built_in">require</span>(<span class="string">'ejs'</span>);</span><br><span class="line"><span class="built_in">global</span>.writeIfModified = <span class="keyword">function</span> (filename, newContent) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> oldContent = fs.readFileSync(filename, <span class="string">'utf8'</span>);</span><br><span class="line">    <span class="keyword">if</span> (oldContent == newContent) &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(`* Skipping file <span class="string">'$&#123;filename&#125;'</span> because <span class="literal">it</span> <span class="keyword">is</span> up-<span class="keyword">to</span>-date`);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ([<span class="string">'0'</span>, <span class="string">'false'</span>].indexOf(process.env.DRY_RUN || <span class="string">'0'</span>) !== -<span class="number">1</span>) &#123;</span><br><span class="line">    fs.writeFileSync(filename, newContent);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.warn(`* Updating outdated file <span class="string">'$&#123;filename&#125;'</span>`);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> animalCollections = <span class="built_in">require</span>(<span class="string">'./animals.json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> animalKotlin = ejs.compile(fs.readFileSync(<span class="string">'./Animal.ejs'</span>, <span class="string">'utf8'</span>), &#123;<span class="attribute">strict</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> animal <span class="keyword">of</span> animalCollections.animals) &#123;</span><br><span class="line">    writeIfModified(`.<span class="pi">/generated/</span>$&#123;animal.name&#125;.kt`, animalKotlin(animal));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u751F_u6210_u4EE3_u7801"><a href="#u751F_u6210_u4EE3_u7801" class="headerlink" title="生成代码"></a>生成代码</h3><p>终于到了最后一步来生成代码了，我们在命令行用运行命令<code>npm install &amp;&amp; node animalParser.js</code>，如果没有出错的话我们将会在<code>generated</code>目录下看到生成了六个类文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Ant</span></span><br><span class="line">Dog</span><br><span class="line">Eagle</span><br><span class="line">Spider</span><br><span class="line">Tuna</span><br><span class="line">Whale</span><br></pre></td></tr></table></figure>
+<p>打开<code>Ant</code>文件来看一下生成的代码,和手动写的代码完全没有区别。如果还需要生成新的类，只需要在配置文件中添加，然后一条命令生成即可。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Class for animal Ant</span><br><span class="line"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ant</span></span>() : Animal &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Get the legs number of this animal.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> the legs number.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getLegsNumber</span><span class="params">()</span>: Integer = 6</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Whether this animal can fly or not.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> true if this animal can fly, otherwise false.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">canFly</span><span class="params">()</span>: Boolean = false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u8FDB_u4E00_u6B65_u6539_u8FDB"><a href="#u8FDB_u4E00_u6B65_u6539_u8FDB" class="headerlink" title="进一步改进"></a>进一步改进</h2><h3 id="u66F4_u7EC6_u81F4_u7684_u5206_u7C7B"><a href="#u66F4_u7EC6_u81F4_u7684_u5206_u7C7B" class="headerlink" title="更细致的分类"></a>更细致的分类</h3><p>之前我们所有的类都是直接实现了<code>Animal</code>接口，接下来我们想加入更细致的分类如蚂蚁属于昆虫，狗属于哺乳动物等。所以我们需要在配置文件中加入<code>types</code>的定义:</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"types"</span>: [</span><br><span class="line">  <span class="string">"Mammal"</span>,</span><br><span class="line">  <span class="string">"Bird"</span>,</span><br><span class="line">  <span class="string">"Fish"</span>,</span><br><span class="line">  <span class="string">"Insect"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>并给每个动物对象添加<code>type</code>属性,如Dog在更新后会拥有4个属性：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   "<span class="attribute">name</span>": <span class="value"><span class="string">"Dog"</span></span>,</span><br><span class="line">   "<span class="attribute">legs</span>": <span class="value"><span class="number">4</span></span>,</span><br><span class="line">   "<span class="attribute">canFly</span>": <span class="value"><span class="literal">false</span></span>,</span><br><span class="line">   "<span class="attribute">type</span>": <span class="value"><span class="string">"Mammal"</span></span><br><span class="line"> </span>&#125;</span><br></pre></td></tr></table></figure>
+<p>不同的种类意味着不同的接口，所以我们需要添加一个新的模板文件来生成对应类型的接口文件,新的接口将会继承<code>Animal</code>接口。这个新的模板文件我们保存为<code>AnimalType.ejs</code>文件</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">  const <span class="typedef"><span class="keyword">type</span> = locals</span></span><br><span class="line">-%&gt;</span><br><span class="line">/**</span><br><span class="line"> * <span class="type">Interface</span> for animal &lt;%- <span class="typedef"><span class="keyword">type</span> %&gt;</span></span><br><span class="line"> */</span><br><span class="line"><span class="title">interface</span> &lt;%- <span class="typedef"><span class="keyword">type</span> %&gt;<span class="container">()</span> : <span class="type">Animal</span></span></span><br></pre></td></tr></table></figure>
+<p>同时我们还需要更新之前的类模板文件，让新生成的类都实现新的类型接口</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span>%- <span class="title">name</span> %&gt;() : <span class="inheritance">&lt;</span>%- <span class="title">type</span> %&gt; &#123;</span></span><br></pre></td></tr></table></figure>
+<p>最后我们还是需要将新的模板文件应用到JS程序中，在程序中添加如下的代码来生成对应的接口文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> animalType = ejs.compile(fs.readFileSync(<span class="string">'./AnimalType.ejs'</span>, <span class="string">'utf8'</span>), &#123;strict: <span class="constant">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">type</span> of animalCollections.types) &#123;</span><br><span class="line">        writeIfModified(<span class="string">`./generated/types/$&#123;type&#125;.kt`</span>, animalType(<span class="keyword">type</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码后我们将会生成4个新的接口文件</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Bird</span><br><span class="line"></span><span class="label">Fish</span></span><br><span class="line"><span class="label">Insect</span></span><br><span class="line"><span class="label">Mammal</span></span><br></pre></td></tr></table></figure>
+<p>而新生成的类文件也不再直接实现Animal接口，而是实现其所对应的接口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ant</span><span class="params">()</span> :</span> Insect &#123;</span><br></pre></td></tr></table></figure>
+<h3 id="u52A0_u5165_u6761_u4EF6_u5224_u65AD"><a href="#u52A0_u5165_u6761_u4EF6_u5224_u65AD" class="headerlink" title="加入条件判断"></a>加入条件判断</h3><p>虽然我们生成了所有的类文件，但是有时候会有些特殊的业务逻辑需要我们根据一定的条件来生成代码。如我们在<code>Animal</code>接口中加入了一个新的方法返回当前的动物是否可以游泳而且这项属性并没有配置在Json文件中。</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> Whether this animal can swim or not.</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@return true is this animal can swim, otherwise false.</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">fun canSwim(): Boolean</span><br></pre></td></tr></table></figure>
+<p>已知这六种动物中鱼类和狗、鲸鱼会游泳，其它的不会，所以我们需要在模板文件中加入同样的判断逻辑来生成对应的代码。需要注意的就是所有的判断逻辑代码都需要包含在<code>&lt;%= %&gt;</code>标签中。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    override <span class="function"><span class="keyword">fun</span> <span class="title">canSwim</span></span>(): <span class="constant">Boolean</span> &#123;</span><br><span class="line">&lt;% <span class="keyword">if</span> (<span class="keyword">type</span> == <span class="string">'Fish'</span> || name == <span class="string">'Whale'</span> || name == <span class="string">'Dog'</span>) &#123; -%&gt;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&lt;% &#125; <span class="keyword">else</span> &#123; -%&gt;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&lt;% &#125; -%&gt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>再次运行生成代码命令，我们可以所有的鱼类和鲸鱼、狗的<code>canSwim</code>方法都会返回 <code>true</code>,而其它的种类将会返回<code>false</code>。</p>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>在本文中，我们了解了如何使用EJS和NodeJS来自动生成Kotlin代码。不仅仅是Kotlin,同样的方法我们也可以生成 c++、Java、Python等语言的代码，同时我们还可以添加新的模板来生成对应的单元测试代码。<br>以上就是本文的全部内容，完整的代码可以移步到<a href="https://github.com/Chaoba/AnimalGenerator" target="_blank" rel="external">Github</a>查看。<br><img src="https://i.loli.net/2019/09/11/jGviUThNdAR1MuJ.png" alt="signature.png"></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-Kotlin/" rel="tag">#Node, Kotlin</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/28/map-overlay/" rel="next" title="BFS计算出面积最大的矩形">
+                <i class="fa fa-chevron-left"></i> BFS计算出面积最大的矩形
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2021/05/22/templateCodes/"
+     data-title="使用EJS模板自动生成代码"
+     data-content=""
+     data-url="http://mushuichuan.com/2021/05/22/templateCodes/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2021/05/22/templateCodes/"
+           data-title="使用EJS模板自动生成代码" data-url="http://mushuichuan.com/2021/05/22/templateCodes/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/8577318?v=3&s=460"
+               alt="木水川" />
+          <p class="site-author-name" itemprop="name">木水川</p>
+          <p class="site-description motion-element" itemprop="description">人生如梦</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Chaoba" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chao-ba-12" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 知乎
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">我的ChinaUnix博客</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.chinaunix.net/uid/20771867.html" target="_blank">木水川</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EJS__u662F_u4EC0_u4E48"><span class="nav-number">1.</span> <span class="nav-text">EJS 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5982_u4F55_u81EA_u52A8_u751F_u6210_u4EE3_u7801"><span class="nav-number">2.</span> <span class="nav-text">如何自动生成代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Json_u914D_u7F6E_u6587_u4EF6"><span class="nav-number">2.1.</span> <span class="nav-text">Json配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7F16_u5199EJS_u6A21_u677F_u6587_u4EF6"><span class="nav-number">2.2.</span> <span class="nav-text">编写EJS模板文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7F16_u5199NodeJS_u4EE3_u7801"><span class="nav-number">2.3.</span> <span class="nav-text">编写NodeJS代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u751F_u6210_u4EE3_u7801"><span class="nav-number">2.4.</span> <span class="nav-text">生成代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8FDB_u4E00_u6B65_u6539_u8FDB"><span class="nav-number">3.</span> <span class="nav-text">进一步改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u66F4_u7EC6_u81F4_u7684_u5206_u7C7B"><span class="nav-number">3.1.</span> <span class="nav-text">更细致的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u52A0_u5165_u6761_u4EF6_u5224_u65AD"><span class="nav-number">3.2.</span> <span class="nav-text">加入条件判断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u603B_u7ED3"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木水川</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/libs/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/libs/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/libs/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/libs/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mushuichuan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("iBoPyVlOp9x3rYNSnxSgsaod-gzGzoHsz", "rDXHyt9JoudqVlkUclOlnfeY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
