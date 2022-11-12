@@ -207,15 +207,136 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2022/11/12/two-problems/" itemprop="url">
+                  两道算法题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-11-12T08:21:58+08:00" content="2022-11-12">
+              2022-11-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2022/11/12/two-problems/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/11/12/two-problems/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2022/11/12/two-problems/" class="leancloud_visitors" data-flag-title="两道算法题">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        
-        
-        
       
 
       
-    
+        
+          
+          题目一 聚会分组题目描述：
+n个人要一起参加聚会，其中有些人是互相认识的，问能否将参会的人分成两组并且每组的人互相都不认识。
+如4个人， 1认识2， 2认识3， 3认识4 就可以1和3 分一组，2和4分一组，如果2同时认识3和4，那么就无法进行分组。
+题目分析：
+将每个人看做一个节点，互相认识的节点用线给连接去起来，这样所有有直接或者间接关系的节点就会组成一个图。
+然后使用BFS的方式来便利这个图中的每一个节点，并且在遍历的过程中进行分组，分组的信息可以存储在两个HashSet中。
+如果当前节点是组A，那么它所有的连接节点都应该分到组B。如果发现当前节点的一个连接节点已经分到了和当前节点在同一
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2022/11/12/two-problems/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1358,132 +1479,6 @@ LeetCode121 股票买卖时机问题1题目链接：https://leetcode.com/problem
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/09/03/dfs/" itemprop="url">
-                  算法总结-深度优先算法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-09-03T14:24:10+08:00" content="2019-09-03">
-              2019-09-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/09/03/dfs/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/03/dfs/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2019/09/03/dfs/" class="leancloud_visitors" data-flag-title="算法总结-深度优先算法">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          深度优先算法多数是应用在树上，一个比较典型的应用就是二叉树的中序遍历。所谓树的前、中、后序遍历都是以树的根节点为准的，如下图所示的二叉树中序遍历的结果就是 4，2，5，1，6，3，7。下面我们来看一下 LeetCode 中的二叉树中序遍历的题目。
-LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-traversal/
-题目分析： 树的遍历都有递归和非递归两种方式，对中序非递归来说需要使用栈的帮助来实现，我们需要从根节点出发寻找当前树的最左下角的叶子节点，并将路径上的节点都进栈。当找到后，再根据栈中存储的节点来依次
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/09/03/dfs/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1530,7 +1525,7 @@ LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-trav
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1606,7 +1601,7 @@ LeetCode94题目链接： https://leetcode.com/problems/binary-tree-inorder-trav
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
